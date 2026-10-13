@@ -1,0 +1,510 @@
+{
+ "companies": {
+  "blacksmith": {
+   "name": "Blacksmith",
+   "market": "Developer tools (CI for GitHub Actions)",
+   "founded": "2023 (YC W24)",
+   "valuation": "$550M (Series B, Aug 2026)",
+   "employees": "About 50",
+   "hq": "San Francisco, CA",
+   "ceo": "Aditya (JP) Jayaprakash"
+  },
+  "artisan": {
+   "name": "Artisan",
+   "market": "AI sales automation (Ava, AI BDR)",
+   "founded": "2023",
+   "valuation": "Undisclosed; about $36M raised",
+   "employees": "About 40",
+   "hq": "San Francisco, CA",
+   "ceo": "Jaspar Carmichael-Jack"
+  },
+  "casper": {
+   "name": "Casper",
+   "market": "Mattresses and sleep products",
+   "founded": "2013 (launched 2014)",
+   "valuation": "Undisclosed; private, Carpenter Co. subsidiary",
+   "employees": "Undisclosed",
+   "hq": "New York, NY",
+   "ceo": "Joe Megibow"
+  },
+  "deel": {
+   "name": "Deel",
+   "market": "Global payroll and HR",
+   "founded": "2019",
+   "valuation": "$17.3B (Series E, Oct 2025)",
+   "employees": "7,000+",
+   "hq": "San Francisco, CA",
+   "ceo": "Alex Bouaziz"
+  },
+  "sigma": {
+   "name": "Sigma Computing",
+   "market": "Analytics and business intelligence",
+   "founded": "2014",
+   "valuation": "About $3.0B (May 2026, estimate)",
+   "employees": "About 1,300",
+   "hq": "San Francisco, CA",
+   "ceo": "Mike Palmer"
+  },
+  "endex": {
+   "name": "Endex",
+   "market": "AI agents for finance (Excel-native)",
+   "founded": "2022",
+   "valuation": "Undisclosed; about $14M raised",
+   "employees": "About 19",
+   "hq": "New York, NY (sources differ)",
+   "ceo": "Tarun Amasa"
+  },
+  "openai": {
+   "name": "OpenAI (Codex)",
+   "market": "AI research and products (Codex coding agent)",
+   "founded": "2015",
+   "valuation": "$852B (Mar 2026 round)",
+   "employees": "About 4,500 to 8,000 (sources differ)",
+   "hq": "San Francisco, CA",
+   "ceo": "Sam Altman"
+  },
+  "meta": {
+   "name": "Meta (Muse)",
+   "market": "Social media and AI (Muse assistant)",
+   "founded": "2004",
+   "valuation": "Public (Nasdaq: META)",
+   "employees": "About 74,000 (end of 2024)",
+   "hq": "Menlo Park, CA",
+   "ceo": "Mark Zuckerberg"
+  },
+  "zocdoc": {
+   "name": "Zocdoc",
+   "market": "Healthcare booking marketplace",
+   "founded": "2007",
+   "valuation": "Undisclosed",
+   "employees": "Not confirmed",
+   "hq": "New York, NY",
+   "ceo": "Oliver Kharraz"
+  },
+  "profound": {
+   "name": "Profound",
+   "market": "AI search visibility (answer engine optimization)",
+   "founded": "2024",
+   "valuation": "$1.8B (Series D, $180M)",
+   "employees": "Under 120 (Feb 2026)",
+   "hq": "New York, NY",
+   "ceo": "James Cadwallader"
+  },
+  "linear": {
+   "name": "Linear",
+   "market": "Project management software (agents)",
+   "founded": "2019",
+   "valuation": "$1.25B (June 2025 round; may be outdated)",
+   "employees": "Not confirmed",
+   "hq": "San Francisco, CA",
+   "ceo": "Karri Saarinen"
+  },
+  "serval": {
+   "name": "Serval",
+   "market": "AI-native IT service management",
+   "founded": "2024",
+   "valuation": "$1B (Series B, Dec 2025)",
+   "employees": "About 130 (reported)",
+   "hq": "San Francisco, CA",
+   "ceo": "Jake Stauch"
+  },
+  "parallel": {
+   "name": "Parallel",
+   "market": "Web search and research APIs for AI agents",
+   "founded": "2023",
+   "valuation": "$2B (Series B, Apr 2026)",
+   "employees": "Estimated 11 to 50",
+   "hq": "Palo Alto, CA",
+   "ceo": "Parag Agrawal"
+  },
+  "doppel": {
+   "name": "Doppel",
+   "market": "Cybersecurity (social engineering defense)",
+   "founded": "2022",
+   "valuation": "$600M+ (Series C, Nov 2025)",
+   "employees": "About 150 to 170",
+   "hq": "San Francisco, CA",
+   "ceo": "Kevin Tian"
+  },
+  "outset": {
+   "name": "Outset",
+   "market": "AI-moderated market research",
+   "founded": "2022 or 2023 (sources differ)",
+   "valuation": "Undisclosed; about $47M raised",
+   "employees": "Not confirmed",
+   "hq": "San Francisco, CA",
+   "ceo": "Aaron Cannon"
+  },
+  "genspark": {
+   "name": "Genspark",
+   "market": "AI workspace and agents",
+   "founded": "2023",
+   "valuation": "$2.6B (Series B extension, Jun 2026)",
+   "employees": "About 140 (Mar 2026; sources differ)",
+   "hq": "Palo Alto, CA",
+   "ceo": "Eric Jing"
+  },
+  "langchain": {
+   "name": "LangChain (LangSmith Engine)",
+   "market": "AI agent engineering tools",
+   "founded": "2022",
+   "valuation": "$1.25B (Series B, Oct 2025)",
+   "employees": "About 200 to 370 (sources differ)",
+   "hq": "San Francisco, CA",
+   "ceo": "Harrison Chase"
+  },
+  "youcom": {
+   "name": "You.com",
+   "market": "AI search and enterprise AI infrastructure",
+   "founded": "2020",
+   "valuation": "$1.5B (Series C, Sep 2025)",
+   "employees": "About 290 (estimate)",
+   "hq": "San Francisco, CA",
+   "ceo": "Richard Socher (to confirm)"
+  },
+  "flora": {
+   "name": "FLORA",
+   "market": "AI creative tools",
+   "founded": "2024",
+   "valuation": "Undisclosed; about $52M raised",
+   "employees": "Not confirmed",
+   "hq": "Brooklyn, NY",
+   "ceo": "Weber Wong"
+  }
+ },
+ "ads": [
+  {
+   "id": 1,
+   "company": "blacksmith",
+   "copy": "Everyone dreams of going fast. 6,000+ teams already are.",
+   "place": "Subway station wall",
+   "date": "2026-09-20",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "01-blacksmith.webp"
+  },
+  {
+   "id": 2,
+   "company": "blacksmith",
+   "copy": "99% of you don’t think about CI. We’re making that 100%.",
+   "place": "Subway station wall",
+   "date": "2026-09-20",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "02-blacksmith.webp"
+  },
+  {
+   "id": 3,
+   "company": "artisan",
+   "copy": "Hire Ava, the AI BDR (poster partly torn, with a customer quote)",
+   "place": "Subway station, framed panel",
+   "date": "2026-09-21",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "03-artisan.webp"
+  },
+  {
+   "id": 4,
+   "company": "casper",
+   "copy": "Hello, flimsy to-go cup. Goodnight, day.",
+   "place": "Subway station, framed panel",
+   "date": "2026-09-21",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "04-casper.webp"
+  },
+  {
+   "id": 5,
+   "company": "deel",
+   "copy": "One payroll for the world. Dream bigger.",
+   "place": "Subway car, above windows",
+   "date": "2026-09-21",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "05-deel.webp"
+  },
+  {
+   "id": 6,
+   "company": "sigma",
+   "copy": "Go build it. I.T. approves.",
+   "place": "Subway car, above windows",
+   "date": "2026-09-23",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "06-sigma.webp",
+   "note": "Grand St is visible through the door window."
+  },
+  {
+   "id": 7,
+   "company": "endex",
+   "copy": "AI could be doing your office work tonight…",
+   "place": "Subway car, above windows",
+   "date": "2026-09-17",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "07-endex.webp"
+  },
+  {
+   "id": 8,
+   "company": "flora",
+   "copy": "Never let a good idea go unexplored.",
+   "place": "Subway car, above windows",
+   "date": "2026-09-18",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "08-flora.webp"
+  },
+  {
+   "id": 9,
+   "company": "flora",
+   "copy": "Never let a good idea go unexplored.",
+   "place": "Subway car, above windows",
+   "date": "2026-09-18",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "09-flora.webp"
+  },
+  {
+   "id": 10,
+   "company": "blacksmith",
+   "copy": "Everyone dreams of going fast. 6,000+ teams already are.",
+   "place": "Subway station wall",
+   "date": "2026-09-20",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "10-blacksmith.webp"
+  },
+  {
+   "id": 11,
+   "company": "blacksmith",
+   "copy": "Run GitHub Actions 2x faster.",
+   "place": "Subway station wall",
+   "date": "2026-09-20",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "11-blacksmith.webp"
+  },
+  {
+   "id": 12,
+   "company": "blacksmith",
+   "copy": "99% of you don’t think about CI. Everyone dreams of going fast.",
+   "place": "Subway station wall",
+   "date": "2026-09-20",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "12-blacksmith.webp"
+  },
+  {
+   "id": 13,
+   "company": "openai",
+   "copy": "You can just build [a design system] with Codex.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "13-openai.webp"
+  },
+  {
+   "id": 14,
+   "company": "openai",
+   "copy": "Codex",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "14-openai.webp"
+  },
+  {
+   "id": 15,
+   "company": "blacksmith",
+   "copy": "Tag @codesmith in Brooklyn. Merge the PR in Manhattan.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "15-blacksmith.webp"
+  },
+  {
+   "id": 16,
+   "company": "zocdoc",
+   "copy": "Ready to be seen? Find and book in-network doctors.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "16-zocdoc.webp"
+  },
+  {
+   "id": 17,
+   "company": "meta",
+   "copy": "Introducing Muse, your personal AI agent.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "17-meta.webp"
+  },
+  {
+   "id": 18,
+   "company": "meta",
+   "copy": "Hand off everyday tasks to Muse.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "18-meta.webp"
+  },
+  {
+   "id": 19,
+   "company": "profound",
+   "copy": "Is your brand the answer? (screen shows the prompt “which shoes should I run the NYC marathon in?”)",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "19-profound.webp",
+   "note": "The screens are covered in graffiti."
+  },
+  {
+   "id": 20,
+   "company": "profound",
+   "copy": "Marketing for the AI Era.",
+   "place": "Subway station, digital screens",
+   "date": "2026-09-28",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "20-profound.webp",
+   "note": "The screens are covered in graffiti."
+  },
+  {
+   "id": 21,
+   "company": "zocdoc",
+   "copy": "I need a dentist with an opening during lunch. Find and book in-network doctors.",
+   "place": "Street kiosk (LinkNYC)",
+   "date": "2026-09-29",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "21-zocdoc.webp"
+  },
+  {
+   "id": 22,
+   "company": "outset",
+   "copy": "Digital Twins: Simulating your customers for infinite research.",
+   "place": "Subway car, wall card",
+   "date": "2026-09-29",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "22-outset.webp"
+  },
+  {
+   "id": 23,
+   "company": "linear",
+   "copy": "Agents. At your command.",
+   "place": "Subway station, framed panel",
+   "date": "2026-10-04",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "23-linear.webp"
+  },
+  {
+   "id": 24,
+   "company": "parallel",
+   "copy": "Illustrated route map (parallel.ai)",
+   "place": "Subway car, above windows",
+   "date": "2026-10-05",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "24-parallel.webp"
+  },
+  {
+   "id": 25,
+   "company": "doppel",
+   "copy": "No imitations. Just champions. (Official partner of the NY Knicks)",
+   "place": "Subway car, above windows",
+   "date": "2026-10-05",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "25-doppel.webp"
+  },
+  {
+   "id": 26,
+   "company": "serval",
+   "copy": "it’s Serval now",
+   "place": "Subway station, column wrap",
+   "date": "2026-10-06",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "26-serval.webp"
+  },
+  {
+   "id": 27,
+   "company": "parallel",
+   "copy": "Your agent is only as current as its context.",
+   "place": "Subway car, above windows",
+   "date": "2026-10-09",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "27-parallel.webp"
+  },
+  {
+   "id": 28,
+   "company": "genspark",
+   "copy": "Board deck. In minutes.",
+   "place": "Subway car, above windows",
+   "date": "",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "28-genspark.webp"
+  },
+  {
+   "id": 29,
+   "company": "langchain",
+   "copy": "Smarter after every launch.",
+   "place": "Subway station wall",
+   "date": "",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "29-langchain.webp"
+  },
+  {
+   "id": 30,
+   "company": "youcom",
+   "copy": "Your AI shouldn’t pronounce “Houston” like a tourist. #1 Web Search for AI",
+   "place": "Subway car, above windows",
+   "date": "",
+   "location": "New York",
+   "type": "In person",
+   "uploader": "Archive",
+   "image": "30-youcom.webp"
+  }
+ ]
+}
