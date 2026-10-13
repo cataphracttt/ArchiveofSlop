@@ -11,7 +11,7 @@ The site is plain static files. There is no build step.
 |---|---|
 | `index.html` | The whole site: main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
-| `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the details sheet. |
+| `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
 | `thumbs/` | Grid thumbnails, WebP, longest side 800px, quality 72. Same file names as `images/`. |
 | `images/friend-ads-nyt.webp` | The main page hover photo. Credit: Hiroko Masuike/The New York Times. |
 | `fonts/` | AR One Sans Regular and AR One Sans Retina Regular, WOFF2. |
@@ -38,7 +38,7 @@ The site is plain static files. There is no build step.
       "type": "In person",
       "uploader": "Archive",
       "image": "30-blacksmith.webp",
-      "note": "Optional short note shown in the details sheet."
+      "note": "Optional internal note. Not shown on the site at the moment."
     }
   ]
 }
@@ -48,7 +48,7 @@ The site is plain static files. There is no build step.
 - `company` must match a key in `companies`. Reuse a company's key for a new ad from the same company.
 - `date` is `YYYY-MM-DD`. Leave it as `""` if unknown; the ad shows as "Date unknown" and sorts last.
 - `type` is `In person` or `Online`. The Type filter offers both.
-- `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out.
+- `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out. `uploader` and `note` are kept in the data but are not shown or filterable on the site at the moment.
 - `image` is a file name that exists in both `images/` and `thumbs/`.
 
 ## Adding an ad
@@ -72,7 +72,9 @@ Open http://localhost:8000. Opening `index.html` straight from disk will not loa
 - Everything is measured on a 1920 x 1080 artboard and scales with the window width (`--u` = 1/1920 of the width). Body text is 19px, the main page title is 204px.
 - Body text is AR One Sans Regular. The large "Enter the Archive" title is AR One Sans Retina Regular.
 - No hover animations.
-- The index grid is four equal square boxes, 18px apart, starting 235px from the left and flush with the top and right edges. The left column (header, Submit, filters) stays fixed.
+- The index grid is four equal square boxes, 16px apart, starting 205px from the left and flush with the top and right edges. Every photo fills its box (cropped if needed). The left column (header, Submit, filters) stays fixed, 43px from the left.
+- Filters: Date (by month, with Newest first / Oldest first sorting inside the Date list), Location and Type. Unknown dates always sort last.
+- Clicking an ad opens a popup that is always centred. It shows the whole photo (longest side 620px on the artboard) beside nine rows: Company, Market, Founded, Valuation, Employees, HQ, CEO, Ad Copy and Date. The margins are 24px on the left, right and bottom, and 36px on top for the Close button. The outline is 1px, the same as the thin underline.
 - The Submit links go to the Google Form: https://forms.gle/3X11ahuzRHz3CHpT9
 - Company details are compiled from public reporting. Check them before citing.
 
