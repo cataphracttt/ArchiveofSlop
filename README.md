@@ -1,6 +1,5 @@
 # AI Ad Archive
 
-An archive of the ephemeral advertisements that sell AI: subway cars, station walls, street kiosks and online ads, with the company behind each one.
 
 Live site (GitHub Pages): https://cataphracttt.github.io/ArchiveofSlop/
 
