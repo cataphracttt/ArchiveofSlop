@@ -9,7 +9,8 @@ The site is plain static files. There is no build step.
 
 | Path | What it is |
 |---|---|
-| `index.html` | The whole site: main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
+| `index.html` | v1 of the site: main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
+| `v2/` | Version 2 (`index.html` plus `gifs/`). See the v2 section below. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
 | `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
 | `thumbs/` | Grid thumbnails, WebP, longest side 800px, quality 72. Same file names as `images/`. |
@@ -58,6 +59,17 @@ The site is plain static files. There is no build step.
 3. Commit to `main`. GitHub Pages republishes in about a minute.
 
 Photos of any shape work. Every ad sits centred and uncropped in a square box.
+
+## v2
+
+An alternative version of the site lives in `v2/` (https://cataphracttt.github.io/ArchiveofSlop/v2/). It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a "v1. v2." switcher at the top right.
+
+v2 differences from v1:
+
+- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after 2.5 seconds. Visitors with reduced-motion turned on go straight to the archive.
+- The gifs are in `v2/gifs/` (`rocket.gif`, `explosion.gif`, `greenscreen.gif`). They are copies of the originals with the loop flag removed so they play once.
+- Text selection is black with white text.
+- Link hovers are blue (#0000FF), the same blue the "Enter the Archive" title turns on hover and while the gifs play.
 
 ## Preview locally
 

@@ -71,12 +71,15 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 .r+.r{border-top:1px solid #bfbfbf}
 .x{position:absolute;top:calc(7.5 * var(--u));right:calc(16 * var(--u));text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 
+.vsw{position:absolute;right:calc(26.5 * var(--u));top:calc(20.8 * var(--u));white-space:nowrap;z-index:6}
+.vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 /* ---------- small screens ---------- */
 @media(max-width:900px){
   :root{--u:min(calc(100vw / 480),1px);--m:24px;--lh:calc(23 * var(--u))}
   body{font-size:calc(19 * var(--u))}
   #v-main{height:auto;min-height:100vh;padding:24px var(--m) 48px;display:flex;flex-direction:column;gap:0}
   #v-main>*:not(.bg){position:static!important}
+  #v-main>.vsw{position:absolute!important;top:24px;right:24px}
   .hdr{margin-bottom:12vh}
   .big{font-size:16vw;line-height:1;white-space:normal;text-decoration-thickness:max(3px,.9vw);text-underline-offset:.08em;margin-bottom:12vh;width:max-content;max-width:100%}
   .sub{margin-bottom:var(--lh)}
@@ -102,6 +105,7 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 <main id="v-main" aria-label="AI Ad Archive">
   <img class="bg" src="images/friend-ads-nyt.webp" alt="" decoding="async">
   <a class="hdr" href="#/">AI AD ARCHIVE</a>
+  <div class="vsw"><a href="./">v1.</a> <a href="v2/">v2.</a></div>
   <a class="big" href="#/archive">Enter the Archive</a>
   <a class="sub" id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
   <div class="txt">
