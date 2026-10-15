@@ -11,6 +11,7 @@ The site is plain static files. There is no build step.
 |---|---|
 | `index.html` | v1 of the site: main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
 | `v2/` | Version 2 (`index.html` plus `gifs/`). See the v2 section below. |
+| `v3/` | Version 3 (`index.html`). See the v3 section below. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
 | `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
 | `thumbs/` | Grid thumbnails, WebP, longest side 800px, quality 72. Same file names as `images/`. |
@@ -66,11 +67,31 @@ An alternative version of the site lives in `v2/` (https://cataphracttt.github.i
 
 v2 differences from v1:
 
-- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after a fixed 2.5 second countdown (`MAIN_WAIT` in `v2/index.html`). The countdown runs even if a gif is slow to load, and it ignores the reduced-motion setting.
-- Clicking an ad in the archive plays `greenscreen.gif` (576px wide on the artboard) centred on that ad, and the info popup opens 1.3 seconds later (`AD_WAIT`), when the explosion peaks. Clicks are ignored while the gif plays. Links straight to an ad (`#/archive/21`) open the popup immediately.
+- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after a fixed countdown (`MAIN_WAIT` in `v2/index.html`, in milliseconds). The countdown runs even if a gif is slow to load, and it ignores the reduced-motion setting.
+- Clicking an ad in the archive plays `greenscreen.gif` (576px wide on the artboard) centred on that ad, and the info popup opens after a fixed delay (`AD_WAIT`, in milliseconds). Clicks are ignored while the gif plays. Links straight to an ad (`#/archive/21`) open the popup immediately.
 - The gifs are in `v2/gifs/` (`rocket.gif`, `explosion.gif`, `greenscreen.gif`). They are copies of the originals with the loop flag removed so they play once.
 - Text selection is black with white text.
 - Link hovers are blue (#0000FF), the same blue the "Enter the Archive" title turns on hover and while the gifs play.
+
+## Friend link (all versions)
+
+In v1, v2 and v3 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article on archive.is (opens in a new tab). Hovering it still shows the Friend photo behind the page.
+
+## v3
+
+A copy of v1 (https://cataphracttt.github.io/ArchiveofSlop/v3/) with a colour mode. It shares the photos, fonts and `ads.json` with the other versions.
+
+- Text selection is #e04918 with blue (#1818e0) text, the same saturation and lightness with the hue turned to blue. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
+- Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again.
+- When it is on, hovering the Friend phrase shows the photo in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
+- Also when it is on, hovering any tile in the archive shows that tile in the same colour effect, and the photo in the info popup is shown in colour. Clicking the photo in the popup turns colour mode off or on for the whole site.
+- The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the v3 script block in `v3/index.html`:
+
+```js
+var COLOR_OVERLAY=true;        // set to false to turn the overlay off
+var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range
+var OV_PERIOD=8;               // seconds for one full cycle
+```
 
 ## Preview locally
 
