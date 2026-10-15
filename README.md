@@ -107,7 +107,11 @@ The Drive photos are private, so they cannot be fetched automatically. To add ne
 - One tile per photo. A response with several photos becomes several entries sharing the same contributor, date, location and comment.
 - Names are normalised to one spelling per person (for example "Satsuki", "satsuki yasui" and "Satsuki Yasui" are all "Satsuki Yasui"). A name of "unknown" means the contributor did not want credit.
 - `location` stays "New York" so the Location filter stays tidy. The typed line or station goes in `spot`, lightly tidied: capitalisation fixed ("F train", "Court Sq G train", "34th St") and side notes such as "(the same train cart)" dropped.
-- Dates are taken as typed (a missing year means 2026).
+- Dates are taken as typed (a missing year means 2026), unless the photo's own EXIF date proves the typed date wrong (for example a date in the future). EXIF is read for checking only and is never published: the WebP files carry no EXIF or location data.
+- Files downloaded from Drive are named `<camera name> - <Drive account name>`. The Drive account name can differ from the name typed in the Form (for example "Sketchy Raven" is Vincy and "Charlie Caulfield" is Lee Caulfield). The typed name is the one shown on the site.
+- Photos are matched to rows using the camera file numbers (they increase with time), the EXIF dates, the comment and the ad itself.
+- If the advertiser is not visible in a photo, the entry uses the company `unidentified-legal-ai`-style placeholder until someone identifies it.
+- A comment is attached only to the photos it is about (for example the cloning comment is on the two Synthesia photos, not the Parallel photo from the same submission).
 
 ## Preview locally
 
