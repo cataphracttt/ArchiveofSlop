@@ -79,6 +79,8 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
 .big.go{color:#00f}
 #gifs{position:absolute;inset:0;pointer-events:none;z-index:5}
+#adgif{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:8}
+#adgif .gif{height:auto}
 .gif{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--u));width:calc(var(--w) * var(--u));height:auto;display:block}
 /* ---------- small screens ---------- */
 @media(max-width:900px){
@@ -133,6 +135,7 @@ a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
     <nav class="flt" id="flt" aria-label="Filters"></nav>
   </aside>
   <div class="grid" id="grid"></div>
+  <div id="adgif" aria-hidden="true"></div>
 </div>
 <dialog id="dlg" aria-label="Ad details"></dialog>
 
@@ -187,7 +190,7 @@ function showAd(d,w,h){
   dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><div class="pic"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></div><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
   if(!dlg.open)dlg.showModal();
 }
-$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(t){last=t;openAd(t.dataset.id)}});
+$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(!t||GBUSY)return;last=t;playAdGif(t,t.dataset.id)});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
 dlg.addEventListener('close',function(){if(last)last.focus()});
 
@@ -209,25 +212,35 @@ function route(){
   if(idx){drawF();render();if(p[1])openAd(p[1])}
 }
 
-/* v2: gifs play, then the archive opens */
+/* v2: gifs play first, then the page changes. The waits are fixed so the gifs always get their time. */
 var GIFS=[{f:'rocket',x:245,y:11,w:576},{f:'explosion',x:28,y:187,w:464},{f:'greenscreen',x:972,y:61,w:298},{f:'rocket',x:1493,y:178,w:298},{f:'explosion',x:972,y:317,w:896},{f:'greenscreen',x:55,y:496,w:576}];
+var MAIN_WAIT=2500,AD_WAIT=1300,AD_W=576;
 var GBLOB={},GURLS=[],GT=0,GBUSY=false,BIG=document.querySelector('.big');
 function loadGifs(){return Promise.all(['rocket','explosion','greenscreen'].map(function(k){return GBLOB[k]?0:fetch('gifs/'+k+'.gif').then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){GBLOB[k]=b})}))}
-function resetGifs(){clearTimeout(GT);$('gifs').innerHTML='';GURLS.forEach(function(u){URL.revokeObjectURL(u)});GURLS=[];BIG.classList.remove('go');GBUSY=false}
+function gifSrc(k){if(GBLOB[k]){var u=URL.createObjectURL(GBLOB[k]);GURLS.push(u);return u}return 'gifs/'+k+'.gif?t='+Date.now()}
+function mkGif(k,box,style){return new Promise(function(res){var im=new Image();im.className='gif';im.alt='';im.style.cssText=style;im.onload=res;im.onerror=res;im.src=gifSrc(k);box.appendChild(im)})}
+function clearUrls(){GURLS.forEach(function(u){URL.revokeObjectURL(u)});GURLS=[]}
+function resetGifs(){clearTimeout(GT);$('gifs').innerHTML='';$('adgif').innerHTML='';clearUrls();BIG.classList.remove('go');GBUSY=false}
 function playGifs(){
   if(GBUSY)return;GBUSY=true;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){location.hash='#/archive';return}
-  loadGifs().then(function(){
-    var box=$('gifs');
-    return Promise.all(GIFS.map(function(g){return new Promise(function(res){
-      var u=URL.createObjectURL(GBLOB[g.f]),im=new Image();GURLS.push(u);
-      im.className='gif';im.alt='';im.style.cssText='--x:'+g.x+';--y:'+g.y+';--w:'+g.w;
-      im.onload=res;im.onerror=res;im.src=u;box.appendChild(im);
-    })}));
+  loadGifs().catch(function(){}).then(function(){
+    return Promise.all(GIFS.map(function(g){return mkGif(g.f,$('gifs'),'--x:'+g.x+';--y:'+g.y+';--w:'+g.w)}));
   }).then(function(){
     BIG.classList.add('go');
-    GT=setTimeout(function(){location.hash='#/archive'},2500);
-  }).catch(function(){location.hash='#/archive'});
+    GT=setTimeout(function(){location.hash='#/archive'},MAIN_WAIT);
+  });
+}
+function playAdGif(tile,id){
+  GBUSY=true;
+  var d=DATA.filter(function(x){return x.id==id})[0];if(d){var pre=new Image();pre.src='../images/'+d.image}
+  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
+  var w=Math.min(AD_W*U,cw*1.3),h=w*0.75,r=tile.getBoundingClientRect(),host=$('v-index').getBoundingClientRect();
+  var left=r.left-host.left+r.width/2-w/2,top=r.top-host.top+r.height/2-h/2;
+  loadGifs().catch(function(){}).then(function(){
+    return mkGif('greenscreen',$('adgif'),'left:'+left+'px;top:'+top+'px;width:'+w+'px');
+  }).then(function(){
+    GT=setTimeout(function(){$('adgif').innerHTML='';clearUrls();GBUSY=false;openAd(id)},AD_WAIT);
+  });
 }
 BIG.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();playGifs()});
 BIG.addEventListener('pointerenter',function(){loadGifs().catch(function(){})});

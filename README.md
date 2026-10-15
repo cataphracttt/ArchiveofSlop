@@ -66,7 +66,8 @@ An alternative version of the site lives in `v2/` (https://cataphracttt.github.i
 
 v2 differences from v1:
 
-- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after 2.5 seconds. Visitors with reduced-motion turned on go straight to the archive.
+- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after a fixed 2.5 second countdown (`MAIN_WAIT` in `v2/index.html`). The countdown runs even if a gif is slow to load, and it ignores the reduced-motion setting.
+- Clicking an ad in the archive plays `greenscreen.gif` (576px wide on the artboard) centred on that ad, and the info popup opens 1.3 seconds later (`AD_WAIT`), when the explosion peaks. Clicks are ignored while the gif plays. Links straight to an ad (`#/archive/21`) open the popup immediately.
 - The gifs are in `v2/gifs/` (`rocket.gif`, `explosion.gif`, `greenscreen.gif`). They are copies of the originals with the loop flag removed so they play once.
 - Text selection is black with white text.
 - Link hovers are blue (#0000FF), the same blue the "Enter the Archive" title turns on hover and while the gifs play.
