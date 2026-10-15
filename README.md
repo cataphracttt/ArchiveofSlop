@@ -9,9 +9,10 @@ The site is plain static files. There is no build step.
 
 | Path | What it is |
 |---|---|
-| `index.html` | v1 of the site: main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
-| `v2/` | Version 2 (`index.html` plus `gifs/`). See the v2 section below. |
-| `v3/` | Version 3 (`index.html`). See the v3 section below. |
+| `index.html` | The live site (formerly v3): main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
+| `v1/` | Version 1 (`index.html`). Not linked from the site. Kept in the repo. |
+| `v2/` | Version 2 (`index.html` plus `gifs/`). Not linked from the site. Kept in the repo. See the v2 section below. |
+| `v3/` | A redirect to the homepage, so old v3 links still work. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
 | `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
 | `thumbs/` | Grid thumbnails, WebP, longest side 800px, quality 72. Same file names as `images/`. |
@@ -76,18 +77,18 @@ v2 differences from v1:
 
 ## Friend link (all versions)
 
-In v1, v2 and v3 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article on archive.is (opens in a new tab). Hovering it still shows the Friend photo behind the page.
+On the live site, v1 and v2 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article on archive.is (opens in a new tab). Hovering it still shows the Friend photo behind the page.
 
-## v3
+## The live site (formerly v3)
 
-A copy of v1 (https://cataphracttt.github.io/ArchiveofSlop/v3/) with a colour mode. It shares the photos, fonts and `ads.json` with the other versions.
+The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is what used to be v3, a copy of v1 with a colour mode. v1 and v2 are still in the repo (`v1/`, `v2/`) but nothing on the site links to them. They share the photos, fonts and `ads.json`.
 
-- Text selection is #e04918 with blue (#1818e0) text, the same saturation and lightness with the hue turned to blue. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
-- Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again.
-- When it is on, the main page background stays in colour until the page is refreshed (or colour mode is turned off in the popup): a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
-- In the archive, hovering any tile always shows that tile in the colour effect, whether or not colour mode is on. The info popup opens with a normal photo; clicking the photo switches the popup photo to the colour effect (and starts the flying comment, if the entry has one) and clicking again switches it back. The popup's colour state is separate from everything else: it does not change tile hovers or the main page, and each new popup starts normal.
-- In the popup, while colour mode is on, a contributor's comment (if the entry has one) flies right to left across the photo on repeat, clipped to the photo, at a new random height each pass. It does not appear in v1 or v2.
-- The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the v3 script block in `v3/index.html`:
+- Text selection is #e04918 with black text. After colour mode is triggered, selection on the main page (only) is #5963e0. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
+- Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again. When it is on, the main page background stays in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
+- In the archive, hovering any tile always shows that tile in the colour effect. In the info popup the photo shows in colour while it is hovered (a tap toggles it on touch screens), and while it is in colour a contributor's comment (if the entry has one) flies right to left across the photo on repeat, clipped to the photo, at a new random height each pass. The popup's colour state does not affect tile hovers or the main page.
+- The sidebar is 43px from the left and the photos start 43px after the widest line ("AI AD ARCHIVE"), so the margins on both sides of the column are even. The filter block reads FILTER: with an underlined Clear on the same line, then Date, Location and Type at an even 36px spacing. There is no "All" option: click a selected option again to turn it off, or press Clear to reset every filter and the sort order. Date lists Newest first / Oldest first, then the months.
+- Changes are animated with short (about 0.2 second) fades or slides: filters opening and closing, hover colour on tiles, the popup photo, the main page colour, the hover photo, tiles appearing, the popup opening and link colours.
+- The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the colour-mode script block in `index.html`:
 
 ```js
 var COLOR_OVERLAY=true;        // set to false to turn the overlay off

@@ -24,7 +24,7 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 
 /* ---------- main ---------- */
 #v-main{position:relative;height:calc(1080 * var(--u));min-height:100vh;overflow:hidden}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s ease;pointer-events:none}
 #v-main.on .bg{opacity:.44}
 .hdr{position:absolute;left:var(--m);top:calc(54.5 * var(--u));white-space:nowrap}
 .big{position:absolute;left:var(--m);top:calc(132.5 * var(--u));font:400 calc(204.4 * var(--u))/calc(204 * var(--u)) var(--ret);white-space:nowrap;display:block;
@@ -33,7 +33,7 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 #v-main .sub:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 .txt{position:absolute;left:calc(624 * var(--u));top:calc(439.6 * var(--u));width:calc(828 * var(--u))}
 .txt p{margin:0 0 var(--lh)}
-.credit{position:absolute;left:0;right:0;top:calc(1050 * var(--u));text-align:center;font-size:calc(10.5 * var(--u));line-height:calc(14 * var(--u));opacity:0}
+.credit{position:absolute;left:0;right:0;top:calc(1050 * var(--u));text-align:center;font-size:calc(10.5 * var(--u));line-height:calc(14 * var(--u));opacity:0;transition:opacity .2s ease}
 #v-main.on .credit{opacity:1}
 
 /* ---------- index ---------- */
@@ -42,15 +42,20 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 .side>*{pointer-events:auto}
 .side .hdr{position:absolute;left:0;top:calc(54.5 * var(--u))}
 .side .sub{position:absolute;left:0;top:calc(50vh + 26 * var(--u));transform:translateY(-50%)}
-.flt{position:absolute;left:0;bottom:calc(49.7 * var(--u));width:max-content;max-height:calc(50vh - 60 * var(--u));overflow:auto;scrollbar-width:none}
+.flt{position:absolute;left:0;bottom:calc(47.7 * var(--u));width:max-content;max-height:calc(50vh - 60 * var(--u));overflow:auto;scrollbar-width:none}
 .flt::-webkit-scrollbar{display:none}
-.flt .lab{display:block;margin-bottom:calc(23 * var(--u))}
+.flt .lab{display:flex;align-items:baseline;gap:calc(14 * var(--u));margin-bottom:calc(13 * var(--u));white-space:nowrap}
+.flt .ow{display:grid;grid-template-rows:1fr}
+.flt .ow>ul{min-height:0;overflow:hidden}
+.flt .ow.in{animation:ex .22s ease both}
+.flt .ow.out{animation:ex .22s ease reverse both}
+@keyframes ex{from{grid-template-rows:0fr;opacity:0}to{grid-template-rows:1fr;opacity:1}}
 .flt .f{display:block}
 .flt .fb{display:block;margin-bottom:calc(13 * var(--u))}
 .flt ul{list-style:none;margin:0;padding:0}
 .flt li button{display:block;margin-bottom:calc(13 * var(--u))}
 .flt li.sep{padding-top:calc(13 * var(--u))}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16 * var(--u));margin:0 0 0 calc(205 * var(--u));padding:0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16 * var(--u));margin:0 0 0 calc(224 * var(--u));padding:0}
 .tile{display:block;width:100%;aspect-ratio:1/1;background:#fff;overflow:hidden}
 .tile:focus-visible{outline-offset:calc(-4 * var(--u))}
 .tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
@@ -71,12 +76,45 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 
 .vsw{position:absolute;right:calc(26.5 * var(--u));top:calc(20.8 * var(--u));white-space:nowrap;z-index:6}
 .vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
+/* ---------- v3 ---------- */
+::selection{background:#e04918;color:#000}
+::-moz-selection{background:#e04918;color:#000}
+body.colour #v-main *::selection,body.colour #v-main::selection{background:#5963e0;color:#000}
+body.colour #v-main *::-moz-selection,body.colour #v-main::-moz-selection{background:#5963e0;color:#000}
+a:hover,.fb:hover,.flt li button:hover,.x:hover,.clr:hover{color:#e04918}
+a,.fb,.flt li button,.x,.clr{transition:color .15s ease}
+.txt a.trig:hover{color:inherit}
+/* colour mode: a #e04918 fill with the photo on top in HUE blend mode, plus a faint copy of the photo (no blend) for legibility */
+.hue{position:absolute;inset:0;background:#e04918;isolation:isolate;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none}
+.hue img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hue .hueimg{mix-blend-mode:hue}
+.hue .ov{opacity:var(--ov,.08)}
+body.colour .hue{visibility:visible;opacity:1;transition:opacity .3s ease}
+body.colour .bg{opacity:0}
+.bar{position:fixed;left:0;right:0;bottom:0;height:calc(40 * var(--u));background:#e2572a;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none;z-index:4}
+body.colour .bar{visibility:visible;opacity:1;transition:opacity .3s ease}
+body.colour .credit{opacity:1;position:fixed;left:auto;right:calc(25 * var(--u));top:auto;bottom:0;height:calc(40 * var(--u));line-height:calc(40 * var(--u));font-size:calc(12 * var(--u));text-align:right;color:rgba(0,0,0,.33);z-index:5}
+.tile{position:relative;isolation:isolate;animation:fadein .25s ease both}
+.tile::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.tile:hover::before,.tile:focus-visible::before{opacity:1}
+.tile:hover::after,.tile:focus-visible::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
+.pic{position:relative;isolation:isolate;cursor:default;line-height:0;overflow:hidden}
+.fly{position:absolute;left:0;top:0;z-index:3;white-space:nowrap;font-size:calc(19 * var(--u));line-height:calc(24 * var(--u));color:#000;pointer-events:none;will-change:transform}
+.pic::before{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.pic.on::before{opacity:1}
+.pic.on::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
+body.noov .tile::after,body.noov .pic::after{display:none!important}
+body.noov .ov{display:none}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+#v-main:not([hidden]),#v-index:not([hidden]){animation:fadein .25s ease}
+dialog[open]{animation:fadein .2s ease}
+dialog[open]::backdrop{animation:fadein .2s ease}
 /* ---------- small screens ---------- */
 @media(max-width:900px){
   :root{--u:min(calc(100vw / 480),1px);--m:24px;--lh:calc(23 * var(--u))}
   body{font-size:calc(19 * var(--u))}
   #v-main{height:auto;min-height:100vh;padding:24px var(--m) 48px;display:flex;flex-direction:column;gap:0}
-  #v-main>*:not(.bg){position:static!important}
+  #v-main>*:not(.bg):not(.hue):not(.bar){position:static!important}
   #v-main>.vsw{position:absolute!important;top:24px;right:24px}
   .hdr{margin-bottom:12vh}
   .big{font-size:16vw;line-height:1;white-space:normal;text-decoration-thickness:max(3px,.9vw);text-underline-offset:.08em;margin-bottom:12vh;width:max-content;max-width:100%}
@@ -102,12 +140,13 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 <body>
 <main id="v-main" aria-label="AI Ad Archive">
   <img class="bg" src="images/friend-ads-nyt.webp" alt="" decoding="async">
+  <div class="hue" aria-hidden="true"><img class="hueimg" src="images/friend-ads-nyt.webp" alt="" decoding="async"><img class="ov" src="images/friend-ads-nyt.webp" alt="" decoding="async"></div>
+  <div class="bar" aria-hidden="true"></div>
   <a class="hdr" href="#/">AI AD ARCHIVE</a>
-  <div class="vsw"><a href="./">v1.</a> <a href="v2/">v2.</a> <a href="v3/">v3.</a></div>
   <a class="big" href="#/archive">Enter the Archive</a>
   <a class="sub" id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
   <div class="txt">
-    <p>The current state advertisement fucking sucks. Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now. Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://archive.is/20260323140613/https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash (<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">“on purpose”</a>). Responses manifested as mass-graffiti, short form rants, a larger dialogue on where we are going as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a> among others. Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
+    <p>The current state advertisement fucking sucks. Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now. Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://archive.is/20260323140613/https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash (<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">“on purpose”</a>). Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are going as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a> among others. Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
     <p>As such, this site seeks to paint a bigger picture, a geographic and temporal web to catalogue all the ephemeral advertisements that are selling AI.</p>
     <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?  - are all questions this site seeks to help answer. Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you. In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
   </div>
@@ -136,20 +175,33 @@ function uniq(k){return DATA.map(function(d){return d[k]}).filter(function(v,i,a
 var SORT='desc';
 function fmtM(m){if(!m||m==='?')return 'Date unknown';var p=m.split('-');return MON[+p[1]-1]+' '+p[0]}
 var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(function(m){return m!=='?'}).sort();if(SORT!=='asc')a.reverse();return uniq('month').indexOf('?')>-1?a.concat('?'):a}},{k:'loc',l:'Location',v:function(){return uniq('loc').sort()}},{k:'type',l:'Type',v:function(){return['In person','Online']}}];
-var SEL={},OPEN='';
+var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<span class="lab">Filter:</span>'+F.map(function(f){
+  $('flt').innerHTML='<div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
-    if(on){opts='<ul>';
-      if(f.k==='month')opts+=li('sort','desc','Newest first',SORT==='desc')+li('sort','asc','Oldest first',SORT==='asc');
-      opts+=[''].concat(f.v()).map(function(v,i){return li(f.k,v,v?(f.f?f.f(v):v):'All',(SEL[f.k]||'')===v,(i===0&&f.k==='month')?'sep':'')}).join('')+'</ul>'}
+    if(on){
+      var items='';
+      if(f.k==='month')items+=li('sort','desc','Newest first',SORT==='desc')+li('sort','asc','Oldest first',SORT==='asc');
+      items+=f.v().map(function(v,i){return li(f.k,v,f.f?f.f(v):v,(SEL[f.k]||'')===v,(i===0&&f.k==='month')?'sep':'')}).join('');
+      opts='<div class="ow'+(ANIM===f.k?' in':'')+'"><ul>'+items+'</ul></div>';
+    }
     return '<div class="f"><button type="button" class="fb'+(on||act?' ul':'')+'" data-k="'+f.k+'" aria-expanded="'+on+'">'+f.l+'</button>'+opts+'</div>';
   }).join('');
+  ANIM='';
 }
 $('flt').addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;var k=b.dataset.k;
-  if(b.classList.contains('fb')){OPEN=OPEN===k?'':k}else if(k==='sort'){SORT=b.dataset.v}else{SEL[k]=b.dataset.v}
+  var b=e.target.closest('button');if(!b||CLOSING)return;var k=b.dataset.k;
+  if(k==='clear'){SEL={};SORT='desc';OPEN='';drawF();render();return}
+  if(b.classList.contains('fb')){
+    if(OPEN===k){
+      var ow=b.parentNode.querySelector('.ow');
+      if(ow){CLOSING=true;ow.classList.remove('in');ow.classList.add('out');setTimeout(function(){OPEN='';CLOSING=false;drawF()},220)}else{OPEN='';drawF()}
+      return;
+    }
+    OPEN=k;ANIM=k;drawF();return;
+  }
+  if(k==='sort'){SORT=b.dataset.v}else{SEL[k]=(SEL[k]===b.dataset.v)?'':b.dataset.v}
   drawF();render();
 });
 
@@ -157,7 +209,7 @@ function art(d){return '<img src="images/'+d.image+'" alt="'+esc(d.name)+' ad: '
 function cmp(a,b){var x=a.date,y=b.date;if(!x&&!y)return a.id-b.id;if(!x)return 1;if(!y)return -1;if(x!==y)return SORT==='asc'?(x<y?-1:1):(x<y?1:-1);return a.id-b.id}
 function render(){
   var L=DATA.filter(function(d){return F.every(function(f){return !SEL[f.k]||d[f.k]===SEL[f.k]})}).sort(cmp);
-  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
+  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" style="--img:url(thumbs/'+d.image+')" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
 }
 
 /* details */
@@ -173,8 +225,17 @@ function showAd(d,w,h){
   var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
   var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)],['Location','NY'+(d.spot?', '+d.spot:'')]];
   if(d.up&&d.up!=='Archive')rows.push(['Uploader',d.up]);
-  dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><div class="pic"><img src="images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></div><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
+  dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><button type="button" class="pic" aria-label="Show in colour" style="--img:url(images/'+d.image+')"><img src="images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></button><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
   if(!dlg.open)dlg.showModal();
+  CURAD=d;
+  var pic=dlg.querySelector('.pic');
+  if(touch){pic.addEventListener('click',function(){popOn(pic,!pic.classList.contains('on'))})}
+  else{
+    pic.addEventListener('mouseenter',function(){popOn(pic,true)});
+    pic.addEventListener('mouseleave',function(){popOn(pic,false)});
+    pic.addEventListener('focus',function(){popOn(pic,true)});
+    pic.addEventListener('blur',function(){popOn(pic,false)});
+  }
 }
 $('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(t){last=t;openAd(t.dataset.id)}});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
@@ -188,6 +249,52 @@ tg.addEventListener('focus',function(){vm.classList.add('on')});
 tg.addEventListener('blur',function(){vm.classList.remove('on')});
 tg.addEventListener('click',function(){if(touch)vm.classList.toggle('on')});
 
+/* v3 colour mode. Off until the Friend link is clicked. Resets on refresh. Clicking the photo in the popup toggles it. */
+/* v3: in colour mode the popup shows the contributor's comment flying right to left across the photo, at a new random height each pass. */
+var FLY_SPEED=150;             // how fast the comment flies, in artboard px per second
+var FLY_ANIM=null,FLY_EL=null,CURAD=null;
+function stopFly(){if(FLY_ANIM){FLY_ANIM.onfinish=null;FLY_ANIM.cancel();FLY_ANIM=null}if(FLY_EL){FLY_EL.remove();FLY_EL=null}}
+function startFly(){
+  stopFly();
+  var d=CURAD,pic=dlg.querySelector('.pic');
+  if(!d||!d.comment||!pic||!pic.classList.contains('on')||!dlg.open)return;
+  var el=document.createElement('span');el.className='fly';el.setAttribute('aria-hidden','true');el.textContent=d.comment;pic.appendChild(el);FLY_EL=el;
+  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
+  var run=function(){
+    var W=pic.clientWidth,H=pic.clientHeight,tw=el.offsetWidth,th=el.offsetHeight;
+    el.style.top=Math.max(0,Math.random()*(H-th))+'px';
+    FLY_ANIM=el.animate([{transform:'translateX('+W+'px)'},{transform:'translateX('+(-tw)+'px)'}],{duration:(W+tw)/(FLY_SPEED*U)*1000,easing:'linear',fill:'forwards'});
+    FLY_ANIM.onfinish=run;
+  };
+  run();
+}
+dlg.addEventListener('close',function(){stopFly();updOsc()});
+
+var COLOR=false;
+var COLOR_OVERLAY=true;        // set to false to turn the slow overlay off
+var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range (1% to 8%)
+var OV_PERIOD=6;               // seconds for one full slow cycle
+var OV_RAF=0,OV_T0=0;
+function ovTick(t){var s=(Math.sin(2*Math.PI*((t-OV_T0)/1000)/OV_PERIOD-Math.PI/2)+1)/2;document.documentElement.style.setProperty('--ov',(OV_MIN+(OV_MAX-OV_MIN)*s).toFixed(4));OV_RAF=requestAnimationFrame(ovTick)}
+function setColor(v){
+  COLOR=!!v;
+  document.body.classList.toggle('colour',COLOR);
+  document.body.classList.toggle('noov',!COLOR_OVERLAY);
+  updOsc();
+}
+/* The popup photo shows in colour while it is hovered (a tap toggles it on touch screens). It does not affect tile hovers or the main page. */
+function popOn(p,on){p.classList.toggle('on',on);startFly();updOsc()}
+/* The slow overlay runs only while something coloured can be on screen. */
+var OV_ON=false;
+function updOsc(){
+  var need=COLOR_OVERLAY&&(COLOR||!$('v-index').hidden||(dlg.open&&!!dlg.querySelector('.pic.on')));
+  if(need&&!OV_ON){OV_ON=true;OV_T0=performance.now();OV_RAF=requestAnimationFrame(ovTick)}
+  else if(!need&&OV_ON){OV_ON=false;cancelAnimationFrame(OV_RAF)}
+}
+setColor(false);
+tg.addEventListener('click',function(){setColor(true)});
+tg.addEventListener('auxclick',function(e){if(e.button===1)setColor(true)});
+
 function route(){
   var p=(location.hash||'#/').slice(2).split('/'),idx=p[0]==='archive'||p[0]==='index';
   $('v-main').hidden=idx;$('v-index').hidden=!idx;
@@ -195,6 +302,7 @@ function route(){
   if(dlg.open)dlg.close();
   scrollTo(0,0);
   if(idx){drawF();render();if(p[1])openAd(p[1])}
+  updOsc();
 }
 addEventListener('hashchange',route);
 route();
