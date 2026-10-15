@@ -184,8 +184,8 @@ function openAd(id){
 }
 function showAd(d,w,h){
   var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
-  var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)]];
-  if(d.up&&d.up!=='Archive'){if(d.spot)rows.push(['Location',d.spot]);rows.push(['Uploader',d.up])}
+  var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)],['Location','NY'+(d.spot?', '+d.spot:'')]];
+  if(d.up&&d.up!=='Archive')rows.push(['Uploader',d.up]);
   dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><div class="pic"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></div><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
   if(!dlg.open)dlg.showModal();
 }

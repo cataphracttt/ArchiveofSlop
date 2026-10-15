@@ -50,7 +50,7 @@ The site is plain static files. There is no build step.
 - `company` must match a key in `companies`. Reuse a company's key for a new ad from the same company.
 - `date` is `YYYY-MM-DD`. Leave it as `""` if unknown; the ad shows as "Date unknown" and sorts last.
 - `type` is `In person` or `Online`. The Type filter offers both.
-- `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Entries whose `uploader` is not `Archive` get Location (from `spot`) and Uploader rows in the info popup in every version. `comment` is only used by v3.
+- `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Every entry gets a Location row in the info popup in every version: "NY" for the archive's own entries and "NY, " plus `spot` for contributed ones (for example "NY, F train"). Entries whose `uploader` is not `Archive` also get an Uploader row. `comment` is only used by v3.
 - `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out. `uploader` and `note` are kept in the data but are not shown or filterable on the site at the moment.
 - `image` is a file name that exists in both `images/` and `thumbs/`.
 
@@ -106,7 +106,7 @@ The Drive photos are private, so they cannot be fetched automatically. To add ne
 
 - One tile per photo. A response with several photos becomes several entries sharing the same contributor, date, location and comment.
 - Names are normalised to one spelling per person (for example "Satsuki", "satsuki yasui" and "Satsuki Yasui" are all "Satsuki Yasui"). A name of "unknown" means the contributor did not want credit.
-- `location` stays "New York" so the Location filter stays tidy. The typed line or station goes in `spot`.
+- `location` stays "New York" so the Location filter stays tidy. The typed line or station goes in `spot`, lightly tidied: capitalisation fixed ("F train", "Court Sq G train", "34th St") and side notes such as "(the same train cart)" dropped.
 - Dates are taken as typed (a missing year means 2026).
 
 ## Preview locally
