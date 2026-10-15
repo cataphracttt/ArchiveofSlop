@@ -81,16 +81,17 @@ a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#e04918}
 .hue img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hue .hueimg{mix-blend-mode:hue}
 .hue .ov{opacity:var(--ov,.08)}
-body.colour #v-main.on .hue{visibility:visible}
-body.colour #v-main.on .bg{opacity:0}
+body.colour .hue{visibility:visible}
+body.colour .bg{opacity:0}
 .bar{position:fixed;left:0;right:0;bottom:0;height:calc(40 * var(--u));background:#e2572a;visibility:hidden;pointer-events:none;z-index:4}
-body.colour #v-main.on .bar{visibility:visible}
-body.colour #v-main.on .credit{position:fixed;left:auto;right:calc(25 * var(--u));top:auto;bottom:0;height:calc(40 * var(--u));line-height:calc(40 * var(--u));font-size:calc(12 * var(--u));text-align:right;color:rgba(0,0,0,.33);z-index:5}
+body.colour .bar{visibility:visible}
+body.colour .credit{opacity:1;position:fixed;left:auto;right:calc(25 * var(--u));top:auto;bottom:0;height:calc(40 * var(--u));line-height:calc(40 * var(--u));font-size:calc(12 * var(--u));text-align:right;color:rgba(0,0,0,.33);z-index:5}
 .tile{position:relative;isolation:isolate}
 body.colour .tile:hover,body.colour .tile:focus-visible{background:#e04918}
 body.colour .tile:hover img,body.colour .tile:focus-visible img{mix-blend-mode:hue}
 body.colour .tile:hover::after,body.colour .tile:focus-visible::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08)}
-.pic{position:relative;isolation:isolate;cursor:pointer;line-height:0}
+.pic{position:relative;isolation:isolate;cursor:pointer;line-height:0;overflow:hidden}
+.fly{position:absolute;left:0;top:0;z-index:3;white-space:nowrap;font-size:calc(19 * var(--u));line-height:calc(24 * var(--u));color:#000;pointer-events:none;will-change:transform}
 body.colour .pic{background:#e04918}
 body.colour .pic img{mix-blend-mode:hue}
 body.colour .pic::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08)}
@@ -199,8 +200,10 @@ function openAd(id){
 function showAd(d,w,h){
   var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
   var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)]];
+  if(d.up&&d.up!=='Archive'){if(d.spot)rows.push(['Location',d.spot]);rows.push(['Uploader',d.up])}
   dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><button type="button" class="pic" aria-label="Toggle colour" aria-pressed="'+COLOR+'" style="--img:url(../images/'+d.image+')"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></button><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
   if(!dlg.open)dlg.showModal();
+  CURAD=d;startFly();
 }
 $('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(t){last=t;openAd(t.dataset.id)}});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();else if(e.target.closest('.pic'))setColor(!COLOR)});
@@ -215,10 +218,30 @@ tg.addEventListener('blur',function(){vm.classList.remove('on')});
 tg.addEventListener('click',function(){if(touch)vm.classList.toggle('on')});
 
 /* v3 colour mode. Off until the Friend link is clicked. Resets on refresh. Clicking the photo in the popup toggles it. */
+/* v3: in colour mode the popup shows the contributor's comment flying right to left across the photo, at a new random height each pass. */
+var FLY_SPEED=150;             // how fast the comment flies, in artboard px per second
+var FLY_ANIM=null,FLY_EL=null,CURAD=null;
+function stopFly(){if(FLY_ANIM){FLY_ANIM.onfinish=null;FLY_ANIM.cancel();FLY_ANIM=null}if(FLY_EL){FLY_EL.remove();FLY_EL=null}}
+function startFly(){
+  stopFly();
+  var d=CURAD,pic=dlg.querySelector('.pic');
+  if(!COLOR||!d||!d.comment||!pic||!dlg.open)return;
+  var el=document.createElement('span');el.className='fly';el.setAttribute('aria-hidden','true');el.textContent=d.comment;pic.appendChild(el);FLY_EL=el;
+  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
+  var run=function(){
+    var W=pic.clientWidth,H=pic.clientHeight,tw=el.offsetWidth,th=el.offsetHeight;
+    el.style.top=Math.max(0,Math.random()*(H-th))+'px';
+    FLY_ANIM=el.animate([{transform:'translateX('+W+'px)'},{transform:'translateX('+(-tw)+'px)'}],{duration:(W+tw)/(FLY_SPEED*U)*1000,easing:'linear',fill:'forwards'});
+    FLY_ANIM.onfinish=run;
+  };
+  run();
+}
+dlg.addEventListener('close',stopFly);
+
 var COLOR=false;
 var COLOR_OVERLAY=true;        // set to false to turn the slow overlay off
 var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range (1% to 8%)
-var OV_PERIOD=8;               // seconds for one full slow cycle
+var OV_PERIOD=6;               // seconds for one full slow cycle
 var OV_RAF=0,OV_T0=0;
 function ovTick(t){var s=(Math.sin(2*Math.PI*((t-OV_T0)/1000)/OV_PERIOD-Math.PI/2)+1)/2;document.documentElement.style.setProperty('--ov',(OV_MIN+(OV_MAX-OV_MIN)*s).toFixed(4));OV_RAF=requestAnimationFrame(ovTick)}
 function setColor(v){
@@ -228,6 +251,7 @@ function setColor(v){
   cancelAnimationFrame(OV_RAF);
   if(COLOR&&COLOR_OVERLAY){OV_T0=performance.now();OV_RAF=requestAnimationFrame(ovTick)}
   var p=document.querySelector('.pic');if(p)p.setAttribute('aria-pressed',COLOR);
+  startFly();
 }
 setColor(false);
 tg.addEventListener('click',function(){setColor(true)});
@@ -245,7 +269,7 @@ addEventListener('hashchange',route);
 route();
 fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   Object.keys(j.companies).forEach(function(k){var c=j.companies[k];CO[k]={n:c.name,mk:c.market,fd:c.founded,val:c.valuation,emp:c.employees,hq:c.hq,ceo:c.ceo}});
-  DATA=j.ads.map(function(a){return{id:a.id,co:a.company,copy:a.copy,place:a.place,date:a.date||'',month:(a.date||'').slice(0,7)||'?',note:a.note,image:a.image,name:CO[a.company].n,up:a.uploader||'Archive',loc:a.location||'New York',type:a.type||'In person'}});
+  DATA=j.ads.map(function(a){return{id:a.id,co:a.company,copy:a.copy,place:a.place,date:a.date||'',month:(a.date||'').slice(0,7)||'?',note:a.note,image:a.image,name:CO[a.company].n,up:a.uploader||'Archive',spot:a.spot||'',comment:a.comment||'',loc:a.location||'New York',type:a.type||'In person'}});
   DATA.sort(function(a,b){var x=a.date||'0',y=b.date||'0';return x<y?1:x>y?-1:a.id-b.id});
   route();
 }).catch(function(){var g=$('grid');if(g)g.innerHTML='<p class="empty">The archive could not be loaded.</p>'});

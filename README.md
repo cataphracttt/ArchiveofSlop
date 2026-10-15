@@ -50,6 +50,7 @@ The site is plain static files. There is no build step.
 - `company` must match a key in `companies`. Reuse a company's key for a new ad from the same company.
 - `date` is `YYYY-MM-DD`. Leave it as `""` if unknown; the ad shows as "Date unknown" and sorts last.
 - `type` is `In person` or `Online`. The Type filter offers both.
+- `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Entries whose `uploader` is not `Archive` get Location (from `spot`) and Uploader rows in the info popup in every version. `comment` is only used by v3.
 - `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out. `uploader` and `note` are kept in the data but are not shown or filterable on the site at the moment.
 - `image` is a file name that exists in both `images/` and `thumbs/`.
 
@@ -83,15 +84,30 @@ A copy of v1 (https://cataphracttt.github.io/ArchiveofSlop/v3/) with a colour mo
 
 - Text selection is #e04918 with blue (#1818e0) text, the same saturation and lightness with the hue turned to blue. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
 - Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again.
-- When it is on, hovering the Friend phrase shows the photo in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
+- When it is on, the main page background stays in colour until the page is refreshed (or colour mode is turned off in the popup): a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
 - Also when it is on, hovering any tile in the archive shows that tile in the same colour effect, and the photo in the info popup is shown in colour. Clicking the photo in the popup turns colour mode off or on for the whole site.
+- In the popup, while colour mode is on, a contributor's comment (if the entry has one) flies right to left across the photo on repeat, clipped to the photo, at a new random height each pass. It does not appear in v1 or v2.
 - The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the v3 script block in `v3/index.html`:
 
 ```js
 var COLOR_OVERLAY=true;        // set to false to turn the overlay off
 var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range
-var OV_PERIOD=8;               // seconds for one full cycle
+var OV_PERIOD=6;               // seconds for one full cycle
+var FLY_SPEED=150;             // how fast a contributor's comment flies across the popup photo (artboard px per second)
 ```
+
+## Contributed entries (Google Form)
+
+Contributors submit photos through the Google Form (https://forms.gle/3X11ahuzRHz3CHpT9). Responses land in this sheet: https://docs.google.com/spreadsheets/d/1v4JCyLdqnnbKYVcHeBs7vQROEIGxiuW8IRF57SJNJZ8/edit?usp=sharing
+
+Columns: Timestamp, Image(s) (private Google Drive links), Date Taken, Location where photo was taken (subway line/station), Name of uploader/photographer, Anything else? (comment), Do you want to be credited.
+
+The Drive photos are private, so they cannot be fetched automatically. To add new responses: download the new photos from Drive, upload them to a Claude chat along with a request to sync the sheet, then Claude reads the sheet, matches photos to rows, identifies the company, makes the WebP files and adds entries to `ads.json`. Rules used so far:
+
+- One tile per photo. A response with several photos becomes several entries sharing the same contributor, date, location and comment.
+- Names are normalised to one spelling per person (for example "Satsuki", "satsuki yasui" and "Satsuki Yasui" are all "Satsuki Yasui"). A name of "unknown" means the contributor did not want credit.
+- `location` stays "New York" so the Location filter stays tidy. The typed line or station goes in `spot`.
+- Dates are taken as typed (a missing year means 2026).
 
 ## Preview locally
 
