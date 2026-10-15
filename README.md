@@ -85,7 +85,7 @@ A copy of v1 (https://cataphracttt.github.io/ArchiveofSlop/v3/) with a colour mo
 - Text selection is #e04918 with blue (#1818e0) text, the same saturation and lightness with the hue turned to blue. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
 - Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again.
 - When it is on, the main page background stays in colour until the page is refreshed (or colour mode is turned off in the popup): a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
-- Also when it is on, hovering any tile in the archive shows that tile in the same colour effect, and the photo in the info popup is shown in colour. Clicking the photo in the popup turns colour mode off or on for the whole site.
+- In the archive, hovering any tile always shows that tile in the colour effect, whether or not colour mode is on. The info popup opens with a normal photo; clicking the photo switches the popup photo to the colour effect (and starts the flying comment, if the entry has one) and clicking again switches it back. The popup's colour state is separate from everything else: it does not change tile hovers or the main page, and each new popup starts normal.
 - In the popup, while colour mode is on, a contributor's comment (if the entry has one) flies right to left across the photo on repeat, clipped to the photo, at a new random height each pass. It does not appear in v1 or v2.
 - The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the v3 script block in `v3/index.html`:
 
@@ -110,7 +110,7 @@ The Drive photos are private, so they cannot be fetched automatically. To add ne
 - Dates are taken as typed (a missing year means 2026), unless the photo's own EXIF date proves the typed date wrong (for example a date in the future). EXIF is read for checking only and is never published: the WebP files carry no EXIF or location data.
 - Files downloaded from Drive are named `<camera name> - <Drive account name>`. The Drive account name can differ from the name typed in the Form (for example "Sketchy Raven" is Vincy and "Charlie Caulfield" is Lee Caulfield). The typed name is the one shown on the site.
 - Photos are matched to rows using the camera file numbers (they increase with time), the EXIF dates, the comment and the ad itself.
-- If the advertiser is not visible in a photo, the entry uses the company `unidentified-legal-ai`-style placeholder until someone identifies it.
+- If the advertiser is not visible in a photo, the entry is listed with the company "Unknown" (the `unidentified-legal-ai` company in `ads.json`) until someone identifies it.
 - A comment is attached only to the photos it is about (for example the cloning comment is on the two Synthesia photos, not the Parallel photo from the same submission).
 
 ## Preview locally
@@ -123,6 +123,7 @@ Open http://localhost:8000. Opening `index.html` straight from disk will not loa
 
 ## Design notes
 
+- Dates are abbreviated as "Oct. 2026" in the Date filter and "9 Oct. 2026" in the popup (Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Oct., Nov., Dec.).
 - Everything is measured on a 1920 x 1080 artboard and scales with the window width (`--u` = 1/1920 of the width). Body text is 19px, the main page title is 204px.
 - Body text is AR One Sans Regular. The large "Enter the Archive" title is AR One Sans Retina Regular.
 - No hover animations.

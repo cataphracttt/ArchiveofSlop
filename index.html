@@ -127,7 +127,7 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 <script>
 var CO={},DATA=[];
 var $=function(i){return document.getElementById(i)};
-var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var MON=['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'];
 function fmt(d){if(!d||d==='?')return 'Date unknown';var p=d.split('-');return +p[2]+' '+MON[+p[1]-1]+' '+p[0]}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function uniq(k){return DATA.map(function(d){return d[k]}).filter(function(v,i,a){return a.indexOf(v)===i})}

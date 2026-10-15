@@ -208,13 +208,13 @@
    "ceo": "Scott Wu"
   },
   "unidentified-legal-ai": {
-   "name": "Unidentified legal AI company",
-   "market": "Legal AI (logo not visible in the photo)",
-   "founded": "Not identified",
-   "valuation": "Not identified",
-   "employees": "Not identified",
-   "hq": "Not identified",
-   "ceo": "Not identified"
+   "name": "Unknown",
+   "market": "Legal AI (advertiser unknown)",
+   "founded": "Unknown",
+   "valuation": "Unknown",
+   "employees": "Unknown",
+   "hq": "Unknown",
+   "ceo": "Unknown"
   }
  },
  "ads": [
