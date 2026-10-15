@@ -214,7 +214,7 @@ function route(){
 
 /* v2: gifs play first, then the page changes. The waits are fixed so the gifs always get their time. */
 var GIFS=[{f:'rocket',x:245,y:11,w:576},{f:'explosion',x:28,y:187,w:464},{f:'greenscreen',x:972,y:61,w:298},{f:'rocket',x:1493,y:178,w:298},{f:'explosion',x:972,y:317,w:896},{f:'greenscreen',x:55,y:496,w:576}];
-var MAIN_WAIT=2500,AD_WAIT=1300,AD_W=576;
+var MAIN_WAIT=1300,AD_WAIT=1000,AD_W=576;
 var GBLOB={},GURLS=[],GT=0,GBUSY=false,BIG=document.querySelector('.big');
 function loadGifs(){return Promise.all(['rocket','explosion','greenscreen'].map(function(k){return GBLOB[k]?0:fetch('gifs/'+k+'.gif').then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){GBLOB[k]=b})}))}
 function gifSrc(k){if(GBLOB[k]){var u=URL.createObjectURL(GBLOB[k]);GURLS.push(u);return u}return 'gifs/'+k+'.gif?t='+Date.now()}
