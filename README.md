@@ -77,7 +77,7 @@ v2 differences from v1:
 
 ## Friend link (all versions)
 
-On the live site, v1 and v2 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article on archive.is (opens in a new tab). Hovering it still shows the Friend photo behind the page.
+On the live site, v1 and v2 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
 
 ## The live site (formerly v3)
 
