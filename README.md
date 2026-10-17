@@ -55,11 +55,12 @@ The site is plain static files. There is no build step.
 - `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Every entry gets a Location row in the info popup in every version: "NY" for the archive's own entries and "NY, " plus `spot` for contributed ones (for example "NY, F train"). Entries whose `uploader` is not `Archive` also get an Uploader row. `comment` is only used by v3.
 - `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out. `uploader` and `note` are kept in the data but are not shown or filterable on the site at the moment.
 - `image` is a file name that exists in both `images/` and `thumbs/`.
+- `width` and `height` are the pixel size of the full-size file in `images/` (v2's archive layout needs the proportions). If they are missing, the ad is treated as 4:3.
 
 ## Adding an ad
 
 1. Make two WebP files with the same name, `NN-company.webp` (`NN` is the ad's id): one with the longest side at 1600px (quality 80) into `images/`, one at 800px (quality 72) into `thumbs/`. Save without EXIF so no location data is published.
-2. Add the entry to `ads` in `ads.json`, and a `companies` entry if the company is new.
+2. Add the entry to `ads` in `ads.json` (with the `width` and `height` of the file in `images/`), and a `companies` entry if the company is new.
 3. Commit to `main`. GitHub Pages republishes in about a minute.
 
 Photos of any shape work. Every ad sits centred and uncropped in a square box.
@@ -78,13 +79,19 @@ v2 legacy differences from the old v1:
 
 ## v2
 
-An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a new main page. The archive page is the same as v1's.
+An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a new main page and an overlapping archive layout.
 
 - The main page is one long scroll in 205px type on a 210px line (everything is measured on the 1920px artboard and scales with the window width). The paragraph breaks and line breaks follow the Illustrator mockup: the text box is 1759px wide, which reproduces every line break. Blank lines are one full line high. "AI AD ARCHIVE", Submit and the "v1. v2." switcher sit in the top-left row, and "Enter the Archive" is the first big underlined line.
 - Top right: an ad from the archive, scaled to fit a 156 x 156 box aligned to the top right, changes at random every 4 seconds (`CYC_MS`). Clicking it goes to the archive.
 - The Friend photo sits behind the text, centred on the "Think of the infamous friend ads..." phrase, with a close X at its top right. It shows in the colour effect while the photo or the phrase is hovered, and the X hides it until the page is refreshed. The phrase links to the New York Times article.
 - Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the v2 main-page script in `v2/index.html`.
 - On touch screens a tap on the photo toggles colour and a tap near an ad knocks it away.
+- Type on the main page is AR One Sans Retina Regular. Every box outline (the photo frame, the close box and the archive popup frame) uses one stroke weight, `--stroke` (2px on the artboard).
+- Clicking the page with the left mouse button knocks away every scattered ad that is in view, away from the click point (clicks on links and buttons don't). Knocked ads tilt only a few degrees as they slide off.
+- **Archive layout.** Each ad is scaled so its short side is 481px (the long side is not cropped), centred on a cell grid with columns centred at 414, 846, 1278 and 1710px and rows 432px apart starting at y=324, so neighbours overlap. The newest ad (by date) is on top whichever way the list is sorted. The toggle above FILTER: switches to the small layout, where the short side is 191px, with the same centres.
+- Hovering works on the central 481 x 481 square of each cell, even in the small layout. Where squares overlap, the nearest centre wins. The hovered ad goes to the top and shows in the colour effect, and clicking opens its popup.
+- The left column sits underneath the images and shows where they do not cover it. As the cursor moves through the left third of the page it sweeps a white panel in over the images (fully open once the cursor is within 201px of the edge). The panel stays open while a filter list is open.
+- Phones (900px wide or less) keep the simple grid and a plain left column. Touch tablets get the overlapping layout with the left panel always open.
 
 ## Friend link (all versions)
 

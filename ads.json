@@ -227,7 +227,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "01-blacksmith.webp"
+   "image": "01-blacksmith.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 2,
@@ -238,7 +240,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "02-blacksmith.webp"
+   "image": "02-blacksmith.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 3,
@@ -249,7 +253,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "03-artisan.webp"
+   "image": "03-artisan.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 4,
@@ -260,7 +266,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "04-casper.webp"
+   "image": "04-casper.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 5,
@@ -271,7 +279,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "05-deel.webp"
+   "image": "05-deel.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 6,
@@ -283,7 +293,9 @@
    "type": "In person",
    "uploader": "Archive",
    "image": "06-sigma.webp",
-   "note": "Grand St is visible through the door window."
+   "note": "Grand St is visible through the door window.",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 7,
@@ -294,7 +306,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "07-endex.webp"
+   "image": "07-endex.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 8,
@@ -305,7 +319,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "08-flora.webp"
+   "image": "08-flora.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 9,
@@ -316,7 +332,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "09-flora.webp"
+   "image": "09-flora.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 10,
@@ -327,7 +345,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "10-blacksmith.webp"
+   "image": "10-blacksmith.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 11,
@@ -338,7 +358,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "11-blacksmith.webp"
+   "image": "11-blacksmith.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 12,
@@ -349,7 +371,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "12-blacksmith.webp"
+   "image": "12-blacksmith.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 13,
@@ -360,7 +384,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "13-openai.webp"
+   "image": "13-openai.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 14,
@@ -371,7 +397,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "14-openai.webp"
+   "image": "14-openai.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 15,
@@ -382,7 +410,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "15-blacksmith.webp"
+   "image": "15-blacksmith.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 16,
@@ -393,7 +423,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "16-zocdoc.webp"
+   "image": "16-zocdoc.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 17,
@@ -404,7 +436,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "17-meta.webp"
+   "image": "17-meta.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 18,
@@ -415,7 +449,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "18-meta.webp"
+   "image": "18-meta.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 19,
@@ -427,7 +463,9 @@
    "type": "In person",
    "uploader": "Archive",
    "image": "19-profound.webp",
-   "note": "The screens are covered in graffiti."
+   "note": "The screens are covered in graffiti.",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 20,
@@ -439,7 +477,9 @@
    "type": "In person",
    "uploader": "Archive",
    "image": "20-profound.webp",
-   "note": "The screens are covered in graffiti."
+   "note": "The screens are covered in graffiti.",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 21,
@@ -450,7 +490,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "21-zocdoc.webp"
+   "image": "21-zocdoc.webp",
+   "width": 964,
+   "height": 1280
   },
   {
    "id": 22,
@@ -461,7 +503,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "22-outset.webp"
+   "image": "22-outset.webp",
+   "width": 964,
+   "height": 1280
   },
   {
    "id": 23,
@@ -472,7 +516,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "23-linear.webp"
+   "image": "23-linear.webp",
+   "width": 1600,
+   "height": 1205
   },
   {
    "id": 24,
@@ -483,7 +529,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "24-parallel.webp"
+   "image": "24-parallel.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 25,
@@ -494,7 +542,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "25-doppel.webp"
+   "image": "25-doppel.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 26,
@@ -505,7 +555,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "26-serval.webp"
+   "image": "26-serval.webp",
+   "width": 1205,
+   "height": 1600
   },
   {
    "id": 27,
@@ -516,7 +568,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "27-parallel.webp"
+   "image": "27-parallel.webp",
+   "width": 1280,
+   "height": 964
   },
   {
    "id": 28,
@@ -527,7 +581,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "28-genspark.webp"
+   "image": "28-genspark.webp",
+   "width": 803,
+   "height": 480
   },
   {
    "id": 29,
@@ -538,7 +594,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "29-langchain.webp"
+   "image": "29-langchain.webp",
+   "width": 693,
+   "height": 480
   },
   {
    "id": 30,
@@ -549,7 +607,9 @@
    "location": "New York",
    "type": "In person",
    "uploader": "Archive",
-   "image": "30-youcom.webp"
+   "image": "30-youcom.webp",
+   "width": 638,
+   "height": 480
   },
   {
    "id": 31,
@@ -562,7 +622,9 @@
    "uploader": "Amélie Gowland",
    "image": "31-crosby.webp",
    "spot": "N train",
-   "submitted": "2026-09-19T00:58:52"
+   "submitted": "2026-09-19T00:58:52",
+   "width": 1600,
+   "height": 900
   },
   {
    "id": 32,
@@ -576,7 +638,9 @@
    "image": "32-meta.webp",
    "spot": "Court Sq G train",
    "comment": "unsettling and weird to have an AI companion for insta…",
-   "submitted": "2026-10-07T21:56:08"
+   "submitted": "2026-10-07T21:56:08",
+   "width": 1200,
+   "height": 1600
   },
   {
    "id": 33,
@@ -591,7 +655,9 @@
    "spot": "B train",
    "comment": "I think it' amazing we're outsourcing one of the most nuanced systems in the world to AI! Amazing!",
    "submitted": "2026-10-10T20:41:43",
-   "note": "Photo file is only 156 x 208 pixels, so it looks soft. The photo’s own date (21 Sep 2026) is used instead of the typed 10/24/26."
+   "note": "Photo file is only 156 x 208 pixels, so it looks soft. The photo’s own date (21 Sep 2026) is used instead of the typed 10/24/26.",
+   "width": 156,
+   "height": 208
   },
   {
    "id": 34,
@@ -605,7 +671,9 @@
    "image": "34-unidentified-legal-ai.webp",
    "spot": "Times Sq 1 train",
    "submitted": "2026-10-11T23:04:40",
-   "note": "The advertiser is not visible in the photo, so the company is unidentified."
+   "note": "The advertiser is not visible in the photo, so the company is unidentified.",
+   "width": 1600,
+   "height": 1200
   },
   {
    "id": 35,
@@ -618,7 +686,9 @@
    "uploader": "Satsuki Yasui",
    "image": "35-parallel.webp",
    "spot": "A train on 34th St uptown",
-   "submitted": "2026-10-15T15:56:50"
+   "submitted": "2026-10-15T15:56:50",
+   "width": 1600,
+   "height": 773
   },
   {
    "id": 36,
@@ -633,7 +703,9 @@
    "spot": "A train on 34th St uptown",
    "comment": "Unsettling that they would promote something to clone yourself",
    "submitted": "2026-10-15T15:56:50",
-   "note": "The logo is out of frame; identified as Synthesia from the matching campaign."
+   "note": "The logo is out of frame; identified as Synthesia from the matching campaign.",
+   "width": 1600,
+   "height": 508
   },
   {
    "id": 37,
@@ -647,7 +719,9 @@
    "image": "37-synthesia.webp",
    "spot": "A train on 34th St uptown",
    "comment": "Unsettling that they would promote something to clone yourself",
-   "submitted": "2026-10-15T15:56:50"
+   "submitted": "2026-10-15T15:56:50",
+   "width": 1600,
+   "height": 534
   },
   {
    "id": 38,
@@ -662,7 +736,9 @@
    "spot": "F train",
    "comment": "Stupid AI trying to be hippy with younger crowd. \"Drift\"? Really? And the illustration is so ugly, Benjamin would be rolling in his grave.",
    "submitted": "2026-10-12T18:52:34",
-   "note": "Part of the headline is hidden behind a pole."
+   "note": "Part of the headline is hidden behind a pole.",
+   "width": 1200,
+   "height": 1600
   },
   {
    "id": 39,
@@ -676,7 +752,9 @@
    "image": "39-cognition.webp",
    "spot": "F train",
    "comment": "Couldn't tell if it was AI at first glance, thought it was one of those corporate streamline service, it hide the AI-ness well (Devin.AI was put small in the corner)",
-   "submitted": "2026-10-12T18:54:53"
+   "submitted": "2026-10-12T18:54:53",
+   "width": 1600,
+   "height": 1200
   },
   {
    "id": 40,
@@ -690,7 +768,9 @@
    "image": "40-crosby.webp",
    "spot": "Intersection of St. Marks Pl and 3rd Ave",
    "comment": "No idea who Crosby was (maybe that's the name of the AI?) AI law firm is gonna be a shit show for sure",
-   "submitted": "2026-10-12T18:59:07"
+   "submitted": "2026-10-12T18:59:07",
+   "width": 1200,
+   "height": 1600
   },
   {
    "id": 41,
@@ -704,7 +784,9 @@
    "image": "41-meta.webp",
    "spot": "Astor Pl uptown station",
    "comment": "Hate it, ugly fuzzy thing trying to be cute and appealing.",
-   "submitted": "2026-10-12T19:02:26"
+   "submitted": "2026-10-12T19:02:26",
+   "width": 1200,
+   "height": 1600
   },
   {
    "id": 42,
@@ -718,7 +800,9 @@
    "image": "42-flora.webp",
    "spot": "F train",
    "comment": "Boring ad",
-   "submitted": "2026-10-12T19:03:36"
+   "submitted": "2026-10-12T19:03:36",
+   "width": 1600,
+   "height": 1200
   },
   {
    "id": 43,
@@ -732,7 +816,9 @@
    "image": "43-openart.webp",
    "spot": "6 train",
    "comment": "Hate it, at least this one have a slightly better graphic design...",
-   "submitted": "2026-10-12T19:04:54"
+   "submitted": "2026-10-12T19:04:54",
+   "width": 1200,
+   "height": 1600
   },
   {
    "id": 44,
@@ -746,7 +832,9 @@
    "image": "44-openart.webp",
    "spot": "R/W line from 34th St to 8th St",
    "comment": "i think the taxi bird looks ugly and doesn’t look well thought out.",
-   "submitted": "2026-10-15T00:23:41"
+   "submitted": "2026-10-15T00:23:41",
+   "width": 1200,
+   "height": 1600
   }
  ]
 }
