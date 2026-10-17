@@ -85,7 +85,7 @@ a:hover,.fb:hover,.flt li button:hover,.x:hover,.clr:hover{color:#e04918}
 a,.fb,.flt li button,.x,.clr{transition:color .15s ease}
 .txt a.trig:hover{color:inherit}
 /* colour mode: a #e04918 fill with the photo on top in HUE blend mode, plus a faint copy of the photo (no blend) for legibility */
-.hue{position:absolute;inset:0;background:#e04918;isolation:isolate;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none}
+.hue{position:absolute;inset:0;background:#e04918;isolation:isolate;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
 .hue img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hue .hueimg{mix-blend-mode:hue}
 .hue .ov{opacity:var(--ov,.08)}
@@ -95,12 +95,12 @@ body.colour .bg{opacity:0}
 body.colour .bar{visibility:visible;opacity:1;transition:opacity .3s ease}
 body.colour .credit{opacity:1;position:fixed;left:auto;right:calc(25 * var(--u));top:auto;bottom:0;height:calc(40 * var(--u));line-height:calc(40 * var(--u));font-size:calc(12 * var(--u));text-align:right;color:rgba(0,0,0,.33);z-index:5}
 .tile{position:relative;isolation:isolate;animation:fadein .25s ease both}
-.tile::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.tile::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
 .tile:hover::before,.tile:focus-visible::before{opacity:1}
 .tile:hover::after,.tile:focus-visible::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
 .pic{position:relative;isolation:isolate;cursor:default;line-height:0;overflow:hidden}
 .fly{position:absolute;left:0;top:0;z-index:3;white-space:nowrap;font-size:calc(19 * var(--u));line-height:calc(24 * var(--u));color:#000;pointer-events:none;will-change:transform}
-.pic::before{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.pic::before{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
 .pic.on::before{opacity:1}
 .pic.on::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
 body.noov .tile::after,body.noov .pic::after{display:none!important}
@@ -277,14 +277,21 @@ var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range (1% to 8%)
 var OV_PERIOD=6;               // seconds for one full slow cycle
 var OV_RAF=0,OV_T0=0;
 function ovTick(t){var s=(Math.sin(2*Math.PI*((t-OV_T0)/1000)/OV_PERIOD-Math.PI/2)+1)/2;document.documentElement.style.setProperty('--ov',(OV_MIN+(OV_MAX-OV_MIN)*s).toFixed(4));OV_RAF=requestAnimationFrame(ovTick)}
+/* random hue for the colour effect: the same look rotated to another hue; the current colour (0deg) is twice as likely as any other of the 12 hues */
+function rndHue(){var w=[2,1,1,1,1,1,1,1,1,1,1,1],r=Math.random()*13,i=0;while(i<11&&r>=w[i]){r-=w[i];i++}return i*30}
 function setColor(v){
+  if(v&&!COLOR){var hl=document.querySelector('.hue');if(hl)hl.style.setProperty('--hr',rndHue()+'deg')}
   COLOR=!!v;
   document.body.classList.toggle('colour',COLOR);
   document.body.classList.toggle('noov',!COLOR_OVERLAY);
   updOsc();
 }
+$('grid').addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t&&t!==LASTT){LASTT=t;t.style.setProperty('--hr',rndHue()+'deg')}});
+$('grid').addEventListener('mouseout',function(e){if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile'))LASTT=null});
+$('grid').addEventListener('focusin',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t)t.style.setProperty('--hr',rndHue()+'deg')});
+var LASTT=null;
 /* The popup photo shows in colour while it is hovered (a tap toggles it on touch screens). It does not affect tile hovers or the main page. */
-function popOn(p,on){p.classList.toggle('on',on);startFly();updOsc()}
+function popOn(p,on){if(on)p.style.setProperty('--hr',rndHue()+'deg');p.classList.toggle('on',on);startFly();updOsc()}
 /* The slow overlay runs only while something coloured can be on screen. */
 var OV_ON=false;
 function updOsc(){
