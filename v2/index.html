@@ -84,7 +84,7 @@ body.noov .tile::after,body.noov .pic::after{display:none!important}
 dialog[open]{animation:fadein .2s ease}
 dialog[open]::backdrop{animation:fadein .2s ease}
 /* ---------- v2 main page (everything here is measured on the 1920 artboard and scales with the window width) ---------- */
-:root{--mu:calc(100vw / 1920);--cb:max(72px,calc(156 * var(--mu)))}
+:root{--mu:calc(100vw / 1920)}
 #v-main{position:relative;overflow:hidden;min-height:100vh;padding:max(calc(370 * var(--mu)),calc(100vh - 646 * var(--mu))) 0 calc(124 * var(--mu)) calc(79 * var(--mu));padding-top:max(calc(370 * var(--mu)),calc(100svh - 646 * var(--mu)))}
 .mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
@@ -93,7 +93,6 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 .mtx p{margin:0 0 calc(210 * var(--mu))}
 .mtx p:last-child{margin-bottom:0}
 .mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
-.mtx a.trig:hover{color:inherit}
 /* the Friend photo sits behind the text; it shows in colour while hovered */
 .fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(../images/friend-ads-nyt.webp)}
 .fp img{display:block;width:100%;height:100%;object-fit:cover;opacity:.44}
@@ -105,12 +104,8 @@ body.noov .fp::after{display:none!important}
 .fpx svg{width:100%;height:100%;display:block}
 .fpx:hover{color:#e04918}
 .fpc{position:absolute;z-index:3;right:calc(33 * var(--mu));font-size:max(10px,calc(10.5 * var(--mu)));line-height:1.3;color:rgba(0,0,0,.45);white-space:nowrap}
-/* the cycling ad, scaled to fit a 156 x 156 box aligned to the top right */
-.cyc{position:absolute;top:calc(25 * var(--mu));right:calc(25 * var(--mu));width:var(--cb);height:var(--cb);z-index:7;display:block}
-.cyc img{position:absolute;top:0;right:0;max-width:100%;max-height:100%;width:auto;height:auto;display:block;opacity:1;transition:opacity .3s ease}
-.cyc img.out{opacity:0}
 /* back to top */
-.totop{position:fixed;right:calc(22 * var(--mu));bottom:calc(-7 * var(--mu));z-index:8;padding:0;border:0;background:none;color:#000;font:400 max(24px,calc(64 * var(--mu)))/1 var(--ret);cursor:pointer;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s,color .15s ease}
+.totop{position:fixed;right:calc(21.3 * var(--mu));bottom:calc(-15 * var(--mu));z-index:8;padding:0;border:0;background:none;color:#000;font:400 max(30px,calc(80 * var(--mu)))/1 var(--ret);cursor:pointer;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s,color .15s ease}
 .totop.show{opacity:1;visibility:visible;transition:opacity .25s ease,color .15s ease}
 .totop:hover{color:#e04918}
 /* ads scattered down the page; the cursor knocks them away */
@@ -176,7 +171,6 @@ dialog{border-width:var(--stroke)}
   <button class="fpx" id="fpx" type="button" aria-label="Close the photo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3 L17 17 M17 3 L3 17" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
   <div class="fpc" id="fpc">Hiroko Masuike/The New York Times</div>
   <div class="mh"><a href="#/">AI AD ARCHIVE</a><a id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a><span class="vs2"><a href="../">v1.</a> <a href="./">v2.</a></span></div>
-  <a class="cyc" id="cyc" href="#/archive" aria-label="Open the archive"><img id="cycimg" alt=""></a>
   <a class="mbig" href="#/archive">Enter the Archive</a>
   <div class="mtx" id="mtx">
     <p>The current state advertisement fucking sucks.</p>
@@ -251,7 +245,7 @@ function render(){
   var L=DATA.filter(function(d){return F.every(function(f){return !SEL[f.k]||d[f.k]===SEL[f.k]})}).sort(cmp);
   var g=$('grid');ABS=absMode();g.classList.toggle('abs',ABS);g.classList.toggle('small',SMALL&&ABS);
   if(!L.length){g.innerHTML=DATA.length?'<p class="empty">Nothing matches these filters.</p>':'';g.style.removeProperty('--gh');TILES=[];HOV=null;return}
-  var bottom=0,dir=(ABS&&!SMALL)?'../images/':'../thumbs/',base=rowBase(L.slice(0,4).map(function(d){var q=dimsFor(d);return(SMALL?q.sh:q.bh)}));
+  var bottom=0,dir=(ABS&&!SMALL)?'../images/':'../thumbs/',base=SMALL?CY0:rowBase(L.slice(0,4).map(function(d){var q=dimsFor(d);return q.bh}));
   g.innerHTML=L.map(function(d,i){
     var c=i%4,r=Math.floor(i/4),cx=CX0+PITCH*c,cy=base+PITCH*r,q=dimsFor(d);
     bottom=Math.max(bottom,cy+(SMALL?q.sh:q.bh)/2);
@@ -336,7 +330,6 @@ function updOsc(){
 document.body.classList.toggle('noov',!COLOR_OVERLAY);
 
 /* ---- v2 main page ---- */
-var CYC_MS=4000;                  // how often the top-right ad changes
 var AD_PAD=40;                    // collision border around a scattered ad (artboard px)
 var AD_W_MIN=330,AD_W_MAX=860;    // scattered ad width range (artboard px)
 var AD_GAP_START=1100;            // scrolling (artboard px) per new ad near the top of the page...
@@ -368,17 +361,6 @@ tg.addEventListener('blur',function(){phraseOver=false;fpCheck()});
 fpx.addEventListener('click',function(){FPCLOSED=true;fpSet(false);fp.hidden=true;fpx.hidden=true;fpc.hidden=true});
 if(touch){fp.style.pointerEvents='auto';fp.addEventListener('click',function(){fpSet(!FPON)})}
 
-/* cycling ad */
-var CYC_T=0,CYC_I=-1;
-function cycNext(first){
-  if(!DATA.length)return;
-  var img=$('cycimg'),i;
-  do{i=Math.floor(Math.random()*DATA.length)}while(DATA.length>1&&i===CYC_I);
-  CYC_I=i;var src='../thumbs/'+DATA[i].image;
-  var swap=function(){var t=new Image();t.onload=function(){img.src=src;img.classList.remove('out')};t.src=src};
-  if(first){swap()}else{img.classList.add('out');setTimeout(swap,300)}
-}
-function cycStart(){clearInterval(CYC_T);if(!DATA.length)return;cycNext(true);CYC_T=setInterval(cycNext,CYC_MS)}
 
 /* scattered ads: spawned out of view as you scroll, in growing numbers; the cursor knocks them away before they can be hovered */
 var ADS=[],SC_LAST=0,SC_BUDGET=0,SC_TICK=false,PX=-1,PY=-1,LASTW=0;
@@ -457,9 +439,9 @@ addEventListener('resize',function(){
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(placeFP);
 function toTopShow(){$('totop').classList.toggle('show',MAIN_ON&&scrollY>innerHeight*0.6)}
 $('totop').addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
-function startMain(){MAIN_ON=true;toTopShow();LASTW=innerWidth;placeFP();cycStart();SC_LAST=scrollY;fpCheck()}
+function startMain(){MAIN_ON=true;toTopShow();LASTW=innerWidth;placeFP();SC_LAST=scrollY;fpCheck()}
 function stopMain(){
-  MAIN_ON=false;$('totop').classList.remove('show');clearInterval(CYC_T);
+  MAIN_ON=false;$('totop').classList.remove('show');
   ADS.forEach(function(a){a.el.remove()});ADS=[];SC_BUDGET=0;PX=-1;
   FPON=false;fp.classList.remove('on');updOsc();
 }
@@ -500,12 +482,12 @@ $('grid').addEventListener('mouseover',function(e){if(ABS)return;var t=e.target.
 $('grid').addEventListener('mouseout',function(e){if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile'))LASTT=null});
 $('grid').addEventListener('focusin',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t)t.style.setProperty('--hr',rndHue()+'deg')});
 var LASTT=null;
-/* the first row is placed so that most of its ads start exactly at the top edge: its centre is the (lower) median half-height of the first row, so no white page shows above the images when the page loads */
+/* In the large layout the first row is placed so that most of its ads start exactly at the top edge (the small layout keeps the original centring, first row centred at y=324): its centre is the (lower) median half-height of the first row, so no white page shows above the images when the page loads */
 function rowBase(hs){hs=hs.map(function(h){return h/2}).sort(function(a,b){return a-b});return hs.length?hs[Math.floor((hs.length-1)/2)]:BIG_S/2}
 function setSmall(on){
   SMALL=on;var g=$('grid');if(!ABS||!TILES.length)return;
   g.classList.toggle('small',on);var bottom=0;
-  var base=rowBase(TILES.slice(0,4).map(function(t){return +(on?t.dataset.sh:t.dataset.bh)}));
+  var base=on?CY0:rowBase(TILES.slice(0,4).map(function(t){return +t.dataset.bh}));
   TILES.forEach(function(t,i){
     var cy=base+PITCH*Math.floor(i/4);t.dataset.cy=cy;t.style.setProperty('--cy',cy);
     bottom=Math.max(bottom,cy+(+(on?t.dataset.sh:t.dataset.bh))/2);
