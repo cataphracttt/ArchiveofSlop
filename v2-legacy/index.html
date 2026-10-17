@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Ad Archive v2 legacy</title>
+<meta name="description" content="An archive of the ephemeral advertisements selling AI in the NYC subway and beyond.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%9A%87%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"AR One Sans";font-weight:400;font-display:block;src:url(../fonts/AROneSans-Regular.woff2) format("woff2")}
+@font-face{font-family:"AR One Sans Retina";font-weight:400;font-display:block;src:url(../fonts/AROneSansRetina-Regular.woff2) format("woff2")}
+/* Everything is measured on a 1920 x 1080 artboard. 1u = 1px at 1920 wide and scales with the window. */
+:root{--u:calc(100vw / 1920);--m:calc(93 * var(--u));--lh:calc(23 * var(--u));
+  --reg:"AR One Sans",Avenir,"Helvetica Neue",Arial,sans-serif;--ret:"AR One Sans Retina","AR One Sans",Avenir,Arial,sans-serif;
+  box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{background:#fff;color:#000;color-scheme:light;scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+body{margin:0;background:#fff;color:#000;font:400 calc(19 * var(--u))/var(--lh) var(--reg);-webkit-font-smoothing:antialiased}
+a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+[hidden]{display:none!important}
+:focus-visible{outline:max(1px,calc(2 * var(--u))) solid #000;outline-offset:calc(4 * var(--u))}
+.ul,.txt a,a.ul:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em;text-decoration-skip-ink:none}
+
+/* ---------- main ---------- */
+#v-main{position:relative;height:calc(1080 * var(--u));min-height:100vh;overflow:hidden}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}
+#v-main.on .bg{opacity:.44}
+.hdr{position:absolute;left:var(--m);top:calc(54.5 * var(--u));white-space:nowrap}
+.big{position:absolute;left:var(--m);top:calc(132.5 * var(--u));font:400 calc(204.4 * var(--u))/calc(204 * var(--u)) var(--ret);white-space:nowrap;display:block;
+  text-decoration:underline;text-decoration-thickness:calc(10 * var(--u));text-underline-offset:calc(14 * var(--u));text-decoration-skip-ink:none}
+.sub{position:absolute;left:var(--m);top:calc(439.6 * var(--u))}
+#v-main .sub:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
+.txt{position:absolute;left:calc(624 * var(--u));top:calc(439.6 * var(--u));width:calc(828 * var(--u))}
+.txt p{margin:0 0 var(--lh)}
+.credit{position:absolute;left:0;right:0;top:calc(1050 * var(--u));text-align:center;font-size:calc(10.5 * var(--u));line-height:calc(14 * var(--u));opacity:0}
+#v-main.on .credit{opacity:1}
+
+/* ---------- index ---------- */
+#v-index{position:relative;min-height:100vh}
+.side{position:fixed;left:calc(43 * var(--u));top:0;bottom:0;width:calc(130 * var(--u));z-index:4;pointer-events:none}
+.side>*{pointer-events:auto}
+.side .hdr{position:absolute;left:0;top:calc(54.5 * var(--u))}
+.side .sub{position:absolute;left:0;top:calc(50vh + 26 * var(--u));transform:translateY(-50%)}
+.flt{position:absolute;left:0;bottom:calc(49.7 * var(--u));width:max-content;max-height:calc(50vh - 60 * var(--u));overflow:auto;scrollbar-width:none}
+.flt::-webkit-scrollbar{display:none}
+.flt .lab{display:block;margin-bottom:calc(23 * var(--u))}
+.flt .f{display:block}
+.flt .fb{display:block;margin-bottom:calc(13 * var(--u))}
+.flt ul{list-style:none;margin:0;padding:0}
+.flt li button{display:block;margin-bottom:calc(13 * var(--u))}
+.flt li.sep{padding-top:calc(13 * var(--u))}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16 * var(--u));margin:0 0 0 calc(205 * var(--u));padding:0}
+.tile{display:block;width:100%;aspect-ratio:1/1;background:#fff;overflow:hidden}
+.tile:focus-visible{outline-offset:calc(-4 * var(--u))}
+.tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.empty{margin:0;grid-column:1/-1;padding-top:calc(54.5 * var(--u))}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+dialog{border:max(1px,calc(1.2 * var(--u))) solid #000;background:#fff;color:#000;padding:0;margin:auto;inset:0;width:max-content;max-width:calc(100% - 24px);height:fit-content;max-height:calc(100% - 24px);overflow:auto;scrollbar-width:none;line-height:calc(24 * var(--u))}
+dialog::backdrop{background:rgba(255,255,255,.5)}
+.d{display:flex;align-items:flex-start;gap:calc(24 * var(--u));padding:calc(36 * var(--u)) calc(24 * var(--u)) calc(24 * var(--u))}
+.pic{flex:none}
+.pic img{display:block}
+.info{flex:none;width:calc(400 * var(--u));margin-top:calc(-5.3 * var(--u))}
+.r{display:grid;grid-template-columns:calc(162 * var(--u)) minmax(0,1fr);padding:calc(10 * var(--u)) 0}
+.r:first-child{padding-top:0}
+.r:last-child{padding-bottom:0}
+.r+.r{border-top:1px solid #bfbfbf}
+.x{position:absolute;top:calc(7.5 * var(--u));right:calc(16 * var(--u));text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
+
+.vsw{position:absolute;right:calc(26.5 * var(--u));top:calc(20.8 * var(--u));white-space:nowrap;z-index:6}
+.vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
+/* ---------- v2 ---------- */
+::selection{background:#000;color:#fff}
+::-moz-selection{background:#000;color:#fff}
+a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
+.big.go{color:#00f}
+#gifs{position:absolute;inset:0;pointer-events:none;z-index:5}
+#adgif{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:8}
+#adgif .gif{height:auto}
+.gif{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--u));width:calc(var(--w) * var(--u));height:auto;display:block}
+/* ---------- small screens ---------- */
+@media(max-width:900px){
+  :root{--u:min(calc(100vw / 480),1px);--m:24px;--lh:calc(23 * var(--u))}
+  body{font-size:calc(19 * var(--u))}
+  #v-main{height:auto;min-height:100vh;padding:24px var(--m) 48px;display:flex;flex-direction:column;gap:0}
+  #v-main>*:not(.bg){position:static!important}
+  #v-main>.vsw{position:absolute!important;top:24px;right:24px}
+  #v-main>#gifs{position:fixed!important;z-index:9}
+  .gif{left:calc(var(--x) / 1920 * 100%);top:calc(var(--y) / 1080 * 100%);width:calc(var(--w) / 1920 * 100%)}
+  .hdr{margin-bottom:12vh}
+  .big{font-size:16vw;line-height:1;white-space:normal;text-decoration-thickness:max(3px,.9vw);text-underline-offset:.08em;margin-bottom:12vh;width:max-content;max-width:100%}
+  .sub{margin-bottom:var(--lh)}
+  .txt{width:auto}
+  .credit{margin-top:24px;text-align:left;font-size:12px;opacity:.6}
+  .side{position:static;width:auto;padding:24px var(--m) 0;display:flex;flex-wrap:wrap;gap:12px 28px;pointer-events:auto}
+  .side>*,.side .hdr,.side .sub{position:static!important;transform:none!important}
+  .side .hdr{width:100%}
+  .flt{position:static;max-height:none;width:100%;display:flex;flex-wrap:wrap;gap:0 24px;align-items:flex-start;overflow:visible}
+  .flt .lab{margin:0 24px 0 0}
+  .flt .fb,.flt li button{margin-bottom:8px}
+  .grid{margin:0 var(--m);padding-top:24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .empty{padding-top:0}
+  .d{flex-direction:column;align-items:stretch;padding:40px 16px 16px;gap:16px}
+  .pic img{width:100%!important;height:auto!important}
+  .info{width:auto;margin-top:0}
+  dialog{width:calc(100% - 24px)}
+}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main id="v-main" aria-label="AI Ad Archive">
+  <img class="bg" src="../images/friend-ads-nyt.webp" alt="" decoding="async">
+  <a class="hdr" href="#/">AI AD ARCHIVE</a>
+  <div class="vsw"><a href="../v1-legacy/">v1 legacy.</a> <a href="./">v2 legacy.</a></div>
+  <a class="big" href="#/archive">Enter the Archive</a>
+  <a class="sub" id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
+  <div class="txt">
+    <p>The current state advertisement fucking sucks. Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now. Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash (<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">“on purpose”</a>). Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are going as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a> among others. Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
+    <p>As such, this site seeks to paint a bigger picture, a geographic and temporal web to catalogue all the ephemeral advertisements that are selling AI.</p>
+    <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?  - are all questions this site seeks to help answer. Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you. In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
+  </div>
+  <div id="gifs" aria-hidden="true"></div>
+  <div class="credit">Hiroko Masuike/The New York Times</div>
+</main>
+
+<div id="v-index" hidden>
+  <aside class="side">
+    <a class="hdr" href="#/">AI AD ARCHIVE</a>
+    <a class="sub ul" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
+    <nav class="flt" id="flt" aria-label="Filters"></nav>
+  </aside>
+  <div class="grid" id="grid"></div>
+  <div id="adgif" aria-hidden="true"></div>
+</div>
+<dialog id="dlg" aria-label="Ad details"></dialog>
+
+<script>
+var CO={},DATA=[];
+var $=function(i){return document.getElementById(i)};
+var MON=['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'];
+function fmt(d){if(!d||d==='?')return 'Date unknown';var p=d.split('-');return +p[2]+' '+MON[+p[1]-1]+' '+p[0]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function uniq(k){return DATA.map(function(d){return d[k]}).filter(function(v,i,a){return a.indexOf(v)===i})}
+
+/* filters */
+var SORT='desc';
+function fmtM(m){if(!m||m==='?')return 'Date unknown';var p=m.split('-');return MON[+p[1]-1]+' '+p[0]}
+var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(function(m){return m!=='?'}).sort();if(SORT!=='asc')a.reverse();return uniq('month').indexOf('?')>-1?a.concat('?'):a}},{k:'loc',l:'Location',v:function(){return uniq('loc').sort()}},{k:'type',l:'Type',v:function(){return['In person','Online']}}];
+var SEL={},OPEN='';
+function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
+function drawF(){
+  $('flt').innerHTML='<span class="lab">Filter:</span>'+F.map(function(f){
+    var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
+    if(on){opts='<ul>';
+      if(f.k==='month')opts+=li('sort','desc','Newest first',SORT==='desc')+li('sort','asc','Oldest first',SORT==='asc');
+      opts+=[''].concat(f.v()).map(function(v,i){return li(f.k,v,v?(f.f?f.f(v):v):'All',(SEL[f.k]||'')===v,(i===0&&f.k==='month')?'sep':'')}).join('')+'</ul>'}
+    return '<div class="f"><button type="button" class="fb'+(on||act?' ul':'')+'" data-k="'+f.k+'" aria-expanded="'+on+'">'+f.l+'</button>'+opts+'</div>';
+  }).join('');
+}
+$('flt').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;var k=b.dataset.k;
+  if(b.classList.contains('fb')){OPEN=OPEN===k?'':k}else if(k==='sort'){SORT=b.dataset.v}else{SEL[k]=b.dataset.v}
+  drawF();render();
+});
+
+function art(d){return '<img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" decoding="async">'}
+function cmp(a,b){var x=a.date,y=b.date;if(!x&&!y)return a.id-b.id;if(!x)return 1;if(!y)return -1;if(x!==y)return SORT==='asc'?(x<y?-1:1):(x<y?1:-1);return a.id-b.id}
+function render(){
+  var L=DATA.filter(function(d){return F.every(function(f){return !SEL[f.k]||d[f.k]===SEL[f.k]})}).sort(cmp);
+  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="../thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
+}
+
+/* details */
+var dlg=$('dlg'),last;
+function openAd(id){
+  var d=DATA.filter(function(x){return x.id==id})[0];if(!d)return;
+  var im=new Image();
+  im.onload=function(){showAd(d,im.naturalWidth,im.naturalHeight)};
+  im.onerror=function(){showAd(d,4,3)};
+  im.src='../images/'+d.image;
+}
+function showAd(d,w,h){
+  var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
+  var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)],['Location','NY'+(d.spot?', '+d.spot:'')]];
+  if(d.up&&d.up!=='Archive')rows.push(['Uploader',d.up]);
+  dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><div class="pic"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></div><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
+  if(!dlg.open)dlg.showModal();
+}
+$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(!t||GBUSY)return;last=t;playAdGif(t,t.dataset.id)});
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+dlg.addEventListener('close',function(){if(last)last.focus()});
+
+/* hover photo: instant, no animation. Touch screens toggle it with a tap. */
+var vm=$('v-main'),tg=$('trig'),touch=matchMedia('(hover:none)').matches;
+tg.addEventListener('mouseenter',function(){vm.classList.add('on')});
+tg.addEventListener('mouseleave',function(){vm.classList.remove('on')});
+tg.addEventListener('focus',function(){vm.classList.add('on')});
+tg.addEventListener('blur',function(){vm.classList.remove('on')});
+tg.addEventListener('click',function(){if(touch)vm.classList.toggle('on')});
+
+function route(){
+  resetGifs();
+  var p=(location.hash||'#/').slice(2).split('/'),idx=p[0]==='archive'||p[0]==='index';
+  $('v-main').hidden=idx;$('v-index').hidden=!idx;
+  document.title=idx?'AI Ad Archive: Index':'AI Ad Archive';
+  if(dlg.open)dlg.close();
+  scrollTo(0,0);
+  if(idx){drawF();render();if(p[1])openAd(p[1])}
+}
+
+/* v2: gifs play first, then the page changes. The waits are fixed so the gifs always get their time. */
+var GIFS=[{f:'rocket',x:245,y:11,w:576},{f:'explosion',x:28,y:187,w:464},{f:'greenscreen',x:972,y:61,w:298},{f:'rocket',x:1493,y:178,w:298},{f:'explosion',x:972,y:317,w:896},{f:'greenscreen',x:55,y:496,w:576}];
+var MAIN_WAIT=1800,AD_WAIT=1800,AD_W=576;
+var GBLOB={},GURLS=[],GT=0,GBUSY=false,BIG=document.querySelector('.big');
+function loadGifs(){return Promise.all(['rocket','explosion','greenscreen'].map(function(k){return GBLOB[k]?0:fetch('gifs/'+k+'.gif').then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){GBLOB[k]=b})}))}
+function gifSrc(k){if(GBLOB[k]){var u=URL.createObjectURL(GBLOB[k]);GURLS.push(u);return u}return 'gifs/'+k+'.gif?t='+Date.now()}
+function mkGif(k,box,style){return new Promise(function(res){var im=new Image();im.className='gif';im.alt='';im.style.cssText=style;im.onload=res;im.onerror=res;im.src=gifSrc(k);box.appendChild(im)})}
+function clearUrls(){GURLS.forEach(function(u){URL.revokeObjectURL(u)});GURLS=[]}
+function resetGifs(){clearTimeout(GT);$('gifs').innerHTML='';$('adgif').innerHTML='';clearUrls();BIG.classList.remove('go');GBUSY=false}
+function playGifs(){
+  if(GBUSY)return;GBUSY=true;
+  loadGifs().catch(function(){}).then(function(){
+    return Promise.all(GIFS.map(function(g){return mkGif(g.f,$('gifs'),'--x:'+g.x+';--y:'+g.y+';--w:'+g.w)}));
+  }).then(function(){
+    BIG.classList.add('go');
+    GT=setTimeout(function(){location.hash='#/archive'},MAIN_WAIT);
+  });
+}
+function playAdGif(tile,id){
+  GBUSY=true;
+  var d=DATA.filter(function(x){return x.id==id})[0];if(d){var pre=new Image();pre.src='../images/'+d.image}
+  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
+  var w=Math.min(AD_W*U,cw*1.3),h=w*0.75,r=tile.getBoundingClientRect(),host=$('v-index').getBoundingClientRect();
+  var left=r.left-host.left+r.width/2-w/2,top=r.top-host.top+r.height/2-h/2;
+  loadGifs().catch(function(){}).then(function(){
+    return mkGif('greenscreen',$('adgif'),'left:'+left+'px;top:'+top+'px;width:'+w+'px');
+  }).then(function(){
+    GT=setTimeout(function(){$('adgif').innerHTML='';clearUrls();GBUSY=false;openAd(id)},AD_WAIT);
+  });
+}
+BIG.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();playGifs()});
+BIG.addEventListener('pointerenter',function(){loadGifs().catch(function(){})});
+if('requestIdleCallback' in window)requestIdleCallback(function(){loadGifs().catch(function(){})});
+addEventListener('hashchange',route);
+route();
+fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
+  Object.keys(j.companies).forEach(function(k){var c=j.companies[k];CO[k]={n:c.name,mk:c.market,fd:c.founded,val:c.valuation,emp:c.employees,hq:c.hq,ceo:c.ceo}});
+  DATA=j.ads.map(function(a){return{id:a.id,co:a.company,copy:a.copy,place:a.place,date:a.date||'',month:(a.date||'').slice(0,7)||'?',note:a.note,image:a.image,name:CO[a.company].n,up:a.uploader||'Archive',spot:a.spot||'',comment:a.comment||'',loc:a.location||'New York',type:a.type||'In person'}});
+  DATA.sort(function(a,b){var x=a.date||'0',y=b.date||'0';return x<y?1:x>y?-1:a.id-b.id});
+  route();
+}).catch(function(){var g=$('grid');if(g)g.innerHTML='<p class="empty">The archive could not be loaded.</p>'});
+</script>
+</body>
+</html>

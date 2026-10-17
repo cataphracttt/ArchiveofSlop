@@ -23,18 +23,8 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 .ul,.txt a,a.ul:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em;text-decoration-skip-ink:none}
 
 /* ---------- main ---------- */
-#v-main{position:relative;height:calc(1080 * var(--u));min-height:100vh;overflow:hidden}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}
-#v-main.on .bg{opacity:.44}
 .hdr{position:absolute;left:var(--m);top:calc(54.5 * var(--u));white-space:nowrap}
-.big{position:absolute;left:var(--m);top:calc(132.5 * var(--u));font:400 calc(204.4 * var(--u))/calc(204 * var(--u)) var(--ret);white-space:nowrap;display:block;
-  text-decoration:underline;text-decoration-thickness:calc(10 * var(--u));text-underline-offset:calc(14 * var(--u));text-decoration-skip-ink:none}
 .sub{position:absolute;left:var(--m);top:calc(439.6 * var(--u))}
-#v-main .sub:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
-.txt{position:absolute;left:calc(624 * var(--u));top:calc(439.6 * var(--u));width:calc(828 * var(--u))}
-.txt p{margin:0 0 var(--lh)}
-.credit{position:absolute;left:0;right:0;top:calc(1050 * var(--u));text-align:center;font-size:calc(10.5 * var(--u));line-height:calc(14 * var(--u));opacity:0}
-#v-main.on .credit{opacity:1}
 
 /* ---------- index ---------- */
 #v-index{position:relative;min-height:100vh}
@@ -42,15 +32,20 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 .side>*{pointer-events:auto}
 .side .hdr{position:absolute;left:0;top:calc(54.5 * var(--u))}
 .side .sub{position:absolute;left:0;top:calc(50vh + 26 * var(--u));transform:translateY(-50%)}
-.flt{position:absolute;left:0;bottom:calc(49.7 * var(--u));width:max-content;max-height:calc(50vh - 60 * var(--u));overflow:auto;scrollbar-width:none}
+.flt{position:absolute;left:0;bottom:calc(47.7 * var(--u));width:max-content;max-height:calc(50vh - 60 * var(--u));overflow:auto;scrollbar-width:none}
 .flt::-webkit-scrollbar{display:none}
-.flt .lab{display:block;margin-bottom:calc(23 * var(--u))}
+.flt .lab{display:flex;align-items:baseline;gap:calc(14 * var(--u));margin-bottom:calc(13 * var(--u));white-space:nowrap}
+.flt .ow{display:grid;grid-template-rows:1fr}
+.flt .ow>ul{min-height:0;overflow:hidden}
+.flt .ow.in{animation:ex .22s ease both}
+.flt .ow.out{animation:ex .22s ease reverse both}
+@keyframes ex{from{grid-template-rows:0fr;opacity:0}to{grid-template-rows:1fr;opacity:1}}
 .flt .f{display:block}
 .flt .fb{display:block;margin-bottom:calc(13 * var(--u))}
 .flt ul{list-style:none;margin:0;padding:0}
 .flt li button{display:block;margin-bottom:calc(13 * var(--u))}
 .flt li.sep{padding-top:calc(13 * var(--u))}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16 * var(--u));margin:0 0 0 calc(205 * var(--u));padding:0}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(16 * var(--u));margin:0 0 0 calc(224 * var(--u));padding:0}
 .tile{display:block;width:100%;aspect-ratio:1/1;background:#fff;overflow:hidden}
 .tile:focus-visible{outline-offset:calc(-4 * var(--u))}
 .tile img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
@@ -69,31 +64,60 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 .r+.r{border-top:1px solid #bfbfbf}
 .x{position:absolute;top:calc(7.5 * var(--u));right:calc(16 * var(--u));text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 
-.vsw{position:absolute;right:calc(26.5 * var(--u));top:calc(20.8 * var(--u));white-space:nowrap;z-index:6}
-.vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
-/* ---------- v2 ---------- */
-::selection{background:#000;color:#fff}
-::-moz-selection{background:#000;color:#fff}
-a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
-.big.go{color:#00f}
-#gifs{position:absolute;inset:0;pointer-events:none;z-index:5}
-#adgif{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:8}
-#adgif .gif{height:auto}
-.gif{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--u));width:calc(var(--w) * var(--u));height:auto;display:block}
+/* ---------- v3 ---------- */
+::selection{background:#e04918;color:#000}
+::-moz-selection{background:#e04918;color:#000}
+a:hover,.fb:hover,.flt li button:hover,.x:hover,.clr:hover{color:#e04918}
+a,.fb,.flt li button,.x,.clr{transition:color .15s ease}
+.tile{position:relative;isolation:isolate;animation:fadein .25s ease both}
+.tile::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.tile:hover::before,.tile:focus-visible::before{opacity:1}
+.tile:hover::after,.tile:focus-visible::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
+.pic{position:relative;isolation:isolate;cursor:default;line-height:0;overflow:hidden}
+.fly{position:absolute;left:0;top:0;z-index:3;white-space:nowrap;font-size:calc(19 * var(--u));line-height:calc(24 * var(--u));color:#000;pointer-events:none;will-change:transform}
+.pic::before{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.pic.on::before{opacity:1}
+.pic.on::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
+body.noov .tile::after,body.noov .pic::after{display:none!important}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+#v-main:not([hidden]),#v-index:not([hidden]){animation:fadein .25s ease}
+dialog[open]{animation:fadein .2s ease}
+dialog[open]::backdrop{animation:fadein .2s ease}
+/* ---------- v2 main page (everything here is measured on the 1920 artboard and scales with the window width) ---------- */
+:root{--mu:calc(100vw / 1920);--cb:max(72px,calc(156 * var(--mu)))}
+#v-main{position:relative;overflow:hidden;min-height:100vh;padding:calc(370 * var(--mu)) 0 calc(124 * var(--mu)) calc(79 * var(--mu))}
+.mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
+.mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
+.mbig{position:absolute;left:calc(94 * var(--mu));top:calc(122.6 * var(--mu));z-index:3;font:400 calc(222.7 * var(--mu))/calc(222.7 * var(--mu)) var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu));text-decoration-skip-ink:none}
+.mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
+.mtx p{margin:0 0 calc(210 * var(--mu))}
+.mtx p:last-child{margin-bottom:0}
+.mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
+.mtx a.trig:hover{color:inherit}
+/* the Friend photo sits behind the text; it shows in colour while hovered */
+.fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(../images/friend-ads-nyt.webp)}
+.fp img{display:block;width:100%;height:100%;object-fit:cover;opacity:.44}
+.fp::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.fp.on::before{opacity:1}
+.fp.on::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
+body.noov .fp::after{display:none!important}
+.fpx{position:absolute;z-index:6;box-sizing:border-box;width:max(24px,calc(35 * var(--mu)));height:max(24px,calc(35 * var(--mu)));padding:calc(5 * var(--mu));border:max(2px,calc(3 * var(--mu))) solid #000;background:#fff;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s ease}
+.fpx svg{width:100%;height:100%;display:block}
+.fpx:hover{color:#e04918}
+.fpc{position:absolute;z-index:3;right:calc(33 * var(--mu));font-size:max(10px,calc(10.5 * var(--mu)));line-height:1.3;color:rgba(0,0,0,.45);white-space:nowrap}
+/* the cycling ad, scaled to fit a 156 x 156 box aligned to the top right */
+.cyc{position:absolute;top:calc(25 * var(--mu));right:calc(25 * var(--mu));width:var(--cb);height:var(--cb);z-index:7;display:block}
+.cyc img{position:absolute;top:0;right:0;max-width:100%;max-height:100%;width:auto;height:auto;display:block;opacity:1;transition:opacity .3s ease}
+.cyc img.out{opacity:0}
+/* ads scattered down the page; the cursor knocks them away */
+#scatter{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:4}
+.sad{position:absolute;display:block;pointer-events:none;will-change:transform,opacity}
 /* ---------- small screens ---------- */
 @media(max-width:900px){
   :root{--u:min(calc(100vw / 480),1px);--m:24px;--lh:calc(23 * var(--u))}
   body{font-size:calc(19 * var(--u))}
-  #v-main{height:auto;min-height:100vh;padding:24px var(--m) 48px;display:flex;flex-direction:column;gap:0}
-  #v-main>*:not(.bg){position:static!important}
-  #v-main>.vsw{position:absolute!important;top:24px;right:24px}
-  #v-main>#gifs{position:fixed!important;z-index:9}
-  .gif{left:calc(var(--x) / 1920 * 100%);top:calc(var(--y) / 1080 * 100%);width:calc(var(--w) / 1920 * 100%)}
   .hdr{margin-bottom:12vh}
-  .big{font-size:16vw;line-height:1;white-space:normal;text-decoration-thickness:max(3px,.9vw);text-underline-offset:.08em;margin-bottom:12vh;width:max-content;max-width:100%}
   .sub{margin-bottom:var(--lh)}
-  .txt{width:auto}
-  .credit{margin-top:24px;text-align:left;font-size:12px;opacity:.6}
   .side{position:static;width:auto;padding:24px var(--m) 0;display:flex;flex-wrap:wrap;gap:12px 28px;pointer-events:auto}
   .side>*,.side .hdr,.side .sub{position:static!important;transform:none!important}
   .side .hdr{width:100%}
@@ -112,18 +136,23 @@ a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
 </head>
 <body>
 <main id="v-main" aria-label="AI Ad Archive">
-  <img class="bg" src="../images/friend-ads-nyt.webp" alt="" decoding="async">
-  <a class="hdr" href="#/">AI AD ARCHIVE</a>
-  <div class="vsw"><a href="../v1/">v1.</a> <a href="./">v2.</a> <a href="../">v3.</a></div>
-  <a class="big" href="#/archive">Enter the Archive</a>
-  <a class="sub" id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
-  <div class="txt">
-    <p>The current state advertisement fucking sucks. Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now. Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash (<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">“on purpose”</a>). Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are going as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a> among others. Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
+  <div class="fp" id="fp" aria-hidden="true"><img src="../images/friend-ads-nyt.webp" alt="" decoding="async"></div>
+  <button class="fpx" id="fpx" type="button" aria-label="Close the photo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3 L17 17 M17 3 L3 17" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+  <div class="fpc" id="fpc">Hiroko Masuike/The New York Times</div>
+  <div class="mh"><a href="#/">AI AD ARCHIVE</a><a id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a><span class="vs2"><a href="../">v1.</a> <a href="./">v2.</a></span></div>
+  <a class="cyc" id="cyc" href="#/archive" aria-label="Open the archive"><img id="cycimg" alt=""></a>
+  <a class="mbig" href="#/archive">Enter the Archive</a>
+  <div class="mtx" id="mtx">
+    <p>The current state advertisement fucking sucks.</p>
+    <p>Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now.</p>
+    <p>Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash “<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">on purpose</a>”. Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are headed as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a>, among others.</p>
+    <p>Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
     <p>As such, this site seeks to paint a bigger picture, a geographic and temporal web to catalogue all the ephemeral advertisements that are selling AI.</p>
-    <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?  - are all questions this site seeks to help answer. Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you. In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
+    <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?&nbsp; - are all questions this site seeks to help answer.</p>
+    <p>Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you.</p>
+    <p>In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
   </div>
-  <div id="gifs" aria-hidden="true"></div>
-  <div class="credit">Hiroko Masuike/The New York Times</div>
+  <div id="scatter" aria-hidden="true"></div>
 </main>
 
 <div id="v-index" hidden>
@@ -133,7 +162,6 @@ a:hover,.fb:hover,.flt li button:hover,.x:hover{color:#00f}
     <nav class="flt" id="flt" aria-label="Filters"></nav>
   </aside>
   <div class="grid" id="grid"></div>
-  <div id="adgif" aria-hidden="true"></div>
 </div>
 <dialog id="dlg" aria-label="Ad details"></dialog>
 
@@ -149,20 +177,33 @@ function uniq(k){return DATA.map(function(d){return d[k]}).filter(function(v,i,a
 var SORT='desc';
 function fmtM(m){if(!m||m==='?')return 'Date unknown';var p=m.split('-');return MON[+p[1]-1]+' '+p[0]}
 var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(function(m){return m!=='?'}).sort();if(SORT!=='asc')a.reverse();return uniq('month').indexOf('?')>-1?a.concat('?'):a}},{k:'loc',l:'Location',v:function(){return uniq('loc').sort()}},{k:'type',l:'Type',v:function(){return['In person','Online']}}];
-var SEL={},OPEN='';
+var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<span class="lab">Filter:</span>'+F.map(function(f){
+  $('flt').innerHTML='<div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
-    if(on){opts='<ul>';
-      if(f.k==='month')opts+=li('sort','desc','Newest first',SORT==='desc')+li('sort','asc','Oldest first',SORT==='asc');
-      opts+=[''].concat(f.v()).map(function(v,i){return li(f.k,v,v?(f.f?f.f(v):v):'All',(SEL[f.k]||'')===v,(i===0&&f.k==='month')?'sep':'')}).join('')+'</ul>'}
+    if(on){
+      var items='';
+      if(f.k==='month')items+=li('sort','desc','Newest first',SORT==='desc')+li('sort','asc','Oldest first',SORT==='asc');
+      items+=f.v().map(function(v,i){return li(f.k,v,f.f?f.f(v):v,(SEL[f.k]||'')===v,(i===0&&f.k==='month')?'sep':'')}).join('');
+      opts='<div class="ow'+(ANIM===f.k?' in':'')+'"><ul>'+items+'</ul></div>';
+    }
     return '<div class="f"><button type="button" class="fb'+(on||act?' ul':'')+'" data-k="'+f.k+'" aria-expanded="'+on+'">'+f.l+'</button>'+opts+'</div>';
   }).join('');
+  ANIM='';
 }
 $('flt').addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;var k=b.dataset.k;
-  if(b.classList.contains('fb')){OPEN=OPEN===k?'':k}else if(k==='sort'){SORT=b.dataset.v}else{SEL[k]=b.dataset.v}
+  var b=e.target.closest('button');if(!b||CLOSING)return;var k=b.dataset.k;
+  if(k==='clear'){SEL={};SORT='desc';OPEN='';drawF();render();return}
+  if(b.classList.contains('fb')){
+    if(OPEN===k){
+      var ow=b.parentNode.querySelector('.ow');
+      if(ow){CLOSING=true;ow.classList.remove('in');ow.classList.add('out');setTimeout(function(){OPEN='';CLOSING=false;drawF()},220)}else{OPEN='';drawF()}
+      return;
+    }
+    OPEN=k;ANIM=k;drawF();return;
+  }
+  if(k==='sort'){SORT=b.dataset.v}else{SEL[k]=(SEL[k]===b.dataset.v)?'':b.dataset.v}
   drawF();render();
 });
 
@@ -170,7 +211,7 @@ function art(d){return '<img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad
 function cmp(a,b){var x=a.date,y=b.date;if(!x&&!y)return a.id-b.id;if(!x)return 1;if(!y)return -1;if(x!==y)return SORT==='asc'?(x<y?-1:1):(x<y?1:-1);return a.id-b.id}
 function render(){
   var L=DATA.filter(function(d){return F.every(function(f){return !SEL[f.k]||d[f.k]===SEL[f.k]})}).sort(cmp);
-  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="../thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
+  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" style="--img:url(../thumbs/'+d.image+')" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="../thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
 }
 
 /* details */
@@ -186,64 +227,190 @@ function showAd(d,w,h){
   var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
   var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)],['Location','NY'+(d.spot?', '+d.spot:'')]];
   if(d.up&&d.up!=='Archive')rows.push(['Uploader',d.up]);
-  dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><div class="pic"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></div><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
+  dlg.innerHTML='<button class="x" type="button" onclick="dlg.close()">Close</button><div class="d"><button type="button" class="pic" aria-label="Show in colour" style="--img:url(../images/'+d.image+')"><img src="../images/'+d.image+'" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'" style="width:calc('+W+' * var(--u));height:calc('+H+' * var(--u))"></button><div class="info">'+rows.map(function(r){return '<div class="r"><span>'+r[0]+'</span><span>'+esc(r[1])+'</span></div>'}).join('')+'</div></div>';
   if(!dlg.open)dlg.showModal();
+  CURAD=d;
+  var pic=dlg.querySelector('.pic');
+  if(touch){pic.addEventListener('click',function(){popOn(pic,!pic.classList.contains('on'))})}
+  else{
+    pic.addEventListener('mouseenter',function(){popOn(pic,true)});
+    pic.addEventListener('mouseleave',function(){popOn(pic,false)});
+    pic.addEventListener('focus',function(){popOn(pic,true)});
+    pic.addEventListener('blur',function(){popOn(pic,false)});
+  }
 }
-$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(!t||GBUSY)return;last=t;playAdGif(t,t.dataset.id)});
+$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(t){last=t;openAd(t.dataset.id)}});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
 dlg.addEventListener('close',function(){if(last)last.focus()});
 
-/* hover photo: instant, no animation. Touch screens toggle it with a tap. */
-var vm=$('v-main'),tg=$('trig'),touch=matchMedia('(hover:none)').matches;
-tg.addEventListener('mouseenter',function(){vm.classList.add('on')});
-tg.addEventListener('mouseleave',function(){vm.classList.remove('on')});
-tg.addEventListener('focus',function(){vm.classList.add('on')});
-tg.addEventListener('blur',function(){vm.classList.remove('on')});
-tg.addEventListener('click',function(){if(touch)vm.classList.toggle('on')});
+var touch=matchMedia('(hover:none)').matches;
+
+/* the popup shows the contributor's comment flying right to left across the photo, at a new random height each pass. */
+var FLY_SPEED=150;             // how fast the comment flies, in artboard px per second
+var FLY_ANIM=null,FLY_EL=null,CURAD=null;
+function stopFly(){if(FLY_ANIM){FLY_ANIM.onfinish=null;FLY_ANIM.cancel();FLY_ANIM=null}if(FLY_EL){FLY_EL.remove();FLY_EL=null}}
+function startFly(){
+  stopFly();
+  var d=CURAD,pic=dlg.querySelector('.pic');
+  if(!d||!d.comment||!pic||!pic.classList.contains('on')||!dlg.open)return;
+  var el=document.createElement('span');el.className='fly';el.setAttribute('aria-hidden','true');el.textContent=d.comment;pic.appendChild(el);FLY_EL=el;
+  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
+  var run=function(){
+    var W=pic.clientWidth,H=pic.clientHeight,tw=el.offsetWidth,th=el.offsetHeight;
+    el.style.top=Math.max(0,Math.random()*(H-th))+'px';
+    FLY_ANIM=el.animate([{transform:'translateX('+W+'px)'},{transform:'translateX('+(-tw)+'px)'}],{duration:(W+tw)/(FLY_SPEED*U)*1000,easing:'linear',fill:'forwards'});
+    FLY_ANIM.onfinish=run;
+  };
+  run();
+}
+dlg.addEventListener('close',function(){stopFly();updOsc()});
+
+/* ---- slow overlay (the faint copy of a photo that oscillates between 1% and 8% opacity) ---- */
+var COLOR_OVERLAY=true;        // set to false to turn the slow overlay off
+var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range (1% to 8%)
+var OV_PERIOD=6;               // seconds for one full slow cycle
+var OV_RAF=0,OV_T0=0,OV_ON=false,FPON=false;
+function ovTick(t){var s=(Math.sin(2*Math.PI*((t-OV_T0)/1000)/OV_PERIOD-Math.PI/2)+1)/2;document.documentElement.style.setProperty('--ov',(OV_MIN+(OV_MAX-OV_MIN)*s).toFixed(4));OV_RAF=requestAnimationFrame(ovTick)}
+/* The popup photo shows in colour while it is hovered (a tap toggles it on touch screens). */
+function popOn(p,on){p.classList.toggle('on',on);startFly();updOsc()}
+/* The overlay runs only while something coloured can be on screen. */
+function updOsc(){
+  var need=COLOR_OVERLAY&&(FPON||!$('v-index').hidden||(dlg.open&&!!dlg.querySelector('.pic.on')));
+  if(need&&!OV_ON){OV_ON=true;OV_T0=performance.now();OV_RAF=requestAnimationFrame(ovTick)}
+  else if(!need&&OV_ON){OV_ON=false;cancelAnimationFrame(OV_RAF)}
+}
+document.body.classList.toggle('noov',!COLOR_OVERLAY);
+
+/* ---- v2 main page ---- */
+var CYC_MS=4000;                  // how often the top-right ad changes
+var AD_PAD=40;                    // collision border around a scattered ad (artboard px)
+var AD_W_MIN=330,AD_W_MAX=860;    // scattered ad width range (artboard px)
+var AD_GAP_START=1100;            // scrolling (artboard px) per new ad near the top of the page...
+var AD_GAP_END=380;               // ...down to this near the bottom, so more ads appear the further you scroll
+var AD_MAX=70;                    // most ads on the page at once
+var main=$('v-main'),fp=$('fp'),fpx=$('fpx'),fpc=$('fpc'),tg=$('trig'),sc=$('scatter');
+var MAIN_ON=false,FPCLOSED=false,phraseOver=false,lastPX=-1,lastPY=-1;
+function mu(){return main.getBoundingClientRect().width/1920}
+function placeFP(){
+  var rs=tg.getClientRects();if(!rs.length||main.hidden)return;
+  var mr=main.getBoundingClientRect(),m=mr.width/1920,r0=rs[0];
+  var top=(r0.top-mr.top)+217.3*m+196*m;                 // photo top = first phrase baseline + 196px
+  fp.style.top=top+'px';
+  var fh=fp.offsetHeight||1037*m,fw=fp.offsetWidth||1843*m;
+  var bs=Math.max(24,35*m);
+  fpx.style.top=(top+9*m)+'px';fpx.style.left=(44*m+fw-10*m-bs)+'px';
+  fpc.style.top=(top+fh+8*m)+'px';
+}
+function fpSet(on){on=!!on&&!FPCLOSED;if(on===FPON)return;FPON=on;fp.classList.toggle('on',on);updOsc()}
+function fpCheck(){
+  if(!MAIN_ON||FPCLOSED||touch)return;
+  var r=fp.getBoundingClientRect();
+  fpSet(phraseOver||(lastPX>=r.left&&lastPX<=r.right&&lastPY>=r.top&&lastPY<=r.bottom));
+}
+tg.addEventListener('mouseenter',function(){phraseOver=true;fpCheck()});
+tg.addEventListener('mouseleave',function(){phraseOver=false;fpCheck()});
+tg.addEventListener('focus',function(){phraseOver=true;fpCheck()});
+tg.addEventListener('blur',function(){phraseOver=false;fpCheck()});
+fpx.addEventListener('click',function(){FPCLOSED=true;fpSet(false);fp.hidden=true;fpx.hidden=true;fpc.hidden=true});
+if(touch){fp.style.pointerEvents='auto';fp.addEventListener('click',function(){fpSet(!FPON)})}
+
+/* cycling ad */
+var CYC_T=0,CYC_I=-1;
+function cycNext(first){
+  if(!DATA.length)return;
+  var img=$('cycimg'),i;
+  do{i=Math.floor(Math.random()*DATA.length)}while(DATA.length>1&&i===CYC_I);
+  CYC_I=i;var src='../thumbs/'+DATA[i].image;
+  var swap=function(){var t=new Image();t.onload=function(){img.src=src;img.classList.remove('out')};t.src=src};
+  if(first){swap()}else{img.classList.add('out');setTimeout(swap,300)}
+}
+function cycStart(){clearInterval(CYC_T);if(!DATA.length)return;cycNext(true);CYC_T=setInterval(cycNext,CYC_MS)}
+
+/* scattered ads: spawned out of view as you scroll, in growing numbers; the cursor knocks them away before they can be hovered */
+var ADS=[],SC_LAST=0,SC_BUDGET=0,SC_TICK=false,PX=-1,PY=-1,LASTW=0;
+function rnd(a,b){return a+Math.random()*(b-a)}
+function spawn(dir){
+  var d=DATA[Math.floor(Math.random()*DATA.length)];if(!d)return;
+  var im=new Image();
+  im.onload=function(){
+    if(!MAIN_ON||!im.naturalWidth)return;
+    var m=mu(),W=main.getBoundingClientRect().width,vh=innerHeight,docH=main.offsetHeight;
+    var w=rnd(AD_W_MIN,AD_W_MAX)*m,h=w*im.naturalHeight/im.naturalWidth;
+    if(h>900*m){h=900*m;w=h*im.naturalWidth/im.naturalHeight}
+    var vt=scrollY,vb=vt+vh,x=rnd(-0.1*w,W-0.9*w),top=dir>0?vb+rnd(0.15,1.3)*vh:vt-rnd(0.15,1.3)*vh-h;
+    top=Math.max(0,Math.min(docH-h,top));
+    if(top<vb&&top+h>vt)return;                         // never appear in view
+    var el=document.createElement('img');el.className='sad';el.alt='';el.src=im.src;
+    el.style.left=x+'px';el.style.top=top+'px';el.style.width=w+'px';
+    sc.appendChild(el);ADS.push({el:el,x:x,y:top,w:w,h:h,flying:false});
+    if(ADS.length>AD_MAX){var mid=scrollY+vh/2,far=0,fi=0;ADS.forEach(function(a,i){var dd=Math.abs(a.y+a.h/2-mid);if(!a.flying&&dd>far){far=dd;fi=i}});var o=ADS.splice(fi,1)[0];o.el.remove()}
+  };
+  im.src='../thumbs/'+d.image;
+}
+function spawnStep(){
+  SC_TICK=false;if(!MAIN_ON||!DATA.length)return;
+  var y=scrollY,dy=y-SC_LAST;SC_LAST=y;if(!dy)return;
+  var m=mu(),docH=main.offsetHeight,vh=innerHeight,p=Math.max(0,Math.min(1,y/Math.max(1,docH-vh)));
+  var gap=AD_GAP_START+(AD_GAP_END-AD_GAP_START)*p;
+  SC_BUDGET+=Math.abs(dy)/m/gap;
+  var n=0;while(SC_BUDGET>=1&&n<4){SC_BUDGET--;n++;spawn(dy>0?1:-1)}
+}
+function segHits(x0,y0,x1,y1,l,t,r,b){
+  var dx=x1-x0,dy=y1-y0,len=Math.hypot(dx,dy),n=Math.max(1,Math.ceil(len/12));
+  for(var i=0;i<=n;i++){var x=x0+dx*i/n,y=y0+dy*i/n;if(x>=l&&x<=r&&y>=t&&y<=b)return true}
+  return false;
+}
+function knock(a,cx,cy,vx,vy){
+  a.flying=true;
+  var ax=a.x+a.w/2,ay=a.y+a.h/2,dx=ax-cx,dy=ay-cy,l=Math.hypot(dx,dy)||1;dx/=l;dy/=l;
+  var vl=Math.hypot(vx,vy);if(vl>0){dx+=vx/vl*0.6;dy+=vy/vl*0.6;var k=Math.hypot(dx,dy)||1;dx/=k;dy/=k}
+  var dist=Math.hypot(innerWidth,innerHeight)*1.1,rot=rnd(-30,30)+(dx>0?25:-25);
+  a.el.style.transition='transform .7s cubic-bezier(.2,.6,.3,1),opacity .7s ease-in';
+  a.el.style.transform='translate('+dx*dist+'px,'+dy*dist+'px) rotate('+rot+'deg)';
+  a.el.style.opacity='0';
+  setTimeout(function(){a.el.remove();var i=ADS.indexOf(a);if(i>-1)ADS.splice(i,1)},760);
+}
+function knockCheck(reset){
+  if(!MAIN_ON||lastPX<0||!ADS.length){if(lastPX>=0){PX=lastPX+scrollX;PY=lastPY+scrollY}return}
+  var dx=lastPX+scrollX,dy=lastPY+scrollY,px=(reset||PX<0)?dx:PX,py=(reset||PX<0)?dy:PY;
+  PX=dx;PY=dy;
+  var pad=AD_PAD*mu();
+  ADS.slice().forEach(function(a){
+    if(a.flying)return;
+    if(segHits(px,py,dx,dy,a.x-pad,a.y-pad,a.x+a.w+pad,a.y+a.h+pad))knock(a,dx,dy,dx-px,dy-py);
+  });
+}
+addEventListener('pointermove',function(e){lastPX=e.clientX;lastPY=e.clientY;if(MAIN_ON){fpCheck();knockCheck(false)}},{passive:true});
+addEventListener('pointerdown',function(e){lastPX=e.clientX;lastPY=e.clientY;if(MAIN_ON)knockCheck(true)},{passive:true});
+document.addEventListener('mouseleave',function(){PX=-1;lastPX=-1;lastPY=-1;phraseOver=false;fpCheck()});
+addEventListener('scroll',function(){
+  if(!MAIN_ON)return;
+  fpCheck();knockCheck(false);
+  if(!SC_TICK){SC_TICK=true;requestAnimationFrame(spawnStep)}
+},{passive:true});
+addEventListener('resize',function(){
+  placeFP();
+  var w=innerWidth;if(LASTW&&Math.abs(w-LASTW)>40){ADS.forEach(function(a){a.el.remove()});ADS=[];SC_BUDGET=0}
+  LASTW=w;
+});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(placeFP);
+function startMain(){MAIN_ON=true;LASTW=innerWidth;placeFP();cycStart();SC_LAST=scrollY;fpCheck()}
+function stopMain(){
+  MAIN_ON=false;clearInterval(CYC_T);
+  ADS.forEach(function(a){a.el.remove()});ADS=[];SC_BUDGET=0;PX=-1;
+  FPON=false;fp.classList.remove('on');updOsc();
+}
 
 function route(){
-  resetGifs();
   var p=(location.hash||'#/').slice(2).split('/'),idx=p[0]==='archive'||p[0]==='index';
   $('v-main').hidden=idx;$('v-index').hidden=!idx;
   document.title=idx?'AI Ad Archive: Index':'AI Ad Archive';
   if(dlg.open)dlg.close();
   scrollTo(0,0);
   if(idx){drawF();render();if(p[1])openAd(p[1])}
+  if(idx)stopMain();else startMain();
+  updOsc();
 }
-
-/* v2: gifs play first, then the page changes. The waits are fixed so the gifs always get their time. */
-var GIFS=[{f:'rocket',x:245,y:11,w:576},{f:'explosion',x:28,y:187,w:464},{f:'greenscreen',x:972,y:61,w:298},{f:'rocket',x:1493,y:178,w:298},{f:'explosion',x:972,y:317,w:896},{f:'greenscreen',x:55,y:496,w:576}];
-var MAIN_WAIT=1800,AD_WAIT=1800,AD_W=576;
-var GBLOB={},GURLS=[],GT=0,GBUSY=false,BIG=document.querySelector('.big');
-function loadGifs(){return Promise.all(['rocket','explosion','greenscreen'].map(function(k){return GBLOB[k]?0:fetch('gifs/'+k+'.gif').then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){GBLOB[k]=b})}))}
-function gifSrc(k){if(GBLOB[k]){var u=URL.createObjectURL(GBLOB[k]);GURLS.push(u);return u}return 'gifs/'+k+'.gif?t='+Date.now()}
-function mkGif(k,box,style){return new Promise(function(res){var im=new Image();im.className='gif';im.alt='';im.style.cssText=style;im.onload=res;im.onerror=res;im.src=gifSrc(k);box.appendChild(im)})}
-function clearUrls(){GURLS.forEach(function(u){URL.revokeObjectURL(u)});GURLS=[]}
-function resetGifs(){clearTimeout(GT);$('gifs').innerHTML='';$('adgif').innerHTML='';clearUrls();BIG.classList.remove('go');GBUSY=false}
-function playGifs(){
-  if(GBUSY)return;GBUSY=true;
-  loadGifs().catch(function(){}).then(function(){
-    return Promise.all(GIFS.map(function(g){return mkGif(g.f,$('gifs'),'--x:'+g.x+';--y:'+g.y+';--w:'+g.w)}));
-  }).then(function(){
-    BIG.classList.add('go');
-    GT=setTimeout(function(){location.hash='#/archive'},MAIN_WAIT);
-  });
-}
-function playAdGif(tile,id){
-  GBUSY=true;
-  var d=DATA.filter(function(x){return x.id==id})[0];if(d){var pre=new Image();pre.src='../images/'+d.image}
-  var cw=document.documentElement.clientWidth,U=cw>900?cw/1920:Math.min(cw/480,1);
-  var w=Math.min(AD_W*U,cw*1.3),h=w*0.75,r=tile.getBoundingClientRect(),host=$('v-index').getBoundingClientRect();
-  var left=r.left-host.left+r.width/2-w/2,top=r.top-host.top+r.height/2-h/2;
-  loadGifs().catch(function(){}).then(function(){
-    return mkGif('greenscreen',$('adgif'),'left:'+left+'px;top:'+top+'px;width:'+w+'px');
-  }).then(function(){
-    GT=setTimeout(function(){$('adgif').innerHTML='';clearUrls();GBUSY=false;openAd(id)},AD_WAIT);
-  });
-}
-BIG.addEventListener('click',function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();playGifs()});
-BIG.addEventListener('pointerenter',function(){loadGifs().catch(function(){})});
-if('requestIdleCallback' in window)requestIdleCallback(function(){loadGifs().catch(function(){})});
 addEventListener('hashchange',route);
 route();
 fetch('../ads.json').then(function(r){return r.json()}).then(function(j){

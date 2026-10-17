@@ -9,9 +9,10 @@ The site is plain static files. There is no build step.
 
 | Path | What it is |
 |---|---|
-| `index.html` | The live site (formerly v3): main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
-| `v1/` | Version 1 (`index.html`). Not linked from the site. Kept in the repo. |
-| `v2/` | Version 2 (`index.html` plus `gifs/`). Not linked from the site. Kept in the repo. See the v2 section below. |
+| `index.html` | **v1**, the homepage (the current state, formerly v3): main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
+| `v2/` | **v2**, an alternate version with a new main page (`index.html`). See the v2 section below. |
+| `v1-legacy/` | The old v1. Not linked from the site. Kept in the repo. |
+| `v2-legacy/` | The old v2 (`index.html` plus `gifs/`). Not linked from the site. Kept in the repo. See the v2 legacy section below. |
 | `v3/` | A redirect to the homepage, so old v3 links still work. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
 | `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
@@ -63,25 +64,35 @@ The site is plain static files. There is no build step.
 
 Photos of any shape work. Every ad sits centred and uncropped in a square box.
 
-## v2
+## v2 legacy
 
-An alternative version of the site lives in `v2/` (https://cataphracttt.github.io/ArchiveofSlop/v2/). It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a "v1. v2." switcher at the top right.
+The old v2 lives in `v2-legacy/`. It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a "v1. v2." switcher at the top right.
 
-v2 differences from v1:
+v2 legacy differences from the old v1:
 
-- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after a fixed countdown (`MAIN_WAIT` in `v2/index.html`, in milliseconds). The countdown runs even if a gif is slow to load, and it ignores the reduced-motion setting.
+- Pressing "Enter the Archive" plays six gifs in fixed positions on the main page, all at once. Each plays once and holds its last frame, and the archive opens after a fixed countdown (`MAIN_WAIT` in `v2-legacy/index.html`, in milliseconds). The countdown runs even if a gif is slow to load, and it ignores the reduced-motion setting.
 - Clicking an ad in the archive plays `greenscreen.gif` (576px wide on the artboard) centred on that ad, and the info popup opens after a fixed delay (`AD_WAIT`, in milliseconds). Clicks are ignored while the gif plays. Links straight to an ad (`#/archive/21`) open the popup immediately.
-- The gifs are in `v2/gifs/` (`rocket.gif`, `explosion.gif`, `greenscreen.gif`). They are copies of the originals with the loop flag removed so they play once.
+- The gifs are in `v2-legacy/gifs/` (`rocket.gif`, `explosion.gif`, `greenscreen.gif`). They are copies of the originals with the loop flag removed so they play once.
 - Text selection is black with white text.
 - Link hovers are blue (#0000FF), the same blue the "Enter the Archive" title turns on hover and while the gifs play.
 
+## v2
+
+An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a new main page. The archive page is the same as v1's.
+
+- The main page is one long scroll in 205px type on a 210px line (everything is measured on the 1920px artboard and scales with the window width). The paragraph breaks and line breaks follow the Illustrator mockup: the text box is 1759px wide, which reproduces every line break. Blank lines are one full line high. "AI AD ARCHIVE", Submit and the "v1. v2." switcher sit in the top-left row, and "Enter the Archive" is the first big underlined line.
+- Top right: an ad from the archive, scaled to fit a 156 x 156 box aligned to the top right, changes at random every 4 seconds (`CYC_MS`). Clicking it goes to the archive.
+- The Friend photo sits behind the text, centred on the "Think of the infamous friend ads..." phrase, with a close X at its top right. It shows in the colour effect while the photo or the phrase is hovered, and the X hides it until the page is refreshed. The phrase links to the New York Times article.
+- Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the v2 main-page script in `v2/index.html`.
+- On touch screens a tap on the photo toggles colour and a tap near an ad knocks it away.
+
 ## Friend link (all versions)
 
-On the live site, v1 and v2 the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
+On v1, v2 and the legacy versions the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
 
-## The live site (formerly v3)
+## v1 (the homepage)
 
-The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is what used to be v3, a copy of v1 with a colour mode. v1 and v2 are still in the repo (`v1/`, `v2/`) but nothing on the site links to them. They share the photos, fonts and `ads.json`.
+The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is the current state of the site, which used to be v3. It has a "v1. v2." switcher at the top right of the main page. The old versions are kept in `v1-legacy/` and `v2-legacy/` but nothing links to them. Everything shares the photos, fonts and `ads.json`.
 
 - Text selection is #e04918 with black text. After colour mode is triggered, selection on the main page (only) is #5963e0. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
 - Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again. When it is on, the main page background stays in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
