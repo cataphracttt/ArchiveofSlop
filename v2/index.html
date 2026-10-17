@@ -119,18 +119,23 @@ body.noov .fp::after{display:none!important}
 dialog{border-width:var(--stroke)}
 #v-main{font-family:var(--ret)}
 /* ---------- v2 archive: overlapping layout ---------- */
-.side{left:0;width:calc(201 * var(--u));z-index:1;background:#fff}
-.side>*{pointer-events:none}
-.side.rev{z-index:50;clip-path:inset(0 calc((1 - var(--rv,0)) * 201 * var(--u)) 0 0)}
-.side.rev>*{pointer-events:auto}
+.side{left:0;width:calc(224 * var(--u));z-index:1;background:#fff}
 .side .hdr,.side .sub,.flt{left:calc(43 * var(--u))}
-.tg{display:block;position:relative;width:calc(25 * var(--u));height:calc(12 * var(--u));margin:calc(5.5 * var(--u)) 0 calc(18.5 * var(--u));padding:0;border-radius:999px;background:#000;cursor:pointer}
-.tg::after{content:'';position:absolute;left:calc(1.5 * var(--u));top:calc(1.5 * var(--u));width:calc(9 * var(--u));height:calc(9 * var(--u));border-radius:50%;background:#fff;transition:transform .2s ease}
-.tg[aria-checked=true]::after{transform:translateX(calc(13 * var(--u)))}
-.grid.abs{display:block;position:relative;z-index:2;margin:0;padding:0;overflow:hidden;height:calc(var(--gh,1080) * var(--u))}
-.grid.abs .tile{position:absolute;--w:var(--bw);--h:var(--bh);width:calc(var(--w) * var(--u));height:calc(var(--h) * var(--u));left:calc((var(--cx) - var(--w) / 2) * var(--u));top:calc((var(--cy) - var(--h) / 2) * var(--u));aspect-ratio:auto;pointer-events:none;z-index:var(--z,1);transition:width .25s ease,height .25s ease,left .25s ease,top .25s ease}
+.szs{display:flex;align-items:center;gap:calc(16 * var(--u));height:calc(54 * var(--u));margin-bottom:calc(50 * var(--u))}
+.sz{display:block;padding:0;border:0;background:none;color:#000;cursor:pointer;line-height:0;transition:color .15s ease}
+.sz[data-v=big]{width:calc(54 * var(--u));height:calc(54 * var(--u))}
+.sz[data-v=small]{width:calc(20 * var(--u));height:calc(20 * var(--u))}
+.sz svg{display:block;width:100%;height:100%;overflow:visible}
+.sz rect{fill:none;stroke:currentColor;stroke-width:var(--stroke);vector-effect:non-scaling-stroke;transition:fill .15s ease}
+.sz.on rect{fill:currentColor}
+.sz:hover{color:#e04918}
+.grid.abs{display:block;position:relative;z-index:2;margin:0;padding:0;overflow:hidden;clip-path:inset(0 0 0 var(--cw,0px));transition:clip-path .14s ease-out;height:calc(var(--gh,1080) * var(--u))}
+.grid.abs .tile{position:absolute;--w:var(--bw);--h:var(--bh);width:calc(var(--w) * var(--u));height:calc(var(--h) * var(--u));left:calc((var(--cx) - var(--w) / 2) * var(--u));top:calc((var(--cy) - var(--h) / 2) * var(--u));aspect-ratio:auto;pointer-events:none;z-index:var(--z,1);transition:width .25s ease,height .25s ease,left .25s ease,top .25s ease,clip-path .25s ease}
 .grid.abs.small .tile{--w:var(--sw);--h:var(--sh)}
 .grid.abs .tile.hov{z-index:5000}
+/* small layout: every ad is cropped to its own cell (408 of the 432px column pitch), leaving a 24px white gap so long ads never run into their neighbours. The hovered ad is shown whole, on top. */
+.grid.abs .tile{clip-path:inset(0 0 0 0)}
+.grid.abs.small .tile:not(.hov){clip-path:inset(0 max(0px,calc((var(--sw) - 408) / 2 * var(--u))))}
 .grid.abs .tile.hov::before{opacity:1}
 .grid.abs .tile.hov::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
 .grid.abs .empty{position:absolute;left:calc(224 * var(--u));top:calc(54.5 * var(--u))}
@@ -144,7 +149,7 @@ dialog{border-width:var(--stroke)}
   .side{position:static;width:auto;padding:24px var(--m) 0;display:flex;flex-wrap:wrap;gap:12px 28px;pointer-events:auto}
   .side>*,.side .hdr,.side .sub{position:static!important;transform:none!important}
   .side>*{pointer-events:auto}
-  .tg{display:none}
+  .szs{display:none}
   .side .hdr{width:100%}
   .flt{position:static;max-height:none;width:100%;display:flex;flex-wrap:wrap;gap:0 24px;align-items:flex-start;overflow:visible}
   .flt .lab{margin:0 24px 0 0}
@@ -205,7 +210,7 @@ var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(functi
 var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<button type="button" class="tg" data-k="size" role="switch" aria-checked="'+SMALL+'" aria-label="Image size"></button><div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
+  $('flt').innerHTML='<div class="szs"><button type="button" class="sz'+(SMALL?'':' on')+'" data-k="size" data-v="big" aria-pressed="'+!SMALL+'" aria-label="Large images"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22"/></svg></button><button type="button" class="sz'+(SMALL?' on':'')+'" data-k="size" data-v="small" aria-pressed="'+SMALL+'" aria-label="Small images"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22"/></svg></button></div><div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
     if(on){
       var items='';
@@ -219,7 +224,7 @@ function drawF(){
 }
 $('flt').addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b||CLOSING)return;var k=b.dataset.k;
-  if(k==='size'){setSmall(!SMALL);drawF();return}
+  if(k==='size'){setSmall(b.dataset.v==='small');drawF();return}
   if(k==='clear'){SEL={};SORT='desc';OPEN='';drawF();render();return}
   if(b.classList.contains('fb')){
     if(OPEN===k){
@@ -450,7 +455,7 @@ function stopMain(){
 
 /* ---- v2 archive: overlapping layout ---- */
 /* Each ad is scaled so its SHORT side is 481px (191px in the small layout), centred on a 432px cell grid, newest on top. */
-var SMALL=false,BIG_S=481,SMALL_S=191,PITCH=432,CX0=414,CY0=324,PANEL=201,HALF=240.5;
+var SMALL=false,BIG_S=481,SMALL_S=191,PITCH=432,CX0=414,CY0=324,PANEL=224,HALF=240.5;
 var HOV=null,TILES=[],ZR={},ABS=false,aX=-1,aY=-1;
 function absMode(){return innerWidth>900}
 function dimsFor(d){var w=d.w||4,h=d.h||3,s=Math.min(w,h);return{bw:w*BIG_S/s,bh:h*BIG_S/s,sw:w*SMALL_S/s,sh:h*SMALL_S/s}}
@@ -466,13 +471,13 @@ function tileAt(x,y){
   }
   return best;
 }
-/* the left column sweeps in over the images as the cursor moves through the left third of the page */
+/* The left column always sits under the images. The images are masked from the left instead: the mask opens as the cursor moves through the left fifth of the page (fully open at PANEL px: 43px of margin either side of "AI AD ARCHIVE"), and stays open in the small layout. */
 function applyReveal(){
-  var side=document.querySelector('.side');if(!side)return;
-  var u=innerWidth/1920,pw=PANEL*u,third=innerWidth/3;
-  var r=!ABS?0:(touch?1:(aX<0?0:Math.max(0,Math.min(1,(third-aX)/(third-pw)))));
-  if(ABS&&OPEN)r=1;
-  side.style.setProperty('--rv',r.toFixed(3));side.classList.toggle('rev',r>0);
+  var g=$('grid');if(!g)return 0;
+  var u=innerWidth/1920,pw=PANEL*u,fifth=innerWidth/5,r;
+  if(!ABS){g.style.removeProperty('--cw');return 0}
+  if(SMALL||touch||OPEN)r=1;else r=aX<0?0:Math.max(0,Math.min(1,(fifth-aX)/(fifth-pw)));
+  g.style.setProperty('--cw',(pw*r).toFixed(1)+'px');
   return r;
 }
 function archMove(){
@@ -491,7 +496,7 @@ function setSmall(on){
 }
 addEventListener('pointermove',function(e){aX=e.clientX;aY=e.clientY;archMove()},{passive:true});
 addEventListener('scroll',function(){archMove()},{passive:true});
-document.addEventListener('mouseleave',function(){setHov(null)});
+document.addEventListener('mouseleave',function(){aX=-1;aY=-1;applyReveal();setHov(null)});
 $('flt').addEventListener('click',function(){setTimeout(archMove,0);setTimeout(archMove,260)});
 addEventListener('resize',function(){if(absMode()!==ABS&&!$('v-index').hidden){render();archMove()}});
 
