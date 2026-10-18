@@ -67,7 +67,7 @@ Photos of any shape work. Every ad sits centred and uncropped in a square box.
 
 ## v2 legacy
 
-The old v2 lives in `v2-legacy/`. It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a "v1. v2." switcher at the top right.
+The old v2 lives in `v2-legacy/`. It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a version switcher that only appears when hovered.
 
 v2 legacy differences from the old v1:
 
@@ -84,6 +84,9 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 - The main page is one long scroll in 205px type on a 210px line (everything is measured on the 1920px artboard and scales with the window width). The paragraph breaks and line breaks follow the Illustrator mockup: the text box is 1759px wide, which reproduces every line break. Blank lines are one full line high. "AI AD ARCHIVE", Submit and the "v1. v2." switcher sit in the top-left row (the top-right corner is empty), and "Enter the Archive" is the first big underlined line.
 - The Friend photo sits behind the text, centred on the "Think of the infamous friend ads..." phrase, with a close X at its top right. It shows in the colour effect while the photo or the phrase is hovered, and the X hides it until the page is refreshed. The phrase links to the New York Times article.
 - Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the v2 main-page script in `v2/index.html`.
+- The version switcher (v1. v2. v3., next to Submit on v2 and v3, top right on v1) is invisible until the cursor is over it, and always visible on touch screens.
+- In the v2 archive, Submit moves up with the filter block when a filter list expands, so the list never covers it.
+- The left column follows the cursor only. It is no longer held open while a filter list is open, and it is released when the pointer leaves the window, the window loses focus, or a popup is closed (the cause of the "column stays on top" bug).
 - On touch screens a tap on the photo toggles colour and a tap near an ad knocks it away.
 - The first line block of text ("The current state of advertisement fucking sucks.") is placed so that "fucking sucks." touches the bottom edge of the window, whatever the window height (the text starts at `100vh - 646px` on the artboard scale, but never higher than its design position), to encourage scrolling.
 - Every link on the main page, including the Friend phrase, turns orange (#e04918) on hover.
@@ -93,7 +96,7 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 - Clicking the page with the left mouse button knocks away every scattered ad that is in view, away from the click point (clicks on links and buttons don't). Knocked ads tilt only a few degrees as they slide off.
 - **Archive layout.** Each ad is scaled so its short side is 481px (the long side is not cropped), centred on a cell grid with columns centred at 414, 846, 1278 and 1710px and rows 432px apart starting at y=324, so neighbours overlap. The newest ad (by date) is on top whichever way the list is sorted. Two image-holder icons above FILTER: (a large and a small rectangle, each with an X through it, centred in the column) switch between the large layout and the small layout, where the short side is 191px, with the same centres. The icon for the current size is filled black (with a white X). In the small layout every ad is cropped to its own cell (408 of the 432px pitch), leaving a 24px white gap so long ads never run into their neighbours (the hovered ad is shown whole, on top).
 - Hovering works on the central 481 x 481 square of each cell in the large layout. In the small layout the target is simply the image itself (as shown, cropped to its cell). Where squares overlap, the nearest centre wins. The hovered ad goes to the top and shows in the colour effect, and clicking opens its popup.
-- The left column always sits underneath the images and shows where they do not cover it. In the large layout the images are masked from the left like a clipping mask: as the cursor moves through the left fifth of the page the mask opens, fully open (224px) once the cursor is within 224px of the edge, which leaves 43px of margin either side of "AI AD ARCHIVE". The mask stays open while a filter list is open. In the small layout the column is simply always visible, with no reveal.
+- The left column always sits underneath the images and shows where they do not cover it. In the large layout the images are masked from the left like a clipping mask: as the cursor moves through the left fifth of the page the mask opens, fully open (224px) once the cursor is within 224px of the edge, which leaves 43px of margin either side of "AI AD ARCHIVE". In the small layout the column is simply always visible, with no reveal.
 - Phones (900px wide or less) keep the simple grid and a plain left column. Touch tablets get the overlapping layout with the left panel always open.
 
 ## v3
@@ -101,7 +104,8 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 A copy of v2 at https://cataphracttt.github.io/ArchiveofSlop/v3/ with these differences:
 
 - Main page: "The current state of advertisement fucking sucks." takes the place of the big title at the top, in the same position as the title was and without the bottom-edge alignment, and "Enter the Archive" (the big underlined link) comes last, one blank line after the final paragraph.
-- Archive: only the small layout (no size icons). The Submit link is removed from the left column, and a link sits centred below the images, in the space to the right of the left column and 43px above the bottom edge: "If you'd like to see more please submit to the archive!" (underlined, links to the Google Form). The page has a little extra space at the bottom (66px) for it.
+- Main page: Submit is underlined, and the margin below "Enter the Archive" at the end of the page equals the left margin (94px on the artboard).
+- Archive: only the small layout (no size icons). The Submit link is removed from the left column, and a link sits centred below the images, in the space to the right of the left column and on the same line as the last line of the filter block (Clear) when scrolled to the bottom: "If you'd like to see more please submit to the archive!" (underlined, links to the Google Form). The page has a little extra space at the bottom (66px) for it.
 - Everything else (the flipping arrow, scattered ads, hover effects, equal space above and below the small layout) is the same as v2.
 
 ## Friend link (all versions)
@@ -110,12 +114,12 @@ On v1, v2 and the legacy versions the phrase "Think of the infamous friend ads t
 
 ## v1 (the homepage)
 
-The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is the current state of the site, which used to be v3. It has a "v1. v2." switcher at the top right of the main page. The old versions are kept in `v1-legacy/` and `v2-legacy/` but nothing links to them. Everything shares the photos, fonts and `ads.json`.
+The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is the current state of the site, which used to be v3. It has a "v1. v2. v3." switcher at the top right of the main page that only appears when the cursor is over it (it is always visible on touch screens, which cannot hover). The old versions are kept in `v1-legacy/` and `v2-legacy/` but nothing links to them. Everything shares the photos, fonts and `ads.json`.
 
 - Text selection is #e04918 with black text. After colour mode is triggered, selection on the main page (only) is #5963e0. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
 - Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again. When it is on, the main page background stays in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
 - In the archive, hovering any tile always shows that tile in the colour effect. In the info popup the photo shows in colour while it is hovered (a tap toggles it on touch screens), and while it is in colour a contributor's comment (if the entry has one) flies right to left across the photo on repeat, clipped to the photo, at a new random height each pass. The popup's colour state does not affect tile hovers or the main page.
-- The sidebar is 43px from the left and the photos start 43px after the widest line ("AI AD ARCHIVE"), so the margins on both sides of the column are even. The filter block reads FILTER: with an underlined Clear on the same line, then Date, Location and Type at an even 36px spacing. There is no "All" option: click a selected option again to turn it off, or press Clear to reset every filter and the sort order. Date lists Newest first / Oldest first, then the months.
+- The sidebar is 43px from the left and the photos start 43px after the widest line ("AI AD ARCHIVE"), so the margins on both sides of the column are even. The filter block reads FILTER:, then Date, Location and Type, and finally an underlined Clear on the last line, all at an even 36px spacing. There is no "All" option: click a selected option again to turn it off, or press Clear to reset every filter and the sort order. Date lists Newest first / Oldest first, then the months.
 - Changes are animated with short (about 0.2 second) fades or slides: filters opening and closing, hover colour on tiles, the popup photo, the main page colour, the hover photo, tiles appearing, the popup opening and link colours.
 - The faint copy of the photo oscillates slowly between 1% and 8% opacity. The settings are at the top of the colour-mode script block in `index.html`:
 

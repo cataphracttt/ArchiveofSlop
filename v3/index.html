@@ -42,6 +42,7 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 @keyframes ex{from{grid-template-rows:0fr;opacity:0}to{grid-template-rows:1fr;opacity:1}}
 .flt .f{display:block}
 .flt .fb{display:block;margin-bottom:calc(13 * var(--u))}
+.flt .clr{display:block;margin-bottom:calc(13 * var(--u))}
 .flt ul{list-style:none;margin:0;padding:0 0 0 calc(9 * var(--u))}
 .flt li button{display:block;margin-bottom:calc(13 * var(--u))}
 .flt li.sep{padding-top:calc(13 * var(--u))}
@@ -85,8 +86,13 @@ dialog[open]{animation:fadein .2s ease}
 dialog[open]::backdrop{animation:fadein .2s ease}
 /* ---------- v2 main page (everything here is measured on the 1920 artboard and scales with the window width) ---------- */
 :root{--mu:calc(100vw / 1920)}
-#v-main{position:relative;overflow:hidden;min-height:100vh;padding:calc(137.1 * var(--mu)) 0 calc(210 * var(--mu)) calc(79 * var(--mu))}
+#v-main{position:relative;overflow:hidden;min-height:100vh;padding:calc(137.1 * var(--mu)) 0 calc(92.7 * var(--mu)) calc(79 * var(--mu))}
 .mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
+.vs2{position:relative;opacity:0;transition:opacity .2s ease}
+.vs2::before{content:'';position:absolute;inset:calc(-12 * var(--mu))}
+.vs2:hover,.vs2:focus-within{opacity:1}
+@media(hover:none){.vs2{opacity:1}}
+.mh #subm{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
 .mbig{position:absolute;left:calc(94 * var(--mu));top:calc(122.6 * var(--mu));z-index:3;font:400 calc(222.7 * var(--mu))/calc(222.7 * var(--mu)) var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu));text-decoration-skip-ink:none}
 .mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
@@ -106,7 +112,7 @@ body.noov .fp::after{display:none!important}
 .fpx:hover{color:#e04918}
 .fpc{position:absolute;z-index:3;right:calc(33 * var(--mu));font-size:max(10px,calc(10.5 * var(--mu)));line-height:1.3;color:rgba(0,0,0,.45);white-space:nowrap}
 /* archive footer link */
-.ftr{position:absolute;left:calc((224 * var(--u) + 100%) / 2);transform:translateX(-50%);bottom:calc(42.7 * var(--u));z-index:3;white-space:nowrap;text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
+.ftr{position:absolute;left:calc((224 * var(--u) + 100%) / 2);transform:translateX(-50%);bottom:calc(61.7 * var(--u));z-index:3;white-space:nowrap;text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 /* back to top */
 .totop{position:fixed;right:calc(21.3 * var(--mu));bottom:calc(-15 * var(--mu));z-index:8;padding:0;border:0;background:none;color:#000;font:400 max(30px,calc(80 * var(--mu)))/1 var(--ret);cursor:pointer;transition:color .15s ease}
 .totop span{display:block;transform:rotate(180deg);transform-origin:50% 34%;transition:transform .3s ease}
@@ -216,7 +222,7 @@ var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(functi
 var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
+  $('flt').innerHTML='<div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
     if(on){
       var items='';
@@ -225,7 +231,7 @@ function drawF(){
       opts='<div class="ow'+(ANIM===f.k?' in':'')+'"><ul>'+items+'</ul></div>';
     }
     return '<div class="f"><button type="button" class="fb'+(on||act?' ul':'')+'" data-k="'+f.k+'" aria-expanded="'+on+'">'+f.l+'</button>'+opts+'</div>';
-  }).join('');
+  }).join('')+'<button type="button" class="clr ul" data-k="clear">Clear</button>';
   ANIM='';
 }
 $('flt').addEventListener('click',function(e){
@@ -476,7 +482,7 @@ function applyReveal(){
   var g=$('grid');if(!g)return 0;
   var u=innerWidth/1920,pw=PANEL*u,fifth=innerWidth/5,r;
   if(!ABS){g.style.removeProperty('--cw');return 0}
-  if(SMALL||touch||OPEN)r=1;else r=aX<0?0:Math.max(0,Math.min(1,(fifth-aX)/(fifth-pw)));
+  if(SMALL||touch)r=1;else r=aX<0?0:Math.max(0,Math.min(1,(fifth-aX)/(fifth-pw)));
   g.style.setProperty('--cw',(pw*r).toFixed(1)+'px');
   return r;
 }
@@ -505,7 +511,13 @@ function setSmall(on){
 }
 addEventListener('pointermove',function(e){aX=e.clientX;aY=e.clientY;archMove()},{passive:true});
 addEventListener('scroll',function(){archMove()},{passive:true});
-document.addEventListener('mouseleave',function(){aX=-1;aY=-1;applyReveal();setHov(null)});
+function archLeave(){aX=-1;aY=-1;applyReveal();setHov(null)}
+document.addEventListener('mouseleave',archLeave);
+document.documentElement.addEventListener('mouseleave',archLeave);
+addEventListener('mouseout',function(e){if(!e.relatedTarget&&!e.toElement)archLeave()});
+addEventListener('blur',archLeave);
+document.addEventListener('visibilitychange',function(){if(document.hidden)archLeave()});
+dlg.addEventListener('close',function(){archMove()});
 $('flt').addEventListener('click',function(){setTimeout(archMove,0);setTimeout(archMove,260)});
 addEventListener('resize',function(){if(absMode()!==ABS&&!$('v-index').hidden){render();archMove()}});
 

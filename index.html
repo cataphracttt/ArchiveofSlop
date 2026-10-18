@@ -52,6 +52,7 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 @keyframes ex{from{grid-template-rows:0fr;opacity:0}to{grid-template-rows:1fr;opacity:1}}
 .flt .f{display:block}
 .flt .fb{display:block;margin-bottom:calc(13 * var(--u))}
+.flt .clr{display:block;margin-bottom:calc(13 * var(--u))}
 .flt ul{list-style:none;margin:0;padding:0 0 0 calc(9 * var(--u))}
 .flt li button{display:block;margin-bottom:calc(13 * var(--u))}
 .flt li.sep{padding-top:calc(13 * var(--u))}
@@ -75,6 +76,10 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 .x{position:absolute;top:calc(7.5 * var(--u));right:calc(16 * var(--u));text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 
 .vsw{position:absolute;right:calc(26.5 * var(--u));top:calc(20.8 * var(--u));white-space:nowrap;z-index:6}
+.vsw{opacity:0;transition:opacity .2s ease}
+.vsw::before{content:'';position:absolute;inset:calc(-12 * var(--u))}
+.vsw:hover,.vsw:focus-within{opacity:1}
+@media(hover:none){.vsw{opacity:1}}
 .vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 /* ---------- v3 ---------- */
 ::selection{background:#e04918;color:#000}
@@ -179,7 +184,7 @@ var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(functi
 var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<div class="lab"><span>FILTER:</span><button type="button" class="clr ul" data-k="clear">Clear</button></div>'+F.map(function(f){
+  $('flt').innerHTML='<div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
     if(on){
       var items='';
@@ -188,7 +193,7 @@ function drawF(){
       opts='<div class="ow'+(ANIM===f.k?' in':'')+'"><ul>'+items+'</ul></div>';
     }
     return '<div class="f"><button type="button" class="fb'+(on||act?' ul':'')+'" data-k="'+f.k+'" aria-expanded="'+on+'">'+f.l+'</button>'+opts+'</div>';
-  }).join('');
+  }).join('')+'<button type="button" class="clr ul" data-k="clear">Clear</button>';
   ANIM='';
 }
 $('flt').addEventListener('click',function(e){
