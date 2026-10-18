@@ -89,8 +89,7 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 #v-main{position:relative;overflow:hidden;min-height:100vh;padding:max(calc(370 * var(--mu)),calc(100vh - 646 * var(--mu))) 0 calc(124 * var(--mu)) calc(79 * var(--mu));padding-top:max(calc(370 * var(--mu)),calc(100svh - 646 * var(--mu)))}
 .mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
 .vs2{position:relative;opacity:0;transition:opacity .2s ease}
-.vs2::before{content:'';position:absolute;inset:calc(-12 * var(--mu))}
-.vs2:hover,.vs2:focus-within{opacity:1}
+.vs2.near,.vs2:hover,.vs2:focus-within{opacity:1}
 @media(hover:none){.vs2{opacity:1}}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
 .mbig{position:absolute;left:calc(94 * var(--mu));top:calc(122.6 * var(--mu));z-index:3;font:400 calc(222.7 * var(--mu))/calc(222.7 * var(--mu)) var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu));text-decoration-skip-ink:none}
@@ -537,6 +536,21 @@ fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   buildZ();
   route();
 }).catch(function(){var g=$('grid');if(g)g.innerHTML='<p class="empty">The archive could not be loaded.</p>'});
+
+/* Version switcher: invisible until the cursor comes within NEAR px (artboard scale) of it. The trigger is this larger box, not the links themselves, so it never covers or blocks them. */
+(function(){
+  var sw=document.querySelector('.vs2');if(!sw)return;
+  var NEAR=120,px=-1,py=-1;
+  function check(){
+    var r=sw.getBoundingClientRect(),m=NEAR*innerWidth/1920;
+    var on=r.width>0&&px>=0&&px>=r.left-m&&px<=r.right+m&&py>=r.top-m&&py<=r.bottom+m;
+    sw.classList.toggle('near',on);
+  }
+  addEventListener('pointermove',function(e){px=e.clientX;py=e.clientY;check()},{passive:true});
+  addEventListener('scroll',check,{passive:true});
+  document.addEventListener('mouseleave',function(){px=-1;check()});
+  addEventListener('blur',function(){px=-1;check()});
+})();
 </script>
 </body>
 </html>
