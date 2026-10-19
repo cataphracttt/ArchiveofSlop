@@ -93,11 +93,11 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 @media(hover:none){.vs2{opacity:1}}
 .mh #subm{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
-.mbig{position:absolute;left:calc(94 * var(--mu));top:calc(122.6 * var(--mu));z-index:3;font:400 calc(222.7 * var(--mu))/calc(222.7 * var(--mu)) var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu));text-decoration-skip-ink:none}
+.mbig{--tf:min(calc(222.7 * var(--mu)),calc((100vw - var(--sbw,0px) - 141 * var(--mu)) / 8.34));position:absolute;left:calc(94 * var(--mu));top:calc(320 * var(--mu) - .8864 * var(--tf));z-index:3;font:400 var(--tf)/1 var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:.0494em;text-underline-offset:.0674em;text-decoration-skip-ink:none}
 .mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
 .mtx p{margin:0 0 calc(210 * var(--mu))}
 .mtx p:last-child{margin-bottom:0}
-.mtx .mbig.end{position:static;display:block;width:max-content;margin:max(calc(210 * var(--mu)),calc(100vh - 315.4 * var(--mu))) 0 0 calc(15 * var(--mu));margin-top:max(calc(210 * var(--mu)),calc(100svh - 315.4 * var(--mu)));text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu))}
+.mtx .mbig.end{position:static;display:block;width:max-content;margin:max(calc(210 * var(--mu)),calc(100vh - 1em - 92.7 * var(--mu))) 0 0 calc(15 * var(--mu));margin-top:max(calc(210 * var(--mu)),calc(100svh - 1em - 92.7 * var(--mu)));text-decoration-thickness:.0494em;text-underline-offset:.0674em}
 .mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
 /* the Friend photo sits behind the text; it shows in colour while hovered */
 .fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(../images/friend-ads-nyt.webp)}
@@ -582,6 +582,9 @@ fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   addEventListener('hashchange',hide);addEventListener('resize',hide);
   setTimeout(function(){Object.keys(LP).forEach(img)},1200);
 })();
+
+/* The big title is fitted to the visible width of the window (excluding a classic scrollbar) so it always keeps at least half the left margin (47px on the artboard) on the right. */
+(function(){function sb(){document.documentElement.style.setProperty('--sbw',Math.max(0,innerWidth-document.documentElement.clientWidth)+'px')}sb();addEventListener('resize',sb);addEventListener('load',sb);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sb);setTimeout(sb,700)})();
 </script>
 </body>
 </html>

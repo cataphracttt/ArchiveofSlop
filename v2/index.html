@@ -92,7 +92,7 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 .vs2.near,.vs2:hover,.vs2:focus-within{opacity:1}
 @media(hover:none){.vs2{opacity:1}}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
-.mbig{position:absolute;left:calc(94 * var(--mu));top:calc(122.6 * var(--mu));z-index:3;font:400 calc(222.7 * var(--mu))/calc(222.7 * var(--mu)) var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu));text-decoration-skip-ink:none}
+.mbig{--tf:min(calc(222.7 * var(--mu)),calc((100vw - var(--sbw,0px) - 141 * var(--mu)) / 8.10));position:absolute;left:calc(94 * var(--mu));top:calc(320 * var(--mu) - .8864 * var(--tf));z-index:3;font:400 var(--tf)/1 var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:.0494em;text-underline-offset:.0674em;text-decoration-skip-ink:none}
 .mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
 .mtx p{margin:0 0 calc(210 * var(--mu))}
 .mtx p:last-child{margin-bottom:0}
@@ -579,6 +579,9 @@ fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   addEventListener('hashchange',hide);addEventListener('resize',hide);
   setTimeout(function(){Object.keys(LP).forEach(img)},1200);
 })();
+
+/* The big title is fitted to the visible width of the window (excluding a classic scrollbar) so it always keeps at least half the left margin (47px on the artboard) on the right. */
+(function(){function sb(){document.documentElement.style.setProperty('--sbw',Math.max(0,innerWidth-document.documentElement.clientWidth)+'px')}sb();addEventListener('resize',sb);addEventListener('load',sb);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sb);setTimeout(sb,700)})();
 </script>
 </body>
 </html>
