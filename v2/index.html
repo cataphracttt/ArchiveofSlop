@@ -104,6 +104,9 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 .fp.on::before{opacity:1}
 .fp.on::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
 body.noov .fp::after{display:none!important}
+.lp{position:absolute;z-index:2;box-sizing:border-box;border:var(--stroke) solid #000;background:#fff;pointer-events:none;opacity:0;transition:opacity .2s ease}
+.lp.on{opacity:1}
+.lp img{display:block;width:100%;height:100%;object-fit:cover;opacity:.44}
 .fpx{position:absolute;z-index:6;box-sizing:border-box;width:max(24px,calc(35 * var(--mu)));height:max(24px,calc(35 * var(--mu)));padding:calc(5 * var(--mu));border:max(2px,calc(3 * var(--mu))) solid #000;background:#fff;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s ease}
 .fpx svg{width:100%;height:100%;display:block}
 .fpx:hover{color:#e04918}
@@ -181,13 +184,14 @@ dialog{border-width:var(--stroke)}
   <div class="mtx" id="mtx">
     <p>The current state of advertisement fucking sucks.</p>
     <p>Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now.</p>
-    <p>Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash “<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" target="_blank" rel="noopener">on purpose</a>”. Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are headed as a society, <a href="https://nyc-friends.vercel.app/" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" target="_blank" rel="noopener">a virtual vandalization website</a>, among others.</p>
+    <p>Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" data-lp="nyt" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash “<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" data-lp="yahoo" target="_blank" rel="noopener">on purpose</a>”. Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are headed as a society, <a href="https://nyc-friends.vercel.app/" data-lp="museum" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" data-lp="vandalize" target="_blank" rel="noopener">a virtual vandalization website</a>, among others.</p>
     <p>Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
     <p>As such, this site seeks to paint a bigger picture, a geographic and temporal web to catalogue all the ephemeral advertisements that are selling AI.</p>
     <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?&nbsp; - are all questions this site seeks to help answer.</p>
     <p>Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you.</p>
     <p>In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
   </div>
+  <div class="lp" id="lp" aria-hidden="true"></div>
   <div id="scatter" aria-hidden="true"></div>
   <button class="totop" id="totop" type="button" aria-label="Go to the bottom" aria-live="off"><span>^</span></button>
 </main>
@@ -550,6 +554,30 @@ fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   addEventListener('scroll',check,{passive:true});
   document.addEventListener('mouseleave',function(){px=-1;check()});
   addEventListener('blur',function(){px=-1;check()});
+})();
+
+/* Link previews: hovering one of the four source links on the main page shows a screenshot of its page BEHIND the text, so the text is never covered. It is centred on the link (kept inside the window), faded like the friend photo, and not shown on touch screens. */
+(function(){
+  var BASE='../images/',W=1200,PAD=8,box=document.getElementById('lp'),main=document.getElementById('v-main');
+  if(!box||!main||matchMedia('(hover:none)').matches)return;
+  var LP={nyt:['link-nyt.webp',1800/994],yahoo:['link-yahoo.webp',1800/994],museum:['link-nyc-friends.webp',1800/994],vandalize:['link-vandalize.webp',1800/1058]},imgs={},py=-1;
+  function img(k){if(!imgs[k]){var i=new Image();i.alt='';i.decoding='async';i.src=BASE+LP[k][0];i.style.display='none';box.appendChild(i);imgs[k]=i}return imgs[k]}
+  function show(a){
+    var k=a.getAttribute('data-lp'),e=LP[k];if(!e)return;
+    Object.keys(imgs).forEach(function(n){imgs[n].style.display='none'});img(k).style.display='block';
+    var u=innerWidth/1920,w=W*u,h=w/e[1],rs=a.getClientRects(),r=rs[0],best=1e9;
+    for(var i=0;i<rs.length;i++){var c=rs[i].top+rs[i].height/2,d=py<0?i:Math.abs(c-py);if(d<best){best=d;r=rs[i]}}
+    var top=Math.max(PAD,Math.min(innerHeight-h-PAD,r.top+r.height/2-h/2)),mr=main.getBoundingClientRect();
+    box.style.width=w+'px';box.style.height=h+'px';box.style.left=((mr.width-w)/2)+'px';box.style.top=(top-mr.top)+'px';box.classList.add('on');
+  }
+  function hide(){box.classList.remove('on')}
+  [].forEach.call(document.querySelectorAll('a[data-lp]'),function(a){
+    a.addEventListener('mouseenter',function(){show(a)});a.addEventListener('mouseleave',hide);
+    a.addEventListener('focus',function(){show(a)});a.addEventListener('blur',hide);
+  });
+  addEventListener('pointermove',function(e){py=e.clientY},{passive:true});
+  addEventListener('hashchange',hide);addEventListener('resize',hide);
+  setTimeout(function(){Object.keys(LP).forEach(img)},1200);
 })();
 </script>
 </body>

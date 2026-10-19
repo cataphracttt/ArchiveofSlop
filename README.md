@@ -108,6 +108,19 @@ A copy of v2 at https://cataphracttt.github.io/ArchiveofSlop/v3/ with these diff
 - Archive: only the small layout (no size icons). The Submit link is removed from the left column, and a link sits centred below the images, in the space to the right of the left column and on the same line as the last line of the filter block (Clear) when scrolled to the bottom: "If you'd like to see more please submit to the archive!" (underlined, links to the Google Form). The page has a little extra space at the bottom (66px) for it.
 - Everything else (the flipping arrow, scattered ads, hover effects, equal space above and below the small layout) is the same as v2.
 
+## Link previews (all versions)
+
+On the main page of v1, v2 and v3, hovering (or keyboard-focusing) one of the four source links shows a screenshot of the page it links to. The screenshot sits **behind** the text, so the text is never covered: it is 1200px wide on the artboard, centred horizontally and on the link vertically (kept inside the window), faded to 44% like the friend photo, with the 2px frame, and fades in over 0.2s. It is not shown on touch screens.
+
+| Link text | Screenshot |
+|---|---|
+| "Think of the infamous friend ads…" | `images/link-nyt.webp` (New York Times article) |
+| "on purpose" | `images/link-yahoo.webp` (Fortune article on Yahoo Finance) |
+| "an online museum of defacement" | `images/link-nyc-friends.webp` (nyc-friends) |
+| "a virtual vandalization website" | `images/link-vandalize.webp` (vandalizefriend.com) |
+
+Each link carries a `data-lp` attribute (`nyt`, `yahoo`, `museum`, `vandalize`) and one `#lp` box is shared by all of them. The images are 1800px wide WebP and are preloaded a moment after the page loads. To change a screenshot, replace the file and keep the same name (update the aspect ratio in the `LP` table in the script if the proportions change).
+
 ## Friend link (all versions)
 
 On v1, v2 and the legacy versions the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
