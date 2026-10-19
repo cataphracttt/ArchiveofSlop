@@ -103,8 +103,8 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 
 A copy of v2 at https://cataphracttt.github.io/ArchiveofSlop/v3/ with these differences:
 
-- Main page: "The current state of advertisement fucking sucks." takes the place of the big title at the top, in the same position as the title was and without the bottom-edge alignment, and "Enter the Archive" (the big underlined link) comes last, one blank line after the final paragraph.
-- Main page: Submit is underlined, and the margin below "Enter the Archive" at the end of the page equals the left margin (94px on the artboard).
+- Main page: "The current state of advertisement fucking sucks." takes the place of the big title at the top, in the same position as the title was and without the bottom-edge alignment. "Enter the Archive." (the big underlined link, with a full stop) comes last and sits at the very bottom of the page, with the same margin below it as the left margin (94px on the artboard). The space between the final paragraph and the title adapts to the window height (`100vh - 315.4px` on the artboard scale, never less than one blank line), so when the page is scrolled to the end none of the text above is in view, only the title.
+- Main page: Submit is underlined.
 - Archive: only the small layout (no size icons). The Submit link is removed from the left column, and a link sits centred below the images, in the space to the right of the left column and on the same line as the last line of the filter block (Clear) when scrolled to the bottom: "If you'd like to see more please submit to the archive!" (underlined, links to the Google Form). The page has a little extra space at the bottom (66px) for it.
 - Everything else (the flipping arrow, scattered ads, hover effects, equal space above and below the small layout) is the same as v2.
 

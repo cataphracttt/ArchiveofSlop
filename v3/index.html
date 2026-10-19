@@ -97,7 +97,7 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 .mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
 .mtx p{margin:0 0 calc(210 * var(--mu))}
 .mtx p:last-child{margin-bottom:0}
-.mtx .mbig.end{position:static;display:block;width:max-content;margin:calc(210 * var(--mu)) 0 0 calc(15 * var(--mu));text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu))}
+.mtx .mbig.end{position:static;display:block;width:max-content;margin:max(calc(210 * var(--mu)),calc(100vh - 315.4 * var(--mu))) 0 0 calc(15 * var(--mu));margin-top:max(calc(210 * var(--mu)),calc(100svh - 315.4 * var(--mu)));text-decoration-thickness:calc(11 * var(--mu));text-underline-offset:calc(15 * var(--mu))}
 .mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
 /* the Friend photo sits behind the text; it shows in colour while hovered */
 .fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(../images/friend-ads-nyt.webp)}
@@ -193,7 +193,7 @@ dialog{border-width:var(--stroke)}
     <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?&nbsp; - are all questions this site seeks to help answer.</p>
     <p>Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you.</p>
     <p>In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
-    <a class="mbig end" href="#/archive">Enter the Archive</a>
+    <a class="mbig end" href="#/archive">Enter the Archive.</a>
   </div>
   <div class="lp" id="lp" aria-hidden="true"></div>
   <div id="scatter" aria-hidden="true"></div>
