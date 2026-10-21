@@ -559,26 +559,26 @@ fetch('../ads.json').then(function(r){return r.json()}).then(function(j){
   addEventListener('blur',function(){px=-1;check()});
 })();
 
-/* Link previews: hovering one of the four source links on the main page shows a screenshot of its page BEHIND the text, so the text is never covered. It is centred on the link (kept inside the window), faded like the friend photo, and not shown on touch screens. */
+/* Link previews: hovering one of the four source links on the main page shows a screenshot of its page BEHIND the text, so the text is never covered. It is centred on the link (kept inside the page), faded like the friend photo, and not shown on touch screens. */
 (function(){
   var BASE='../images/',W=1200,PAD=8,box=document.getElementById('lp'),main=document.getElementById('v-main');
   if(!box||!main||matchMedia('(hover:none)').matches)return;
-  var LP={nyt:['link-nyt.webp',1800/994],yahoo:['link-yahoo.webp',1800/994],museum:['link-nyc-friends.webp',1800/994],vandalize:['link-vandalize.webp',1800/1058]},imgs={},py=-1;
+  var LP={nyt:['link-nyt.webp',1800/994],yahoo:['link-yahoo.webp',1800/994],museum:['link-nyc-friends.webp',1800/994],vandalize:['link-vandalize.webp',1800/1058]},imgs={};
   function img(k){if(!imgs[k]){var i=new Image();i.alt='';i.decoding='async';i.src=BASE+LP[k][0];i.style.display='none';box.appendChild(i);imgs[k]=i}return imgs[k]}
   function show(a){
     var k=a.getAttribute('data-lp'),e=LP[k];if(!e)return;
     Object.keys(imgs).forEach(function(n){imgs[n].style.display='none'});img(k).style.display='block';
-    var u=innerWidth/1920,w=W*u,h=w/e[1],rs=a.getClientRects(),r=rs[0],best=1e9;
-    for(var i=0;i<rs.length;i++){var c=rs[i].top+rs[i].height/2,d=py<0?i:Math.abs(c-py);if(d<best){best=d;r=rs[i]}}
-    var top=Math.max(PAD,Math.min(innerHeight-h-PAD,r.top+r.height/2-h/2)),mr=main.getBoundingClientRect();
-    box.style.width=w+'px';box.style.height=h+'px';box.style.left=((mr.width-w)/2)+'px';box.style.top=(top-mr.top)+'px';box.classList.add('on');
+    /* always the same spot: centred on the whole link (all its lines) and placed in the page, so it does not depend on which line the cursor is on or on how far the page is scrolled */
+    var u=innerWidth/1920,w=W*u,h=w/e[1],r=a.getBoundingClientRect(),mr=main.getBoundingClientRect();
+    var left=(r.left+r.right)/2-w/2-mr.left,top=(r.top+r.bottom)/2-h/2-mr.top;
+    left=Math.max(PAD,Math.min(mr.width-w-PAD,left));top=Math.max(PAD,Math.min(mr.height-h-PAD,top));
+    box.style.width=w+'px';box.style.height=h+'px';box.style.left=left+'px';box.style.top=top+'px';box.classList.add('on');
   }
   function hide(){box.classList.remove('on')}
   [].forEach.call(document.querySelectorAll('a[data-lp]'),function(a){
     a.addEventListener('mouseenter',function(){show(a)});a.addEventListener('mouseleave',hide);
     a.addEventListener('focus',function(){show(a)});a.addEventListener('blur',hide);
   });
-  addEventListener('pointermove',function(e){py=e.clientY},{passive:true});
   addEventListener('hashchange',hide);addEventListener('resize',hide);
   setTimeout(function(){Object.keys(LP).forEach(img)},1200);
 })();

@@ -84,7 +84,7 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 - The main page is one long scroll in 205px type on a 210px line (everything is measured on the 1920px artboard and scales with the window width). The paragraph breaks and line breaks follow the Illustrator mockup: the text box is 1759px wide, which reproduces every line break. Blank lines are one full line high. "AI AD ARCHIVE", Submit and the "v1. v2." switcher sit in the top-left row (the top-right corner is empty), and "Enter the Archive" is the first big underlined line.
 - The Friend photo sits behind the text, centred on the "Think of the infamous friend ads..." phrase, with a close X at its top right. It shows in the colour effect while the photo or the phrase is hovered, and the X hides it until the page is refreshed. The phrase links to the New York Times article.
 - Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the v2 main-page script in `v2/index.html`.
-- The version switcher (v1. v2. v3., next to Submit on v2 and v3, top right on v1) is invisible until the cursor comes within 120px (artboard scale) of it. The trigger is a proximity check in script (`NEAR`) rather than an overlay, so nothing covers the links and each one stays clickable. It is always visible on touch screens.
+- The version switcher (v1. v2. v3., in the same place in all three versions: 456px across and 56px down on the artboard, on the same row as "AI AD ARCHIVE") is invisible until the cursor comes within 120px (artboard scale) of it. The trigger is a proximity check in script (`NEAR`) rather than an overlay, so nothing covers the links and each one stays clickable. It is always visible on touch screens.
 - In the v2 archive, Submit moves up with the filter block when a filter list expands, so the list never covers it.
 - The left column follows the cursor only. It is no longer held open while a filter list is open, and it is released when the pointer leaves the window, the window loses focus, or a popup is closed (the cause of the "column stays on top" bug).
 - On touch screens a tap on the photo toggles colour and a tap near an ad knocks it away.
@@ -110,11 +110,11 @@ A copy of v2 at https://cataphracttt.github.io/ArchiveofSlop/v3/ with these diff
 
 ## Link previews (all versions)
 
-On the main page of v1, v2 and v3, hovering (or keyboard-focusing) one of the four source links shows a screenshot of the page it links to. The screenshot sits **behind** the text, so the text is never covered: it is 1200px wide on the artboard, centred horizontally and on the link vertically (kept inside the window), faded to 44% like the friend photo, with the 2px frame, and fades in over 0.2s. It is not shown on touch screens.
+On the main page of v1, v2 and v3, hovering (or keyboard-focusing) one of the four source links shows a screenshot of the page it links to. The screenshot sits **behind** the text, so the text is never covered: it is 1200px wide on the artboard and always appears in the same spot, centred on the link as a whole (both ways, using the box around all of its lines), measured in the page rather than the window, so it does not depend on which line you hover or how far the page is scrolled (it is only kept inside the page edges). It is faded to 44% like the friend photo, with the 2px frame, and fades in over 0.2s. It is not shown on touch screens.
 
 | Link text | Screenshot |
 |---|---|
-| "Think of the infamous friend ads…" | `images/link-nyt.webp` (New York Times article) |
+| "Think of the infamous friend ads…" | `images/link-nyt.webp` (New York Times article), v2 and v3 only: v1 has no screenshot for this link because hovering it already triggers the friend photo |
 | "on purpose" | `images/link-yahoo.webp` (Fortune article on Yahoo Finance) |
 | "an online museum of defacement" | `images/link-nyc-friends.webp` (nyc-friends) |
 | "a virtual vandalization website" | `images/link-vandalize.webp` (vandalizefriend.com) |
