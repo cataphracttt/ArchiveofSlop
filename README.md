@@ -9,11 +9,12 @@ The site is plain static files. There is no build step.
 
 | Path | What it is |
 |---|---|
-| `index.html` | **v1**, the homepage (the current state, formerly v3): main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. |
-| `v2/` | **v2**, an alternate version with a new main page (`index.html`). See the v2 section below. |
-| `v1-legacy/` | The old v1. Not linked from the site. Kept in the repo. |
-| `v2-legacy/` | The old v2 (`index.html` plus `gifs/`). Not linked from the site. Kept in the repo. See the v2 legacy section below. |
-| `v3/` | **v3**, a copy of v2 with a different main page and a small-only archive. See the v3 section below. |
+| `index.html` | **v1**, the homepage (formerly v2): main page (`#/`) and index (`#/archive`). HTML, CSS and JS in one file. See the v1 section below. |
+| `v2/` | **v2** (formerly v3), a variant of v1 with a different main page and a small-only archive. See the v2 section below. |
+| `v0/` | **v0**, the old homepage (formerly v1). Retired: not linked from the site, reachable only at `/v0/`. See the v0 section below. |
+| `v3/` | Only a redirect to `v2/`, so old v3 links (and deep links such as `#/archive/36`) still work. |
+| `v1-legacy/` | The oldest v1. Not linked from the site. Kept in the repo. |
+| `v2-legacy/` | The oldest v2 (`index.html` plus `gifs/`). Not linked from the site. Kept in the repo. See the v2 legacy section below. |
 | `ads.json` | All the data: `companies` and `ads` (see below). Add an ad by editing this file. |
 | `images/` | Full-size ad photos, WebP, longest side 1600px, quality 80. Shown in the info popup. |
 | `thumbs/` | Grid thumbnails, WebP, longest side 800px, quality 72. Same file names as `images/`. |
@@ -52,10 +53,10 @@ The site is plain static files. There is no build step.
 - `company` must match a key in `companies`. Reuse a company's key for a new ad from the same company.
 - `date` is `YYYY-MM-DD`. Leave it as `""` if unknown; the ad shows as "Date unknown" and sorts last.
 - `type` is `In person` or `Online`. The Type filter offers both.
-- `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Every entry gets a Location row in the info popup in every version: "NY" for the archive's own entries and "NY, " plus `spot` for contributed ones (for example "NY, F train"). Entries whose `uploader` is not `Archive` also get an Uploader row. `comment` is only used by v3.
+- `spot` (optional) is the line or station a contributor typed, such as "F Train". `comment` (optional) is the contributor's comment. `submitted` (optional) is the Form timestamp, used to avoid adding a response twice. Every entry gets a Location row in the info popup in every version: "NY" for the archive's own entries and "NY, " plus `spot` for contributed ones (for example "NY, F train"). Entries whose `uploader` is not `Archive` also get an Uploader row. `comment` is used by the popup in v0, v1 and v2 (it flies across the photo while the photo is in colour).
 - `location`, `type` and `uploader` default to `New York`, `In person` and `Archive` if left out. `uploader` and `note` are kept in the data but are not shown or filterable on the site at the moment.
 - `image` is a file name that exists in both `images/` and `thumbs/`.
-- `width` and `height` are the pixel size of the full-size file in `images/` (v2's archive layout needs the proportions). If they are missing, the ad is treated as 4:3.
+- `width` and `height` are the pixel size of the full-size file in `images/` (the archive layout of v1 and v2 needs the proportions). If they are missing, the ad is treated as 4:3.
 
 ## Adding an ad
 
@@ -67,7 +68,7 @@ Photos of any shape work. Every ad sits centred and uncropped in a square box.
 
 ## v2 legacy
 
-The old v2 lives in `v2-legacy/`. It shares the photos, fonts and `ads.json` with v1, so new ads appear in both. The main page of each version has a version switcher that only appears when hovered.
+The old v2 lives in `v2-legacy/`. It shares the photos, fonts and `ads.json` with the current versions, so new ads appear everywhere.
 
 v2 legacy differences from the old v1:
 
@@ -77,15 +78,15 @@ v2 legacy differences from the old v1:
 - Text selection is black with white text.
 - Link hovers are blue (#0000FF), the same blue the "Enter the Archive" title turns on hover and while the gifs play.
 
-## v2
+## v1 (the homepage)
 
-An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a new main page and an overlapping archive layout.
+The homepage, https://cataphracttt.github.io/ArchiveofSlop/ (formerly v2), with a scrolling main page and an overlapping archive layout. The switcher links to v1 (this page) and v2.
 
 - The main page is one long scroll in 205px type on a 210px line (everything is measured on the 1920px artboard and scales with the window width). The paragraph breaks and line breaks follow the Illustrator mockup: the text box is 1759px wide, which reproduces every line break. Blank lines are one full line high. "AI AD ARCHIVE", Submit and the "v1. v2." switcher sit in the top-left row (the top-right corner is empty), and "Enter the Archive" is the first big underlined line.
 - The Friend photo sits behind the text, centred on the "Think of the infamous friend ads..." phrase, with a close X at its top right. It shows in the colour effect while the photo or the phrase is hovered, and the X hides it until the page is refreshed. The phrase links to the New York Times article.
-- Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the v2 main-page script in `v2/index.html`.
-- The version switcher (v1. v2. v3., in the same place in all three versions: 456px across and 56px down on the artboard, on the same row as "AI AD ARCHIVE") is invisible until the cursor comes within 120px (artboard scale) of it. The trigger is a proximity check in script (`NEAR`) rather than an overlay, so nothing covers the links and each one stays clickable. It is always visible on touch screens.
-- In the v2 archive, Submit moves up with the filter block when a filter list expands, so the list never covers it.
+- Ads are scattered down the page as you scroll: they are placed out of view at random sizes and positions, in growing numbers the further down you go, and sit above the text. A collision border 40px larger than each ad (`AD_PAD`) means the cursor knocks an ad away before it can be hovered. Knocked-away ads slide off and are gone; new ones keep appearing out of view as you scroll. Tuning variables (`AD_W_MIN`, `AD_W_MAX`, `AD_GAP_START`, `AD_GAP_END`, `AD_MAX`) are at the top of the main-page script in `index.html`.
+- The version switcher (v1. v2., in the same place on every version: 456px across and 56px down on the artboard, on the same row as "AI AD ARCHIVE") is invisible until the cursor comes within 120px (artboard scale) of it. The trigger is a proximity check in script (`NEAR`) rather than an overlay, so nothing covers the links and each one stays clickable. It is always visible on touch screens.
+- In the archive, Submit moves up with the filter block when a filter list expands, so the list never covers it.
 - The left column follows the cursor only. It is no longer held open while a filter list is open, and it is released when the pointer leaves the window, the window loses focus, or a popup is closed (the cause of the "column stays on top" bug).
 - On touch screens a tap on the photo toggles colour and a tap near an ad knocks it away.
 - The first line block of text ("The current state of advertisement fucking sucks.") is placed so that "fucking sucks." touches the bottom edge of the window, whatever the window height (the text starts at `100vh - 646px` on the artboard scale, but never higher than its design position), to encourage scrolling.
@@ -99,22 +100,22 @@ An alternate version at https://cataphracttt.github.io/ArchiveofSlop/v2/ with a 
 - The left column always sits underneath the images and shows where they do not cover it. In the large layout the images are masked from the left like a clipping mask: as the cursor moves through the left fifth of the page the mask opens, fully open (224px) once the cursor is within 224px of the edge, which leaves 43px of margin either side of "AI AD ARCHIVE". In the small layout the column is simply always visible, with no reveal.
 - Phones (900px wide or less) keep the simple grid and a plain left column. Touch tablets get the overlapping layout with the left panel always open.
 
-## v3
+## v2
 
-A copy of v2 at https://cataphracttt.github.io/ArchiveofSlop/v3/ with these differences:
+A variant of v1 at https://cataphracttt.github.io/ArchiveofSlop/v2/ (formerly v3; the old `/v3/` address redirects here) with these differences:
 
 - Main page: "The current state of advertisement fucking sucks." takes the place of the big title at the top, in the same position as the title was and without the bottom-edge alignment. "Enter the Archive." (the big underlined link, with a full stop) comes last and sits at the very bottom of the page, with the same margin below it as the left margin (94px on the artboard). The space between the final paragraph and the title adapts to the window height (one window height minus the title's own height and its bottom margin, never less than one blank line), so when the page is scrolled to the end none of the text above is in view, only the title.
 - Main page: Submit is underlined.
 - Archive: only the small layout (no size icons). The Submit link is removed from the left column, and a link sits centred below the images, in the space to the right of the left column and on the same line as the last line of the filter block (Clear) when scrolled to the bottom: "If you'd like to see more please submit to the archive!" (underlined, links to the Google Form). The page has a little extra space at the bottom (66px) for it.
-- Everything else (the flipping arrow, scattered ads, hover effects, equal space above and below the small layout) is the same as v2.
+- Everything else (the flipping arrow, scattered ads, hover effects, equal space above and below the small layout) is the same as v1.
 
 ## Link previews (all versions)
 
-On the main page of v1, v2 and v3, hovering (or keyboard-focusing) one of the four source links shows a screenshot of the page it links to. The screenshot sits **behind** the text, so the text is never covered: it is 1200px wide on the artboard and always appears in the same spot, centred on the link as a whole (both ways, using the box around all of its lines), measured in the page rather than the window, so it does not depend on which line you hover or how far the page is scrolled (it is only kept inside the page edges). It is faded to 44% like the friend photo, with the 2px frame, and fades in over 0.2s. It is not shown on touch screens.
+On the main page of v0, v1 and v2, hovering (or keyboard-focusing) one of the four source links shows a screenshot of the page it links to. The screenshot sits **behind** the text, so the text is never covered: it is 1200px wide on the artboard and always appears in the same spot, centred on the link as a whole (both ways, using the box around all of its lines), measured in the page rather than the window, so it does not depend on which line you hover or how far the page is scrolled (it is only kept inside the page edges). It is faded to 44% like the friend photo, with the 2px frame, and fades in over 0.2s. It is not shown on touch screens.
 
 | Link text | Screenshot |
 |---|---|
-| "Think of the infamous friend ads…" | `images/link-nyt.webp` (New York Times article), v2 and v3 only: v1 has no screenshot for this link because hovering it already triggers the friend photo |
+| "Think of the infamous friend ads…" | `images/link-nyt.webp` (New York Times article), v1 and v2 only: v0 has no screenshot for this link because hovering it already triggers the friend photo |
 | "on purpose" | `images/link-yahoo.webp` (Fortune article on Yahoo Finance) |
 | "an online museum of defacement" | `images/link-nyc-friends.webp` (nyc-friends) |
 | "a virtual vandalization website" | `images/link-vandalize.webp` (vandalizefriend.com) |
@@ -123,11 +124,11 @@ Each link carries a `data-lp` attribute (`nyt`, `yahoo`, `museum`, `vandalize`) 
 
 ## Friend link (all versions)
 
-On v1, v2 and the legacy versions the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
+On every version (v0, v1, v2 and the legacy versions) the phrase "Think of the infamous friend ads that took over every advertisable surface not too long ago" is underlined and links to the New York Times article (https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html, opens in a new tab). Hovering it still shows the Friend photo behind the page.
 
-## v1 (the homepage)
+## v0 (retired)
 
-The homepage (https://cataphracttt.github.io/ArchiveofSlop/) is the current state of the site, which used to be v3. It has a "v1. v2. v3." switcher at the top right of the main page that only appears when the cursor is over it (it is always visible on touch screens, which cannot hover). The old versions are kept in `v1-legacy/` and `v2-legacy/` but nothing links to them. Everything shares the photos, fonts and `ads.json`.
+The old homepage, formerly v1, is kept at https://cataphracttt.github.io/ArchiveofSlop/v0/ (`v0/index.html`). It is retired: nothing links to it, so it is reachable only by address. Its hover-only "v1. v2." switcher (in the same place as on the other versions, always visible on touch screens) links to the current versions. The oldest versions are kept in `v1-legacy/` and `v2-legacy/`, also unlinked. Everything shares the photos, fonts and `ads.json` in the folder above.
 
 - Text selection is #e04918 with black text. After colour mode is triggered, selection on the main page (only) is #5963e0. Link hovers are #e04918, except the Friend phrase, which stays black so it can be read on the colour image.
 - Colour mode is off when the page loads. Clicking the Friend link opens the article and turns it on. A refresh turns it off again. When it is on, the main page background stays in colour: a #e04918 fill with the photo on top in the CSS `hue` blend mode (the same as the Illustrator HUE layer), a faint copy of the photo on top with no blend mode, and a 40px bar fixed to the bottom of the window (#e2572a) holding the credit.
@@ -170,14 +171,14 @@ Open http://localhost:8000. Opening `index.html` straight from disk will not loa
 
 ## Design notes
 
-- The big title ("Enter the Archive", with a full stop in v3) on the v2 and v3 main pages is fitted to the window: it is 222.7px on the artboard at most, and is made smaller where needed so that at least half the left margin (47px on the artboard) is left to its right. The fit uses the *visible* width of the window (a classic scrollbar's width is measured into `--sbw`), and the title keeps its baseline and underline proportions (`--tf` in the `.mbig` rule; the constant `8.10` / `8.34` is the width of the title in ems, so change it if the wording changes).
+- The big title ("Enter the Archive", with a full stop in v2) on the v1 and v2 main pages is fitted to the window: it is 222.7px on the artboard at most, and is made smaller where needed so that at least half the left margin (47px on the artboard) is left to its right. The fit uses the *visible* width of the window (a classic scrollbar's width is measured into `--sbw`), and the title keeps its baseline and underline proportions (`--tf` in the `.mbig` rule; the constant `8.10` / `8.34` is the width of the title in ems, so change it if the wording changes).
 - In the filter list, the options under Date, Location and Type are indented 9px so the hierarchy is clearer. The indent is small enough that the widest option ("Date unknown") still ends inside the right edge of "AI AD ARCHIVE".
-- The colour effect (a #e04918 fill with the photo on top in `hue` blend mode) is rotated to a random hue each time it is triggered: 12 hues 30 degrees apart, with the original colour twice as likely as any other (`rndHue()` in v1 and v2). Hue rotation keeps the saturation and brightness the same.
+- The colour effect (a #e04918 fill with the photo on top in `hue` blend mode) is rotated to a random hue each time it is triggered: 12 hues 30 degrees apart, with the original colour twice as likely as any other (`rndHue()` in v0, v1 and v2). Hue rotation keeps the saturation and brightness the same.
 - Dates are abbreviated as "Oct. 2026" in the Date filter and "9 Oct. 2026" in the popup (Jan., Feb., Mar., Apr., May, Jun., Jul., Aug., Sep., Oct., Nov., Dec.).
-- Everything is measured on a 1920 x 1080 artboard and scales with the window width (`--u` = 1/1920 of the width). Body text is 19px, the main page title is 204px.
+- Everything is measured on a 1920 x 1080 artboard and scales with the window width (`--u` = 1/1920 of the width). In v0 the body text is 19px and the main page title is 204px; in v1 and v2 the main page has 205px text and a title of at most 222.7px.
 - Body text is AR One Sans Regular. The large "Enter the Archive" title is AR One Sans Retina Regular.
 - No hover animations.
-- The index grid is four equal square boxes, 16px apart, starting 205px from the left and flush with the top and right edges. Every photo fills its box (cropped if needed). The left column (header, Submit, filters) stays fixed, 43px from the left.
+- In v0, the index grid is four equal square boxes, 16px apart, starting 205px from the left and flush with the top and right edges. Every photo fills its box (cropped if needed). The left column (header, Submit, filters) stays fixed, 43px from the left.
 - Filters: Date (by month, with Newest first / Oldest first sorting inside the Date list), Location and Type. Unknown dates always sort last.
 - Clicking an ad opens a popup that is always centred. It shows the whole photo (longest side 620px on the artboard) beside nine rows: Company, Market, Founded, Valuation, Employees, HQ, CEO, Ad Copy and Date. The margins are 24px on the left, right and bottom, and 36px on top for the Close button. The outline is 1px, the same as the thin underline.
 - The Submit links go to the Google Form: https://forms.gle/3X11ahuzRHz3CHpT9

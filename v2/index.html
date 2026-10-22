@@ -86,16 +86,18 @@ dialog[open]{animation:fadein .2s ease}
 dialog[open]::backdrop{animation:fadein .2s ease}
 /* ---------- v2 main page (everything here is measured on the 1920 artboard and scales with the window width) ---------- */
 :root{--mu:calc(100vw / 1920)}
-#v-main{position:relative;overflow:hidden;min-height:100vh;padding:max(calc(370 * var(--mu)),calc(100vh - 646 * var(--mu))) 0 calc(124 * var(--mu)) calc(79 * var(--mu));padding-top:max(calc(370 * var(--mu)),calc(100svh - 646 * var(--mu)))}
+#v-main{position:relative;overflow:hidden;min-height:100vh;padding:calc(137.1 * var(--mu)) 0 calc(92.7 * var(--mu)) calc(79 * var(--mu))}
 .mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
 .vs2{position:relative;opacity:0;transition:opacity .2s ease}
 .vs2.near,.vs2:hover,.vs2:focus-within{opacity:1}
 @media(hover:none){.vs2{opacity:1}}
+.mh #subm{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
 .mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
-.mbig{--tf:min(calc(222.7 * var(--mu)),calc((100vw - var(--sbw,0px) - 141 * var(--mu)) / 8.10));position:absolute;left:calc(94 * var(--mu));top:calc(320 * var(--mu) - .8864 * var(--tf));z-index:3;font:400 var(--tf)/1 var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:.0494em;text-underline-offset:.0674em;text-decoration-skip-ink:none}
+.mbig{--tf:min(calc(222.7 * var(--mu)),calc((100vw - var(--sbw,0px) - 141 * var(--mu)) / 8.34));position:absolute;left:calc(94 * var(--mu));top:calc(320 * var(--mu) - .8864 * var(--tf));z-index:3;font:400 var(--tf)/1 var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:.0494em;text-underline-offset:.0674em;text-decoration-skip-ink:none}
 .mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
 .mtx p{margin:0 0 calc(210 * var(--mu))}
 .mtx p:last-child{margin-bottom:0}
+.mtx .mbig.end{position:static;display:block;width:max-content;margin:max(calc(210 * var(--mu)),calc(100vh - 1em - 92.7 * var(--mu))) 0 0 calc(15 * var(--mu));margin-top:max(calc(210 * var(--mu)),calc(100svh - 1em - 92.7 * var(--mu)));text-decoration-thickness:.0494em;text-underline-offset:.0674em}
 .mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
 /* the Friend photo sits behind the text; it shows in colour while hovered */
 .fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(../images/friend-ads-nyt.webp)}
@@ -111,6 +113,8 @@ body.noov .fp::after{display:none!important}
 .fpx svg{width:100%;height:100%;display:block}
 .fpx:hover{color:#e04918}
 .fpc{position:absolute;z-index:3;right:calc(33 * var(--mu));font-size:max(10px,calc(10.5 * var(--mu)));line-height:1.3;color:rgba(0,0,0,.45);white-space:nowrap}
+/* archive footer link */
+.ftr{position:absolute;left:calc((224 * var(--u) + 100%) / 2);transform:translateX(-50%);bottom:calc(61.7 * var(--u));z-index:3;white-space:nowrap;text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 /* back to top */
 .totop{position:fixed;right:calc(21.3 * var(--mu));bottom:calc(-15 * var(--mu));z-index:8;padding:0;border:0;background:none;color:#000;font:400 max(30px,calc(80 * var(--mu)))/1 var(--ret);cursor:pointer;transition:color .15s ease}
 .totop span{display:block;transform:rotate(180deg);transform-origin:50% 34%;transition:transform .3s ease}
@@ -128,7 +132,6 @@ dialog{border-width:var(--stroke)}
 /* ---------- v2 archive: overlapping layout ---------- */
 .side{left:0;width:calc(224 * var(--u));z-index:1;background:#fff}
 .side .hdr,.side .sub,.flt{left:calc(43 * var(--u))}
-.side .sub{top:min(calc(50vh + 26 * var(--u)),calc(100vh - 95.2 * var(--u) - var(--fh,0px)))}
 .szs{display:flex;align-items:center;justify-content:center;gap:calc(16 * var(--u));width:calc(138 * var(--u));height:calc(53 * var(--u));margin-bottom:calc(50 * var(--u))}
 .sz{display:block;padding:0;border:0;background:none;color:#000;cursor:pointer;line-height:0;transition:color .15s ease}
 .sz[data-v=big]{width:calc(66 * var(--u));height:calc(53 * var(--u))}
@@ -160,6 +163,7 @@ dialog{border-width:var(--stroke)}
   .side>*,.side .hdr,.side .sub{position:static!important;transform:none!important}
   .side>*{pointer-events:auto}
   .szs{display:none}
+  .ftr{position:static;display:block;transform:none;text-align:center;white-space:normal;margin:calc(24 * var(--u)) 24px 43px}
   .side .hdr{width:100%}
   .flt{position:static;max-height:none;width:100%;display:flex;flex-wrap:wrap;gap:0 24px;align-items:flex-start;overflow:visible}
   .flt .lab{margin:0 24px 0 0}
@@ -179,8 +183,7 @@ dialog{border-width:var(--stroke)}
   <div class="fp" id="fp" aria-hidden="true"><img src="../images/friend-ads-nyt.webp" alt="" decoding="async"></div>
   <button class="fpx" id="fpx" type="button" aria-label="Close the photo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3 L17 17 M17 3 L3 17" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
   <div class="fpc" id="fpc">Hiroko Masuike/The New York Times</div>
-  <div class="mh"><a href="#/">AI AD ARCHIVE</a><a id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a><span class="vs2"><a href="../">v1.</a> <a href="./">v2.</a> <a href="../v3/">v3.</a></span></div>
-  <a class="mbig" href="#/archive">Enter the Archive</a>
+  <div class="mh"><a href="#/">AI AD ARCHIVE</a><a id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a><span class="vs2"><a href="../">v1.</a> <a href="./">v2.</a></span></div>
   <div class="mtx" id="mtx">
     <p>The current state of advertisement fucking sucks.</p>
     <p>Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now.</p>
@@ -190,6 +193,7 @@ dialog{border-width:var(--stroke)}
     <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?&nbsp; - are all questions this site seeks to help answer.</p>
     <p>Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you.</p>
     <p>In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
+    <a class="mbig end" href="#/archive">Enter the Archive.</a>
   </div>
   <div class="lp" id="lp" aria-hidden="true"></div>
   <div id="scatter" aria-hidden="true"></div>
@@ -199,10 +203,10 @@ dialog{border-width:var(--stroke)}
 <div id="v-index" hidden>
   <aside class="side">
     <a class="hdr" href="#/">AI AD ARCHIVE</a>
-    <a class="sub ul" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
     <nav class="flt" id="flt" aria-label="Filters"></nav>
   </aside>
   <div class="grid" id="grid"></div>
+  <a class="ftr" id="ftr" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">If you’d like to see more please submit to the archive!</a>
 </div>
 <dialog id="dlg" aria-label="Ad details"></dialog>
 
@@ -221,7 +225,7 @@ var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(functi
 var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<div class="szs"><button type="button" class="sz'+(SMALL?'':' on')+'" data-k="size" data-v="big" aria-pressed="'+!SMALL+'" aria-label="Large images"><svg viewBox="0 0 24 20" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="22" height="18"/><line x1="1" y1="1" x2="23" y2="19"/><line x1="23" y1="1" x2="1" y2="19"/></svg></button><button type="button" class="sz'+(SMALL?' on':'')+'" data-k="size" data-v="small" aria-pressed="'+SMALL+'" aria-label="Small images"><svg viewBox="0 0 24 20" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="22" height="18"/><line x1="1" y1="1" x2="23" y2="19"/><line x1="23" y1="1" x2="1" y2="19"/></svg></button></div><div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
+  $('flt').innerHTML='<div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
     if(on){
       var items='';
@@ -459,7 +463,7 @@ function stopMain(){
 
 /* ---- v2 archive: overlapping layout ---- */
 /* Each ad is scaled so its SHORT side is 481px (191px in the small layout), centred on a 432px cell grid, newest on top. */
-var SMALL=false,FOOT=0,BIG_S=481,SMALL_S=191,PITCH=432,CX0=414,CY0=324,PANEL=224,HALF=240.5;
+var SMALL=true,FOOT=66,BIG_S=481,SMALL_S=191,PITCH=432,CX0=414,CY0=324,PANEL=224,HALF=240.5;
 var HOV=null,TILES=[],ZR={},ABS=false,aX=-1,aY=-1;
 function absMode(){return innerWidth>900}
 function dimsFor(d){var w=d.w||4,h=d.h||3,s=Math.min(w,h);return{bw:w*BIG_S/s,bh:h*BIG_S/s,sw:w*SMALL_S/s,sh:h*SMALL_S/s}}
@@ -485,7 +489,6 @@ function applyReveal(){
   g.style.setProperty('--cw',(pw*r).toFixed(1)+'px');
   return r;
 }
-if(window.ResizeObserver){var SIDE=document.querySelector('.side'),FLT=$('flt');new ResizeObserver(function(){SIDE.style.setProperty('--fh',FLT.offsetHeight+'px')}).observe(FLT)}
 function archMove(){
   if($('v-index').hidden||!ABS){setHov(null);return}
   var r=applyReveal(),u=innerWidth/1920,inPanel=r>0&&aX>=0&&aX<=PANEL*u*r;

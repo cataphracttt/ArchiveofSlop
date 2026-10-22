@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Ad Archive</title>
+<title>AI Ad Archive v1</title>
 <meta name="description" content="An archive of the ephemeral advertisements selling AI in the NYC subway and beyond.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%9A%87%3C/text%3E%3C/svg%3E">
 <style>
@@ -23,21 +23,8 @@ a,button{color:inherit;font:inherit;text-decoration:none;background:none;border:
 .ul,.txt a,a.ul:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em;text-decoration-skip-ink:none}
 
 /* ---------- main ---------- */
-#v-main{position:relative;height:calc(1080 * var(--u));min-height:100vh;overflow:hidden}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s ease;pointer-events:none}
-#v-main.on .bg{opacity:.44}
 .hdr{position:absolute;left:var(--m);top:calc(54.5 * var(--u));white-space:nowrap}
-.big{position:absolute;left:var(--m);top:calc(132.5 * var(--u));font:400 calc(204.4 * var(--u))/calc(204 * var(--u)) var(--ret);white-space:nowrap;display:block;
-  text-decoration:underline;text-decoration-thickness:calc(10 * var(--u));text-underline-offset:calc(14 * var(--u));text-decoration-skip-ink:none}
 .sub{position:absolute;left:var(--m);top:calc(439.6 * var(--u))}
-#v-main .sub:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
-.txt{position:absolute;left:calc(624 * var(--u));top:calc(439.6 * var(--u));width:calc(828 * var(--u))}
-.txt p{margin:0 0 var(--lh)}
-.lp{position:absolute;box-sizing:border-box;border:max(1px,calc(2 * var(--u))) solid #000;background:#fff;pointer-events:none;opacity:0;transition:opacity .2s ease}
-.lp.on{opacity:1}
-.lp img{width:100%;height:100%;object-fit:cover;opacity:.44}
-.credit{position:absolute;left:0;right:0;top:calc(1050 * var(--u));text-align:center;font-size:calc(10.5 * var(--u));line-height:calc(14 * var(--u));opacity:0;transition:opacity .2s ease}
-#v-main.on .credit{opacity:1}
 
 /* ---------- index ---------- */
 #v-index{position:relative;min-height:100vh}
@@ -78,29 +65,11 @@ dialog::backdrop{background:rgba(255,255,255,.5)}
 .r+.r{border-top:1px solid #bfbfbf}
 .x{position:absolute;top:calc(7.5 * var(--u));right:calc(16 * var(--u));text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 
-.vsw{position:absolute;left:calc(456 * var(--u));top:calc(56 * var(--u));white-space:nowrap;z-index:6}
-.vsw{opacity:0;transition:opacity .2s ease}
-.vsw.near,.vsw:hover,.vsw:focus-within{opacity:1}
-@media(hover:none){.vsw{opacity:1}}
-.vsw a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--u)));text-underline-offset:.16em}
 /* ---------- v3 ---------- */
 ::selection{background:#e04918;color:#000}
 ::-moz-selection{background:#e04918;color:#000}
-body.colour #v-main *::selection,body.colour #v-main::selection{background:#5963e0;color:#000}
-body.colour #v-main *::-moz-selection,body.colour #v-main::-moz-selection{background:#5963e0;color:#000}
 a:hover,.fb:hover,.flt li button:hover,.x:hover,.clr:hover{color:#e04918}
 a,.fb,.flt li button,.x,.clr{transition:color .15s ease}
-.txt a.trig:hover{color:inherit}
-/* colour mode: a #e04918 fill with the photo on top in HUE blend mode, plus a faint copy of the photo (no blend) for legibility */
-.hue{position:absolute;inset:0;background:#e04918;isolation:isolate;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
-.hue img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.hue .hueimg{mix-blend-mode:hue}
-.hue .ov{opacity:var(--ov,.08)}
-body.colour .hue{visibility:visible;opacity:1;transition:opacity .3s ease}
-body.colour .bg{opacity:0}
-.bar{position:fixed;left:0;right:0;bottom:0;height:calc(40 * var(--u));background:#e2572a;visibility:hidden;opacity:0;transition:opacity .3s ease,visibility 0s linear .3s;pointer-events:none;z-index:4}
-body.colour .bar{visibility:visible;opacity:1;transition:opacity .3s ease}
-body.colour .credit{opacity:1;position:fixed;left:auto;right:calc(25 * var(--u));top:auto;bottom:0;height:calc(40 * var(--u));line-height:calc(40 * var(--u));font-size:calc(12 * var(--u));text-align:right;color:rgba(0,0,0,.33);z-index:5}
 .tile{position:relative;isolation:isolate;animation:fadein .25s ease both}
 .tile::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
 .tile:hover::before,.tile:focus-visible::before{opacity:1}
@@ -111,25 +80,86 @@ body.colour .credit{opacity:1;position:fixed;left:auto;right:calc(25 * var(--u))
 .pic.on::before{opacity:1}
 .pic.on::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
 body.noov .tile::after,body.noov .pic::after{display:none!important}
-body.noov .ov{display:none}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 #v-main:not([hidden]),#v-index:not([hidden]){animation:fadein .25s ease}
 dialog[open]{animation:fadein .2s ease}
 dialog[open]::backdrop{animation:fadein .2s ease}
+/* ---------- v2 main page (everything here is measured on the 1920 artboard and scales with the window width) ---------- */
+:root{--mu:calc(100vw / 1920)}
+#v-main{position:relative;overflow:hidden;min-height:100vh;padding:max(calc(370 * var(--mu)),calc(100vh - 646 * var(--mu))) 0 calc(124 * var(--mu)) calc(79 * var(--mu));padding-top:max(calc(370 * var(--mu)),calc(100svh - 646 * var(--mu)))}
+.mh{position:absolute;left:calc(94 * var(--mu));top:calc(56 * var(--mu));z-index:7;display:flex;gap:calc(79 * var(--mu));white-space:nowrap;font-size:max(13px,calc(19 * var(--mu)));line-height:1.21}
+.vs2{position:relative;opacity:0;transition:opacity .2s ease}
+.vs2.near,.vs2:hover,.vs2:focus-within{opacity:1}
+@media(hover:none){.vs2{opacity:1}}
+.mh a:hover{text-decoration:underline;text-decoration-thickness:max(1px,calc(1.2 * var(--mu)));text-underline-offset:.16em}
+.mbig{--tf:min(calc(222.7 * var(--mu)),calc((100vw - var(--sbw,0px) - 141 * var(--mu)) / 8.10));position:absolute;left:calc(94 * var(--mu));top:calc(320 * var(--mu) - .8864 * var(--tf));z-index:3;font:400 var(--tf)/1 var(--ret);white-space:nowrap;text-decoration:underline;text-decoration-thickness:.0494em;text-underline-offset:.0674em;text-decoration-skip-ink:none}
+.mtx{position:relative;z-index:3;width:calc(1759 * var(--mu));font-size:calc(205 * var(--mu));line-height:calc(210 * var(--mu))}
+.mtx p{margin:0 0 calc(210 * var(--mu))}
+.mtx p:last-child{margin-bottom:0}
+.mtx a{text-decoration:underline;text-decoration-thickness:calc(10.5 * var(--mu));text-underline-offset:calc(13 * var(--mu));text-decoration-skip-ink:none}
+/* the Friend photo sits behind the text; it shows in colour while hovered */
+.fp{position:absolute;left:calc(44 * var(--mu));width:calc(1843 * var(--mu));aspect-ratio:1024/576;box-sizing:border-box;border:max(1px,calc(2 * var(--mu))) solid #000;z-index:1;pointer-events:none;isolation:isolate;--img:url(images/friend-ads-nyt.webp)}
+.fp img{display:block;width:100%;height:100%;object-fit:cover;opacity:.44}
+.fp::before{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat,#e04918;background-blend-mode:hue;opacity:0;transition:opacity .2s ease;pointer-events:none;filter:hue-rotate(var(--hr,0deg))}
+.fp.on::before{opacity:1}
+.fp.on::after{content:'';position:absolute;inset:0;background:var(--img) center/cover no-repeat;opacity:var(--ov,.08);pointer-events:none}
+body.noov .fp::after{display:none!important}
+.lp{position:absolute;z-index:2;box-sizing:border-box;border:var(--stroke) solid #000;background:#fff;pointer-events:none;opacity:0;transition:opacity .2s ease}
+.lp.on{opacity:1}
+.lp img{display:block;width:100%;height:100%;object-fit:cover;opacity:.44}
+.fpx{position:absolute;z-index:6;box-sizing:border-box;width:max(24px,calc(35 * var(--mu)));height:max(24px,calc(35 * var(--mu)));padding:calc(5 * var(--mu));border:max(2px,calc(3 * var(--mu))) solid #000;background:#fff;color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .15s ease}
+.fpx svg{width:100%;height:100%;display:block}
+.fpx:hover{color:#e04918}
+.fpc{position:absolute;z-index:3;right:calc(33 * var(--mu));font-size:max(10px,calc(10.5 * var(--mu)));line-height:1.3;color:rgba(0,0,0,.45);white-space:nowrap}
+/* back to top */
+.totop{position:fixed;right:calc(21.3 * var(--mu));bottom:calc(-15 * var(--mu));z-index:8;padding:0;border:0;background:none;color:#000;font:400 max(30px,calc(80 * var(--mu)))/1 var(--ret);cursor:pointer;transition:color .15s ease}
+.totop span{display:block;transform:rotate(180deg);transform-origin:50% 34%;transition:transform .3s ease}
+.totop.up span{transform:none}
+.totop:hover{color:#e04918}
+/* ads scattered down the page; the cursor knocks them away */
+#scatter{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:4}
+.sad{position:absolute;display:block;pointer-events:none;will-change:transform,opacity}
+/* ---------- strokes: every box outline uses one weight ---------- */
+:root{--stroke:max(1px,calc(2 * var(--mu)))}
+.fp{border-width:var(--stroke)}
+.fpx{border:var(--stroke) solid #000}
+dialog{border-width:var(--stroke)}
+#v-main{font-family:var(--ret)}
+/* ---------- v2 archive: overlapping layout ---------- */
+.side{left:0;width:calc(224 * var(--u));z-index:1;background:#fff}
+.side .hdr,.side .sub,.flt{left:calc(43 * var(--u))}
+.side .sub{top:min(calc(50vh + 26 * var(--u)),calc(100vh - 95.2 * var(--u) - var(--fh,0px)))}
+.szs{display:flex;align-items:center;justify-content:center;gap:calc(16 * var(--u));width:calc(138 * var(--u));height:calc(53 * var(--u));margin-bottom:calc(50 * var(--u))}
+.sz{display:block;padding:0;border:0;background:none;color:#000;cursor:pointer;line-height:0;transition:color .15s ease}
+.sz[data-v=big]{width:calc(66 * var(--u));height:calc(53 * var(--u))}
+.sz[data-v=small]{width:calc(25 * var(--u));height:calc(20 * var(--u))}
+.sz svg{display:block;width:100%;height:100%;overflow:visible}
+.sz rect{fill:none;stroke:currentColor;stroke-width:var(--stroke);vector-effect:non-scaling-stroke;transition:fill .15s ease}
+.sz line{stroke:currentColor;stroke-width:var(--stroke);vector-effect:non-scaling-stroke;transition:stroke .15s ease}
+.sz.on rect{fill:currentColor}
+.sz.on line{stroke:#fff}
+.sz:hover{color:#e04918}
+.grid.abs{display:block;position:relative;z-index:2;margin:0;padding:0;overflow:hidden;clip-path:inset(0 0 0 var(--cw,0px));transition:clip-path .14s ease-out;height:calc(var(--gh,1080) * var(--u))}
+.grid.abs .tile{position:absolute;--w:var(--bw);--h:var(--bh);width:calc(var(--w) * var(--u));height:calc(var(--h) * var(--u));left:calc((var(--cx) - var(--w) / 2) * var(--u));top:calc((var(--cy) - var(--h) / 2) * var(--u));aspect-ratio:auto;pointer-events:none;z-index:var(--z,1);transition:width .25s ease,height .25s ease,left .25s ease,top .25s ease,clip-path .25s ease}
+.grid.abs.small .tile{--w:var(--sw);--h:var(--sh)}
+.grid.abs .tile.hov{z-index:5000}
+/* small layout: every ad is cropped to its own cell (408 of the 432px column pitch), leaving a 24px white gap so long ads never run into their neighbours. The hovered ad is shown whole, on top. */
+.grid.abs .tile{clip-path:inset(0 0 0 0)}
+.grid.abs.small .tile:not(.hov){clip-path:inset(0 max(0px,calc((var(--sw) - 408) / 2 * var(--u))))}
+.grid.abs .tile.hov::before{opacity:1}
+.grid.abs .tile.hov::after{content:'';position:absolute;inset:0;background:var(--img) center/100% 100% no-repeat;opacity:var(--ov,.08);pointer-events:none}
+.grid.abs .empty{position:absolute;left:calc(224 * var(--u));top:calc(54.5 * var(--u))}
+#v-index.pt{cursor:pointer}
 /* ---------- small screens ---------- */
 @media(max-width:900px){
   :root{--u:min(calc(100vw / 480),1px);--m:24px;--lh:calc(23 * var(--u))}
   body{font-size:calc(19 * var(--u))}
-  #v-main{height:auto;min-height:100vh;padding:24px var(--m) 48px;display:flex;flex-direction:column;gap:0}
-  #v-main>*:not(.bg):not(.hue):not(.bar){position:static!important}
-  #v-main>.vsw{position:absolute!important;top:24px;right:24px}
   .hdr{margin-bottom:12vh}
-  .big{font-size:16vw;line-height:1;white-space:normal;text-decoration-thickness:max(3px,.9vw);text-underline-offset:.08em;margin-bottom:12vh;width:max-content;max-width:100%}
   .sub{margin-bottom:var(--lh)}
-  .txt{width:auto}
-  .credit{margin-top:24px;text-align:left;font-size:12px;opacity:.6}
   .side{position:static;width:auto;padding:24px var(--m) 0;display:flex;flex-wrap:wrap;gap:12px 28px;pointer-events:auto}
   .side>*,.side .hdr,.side .sub{position:static!important;transform:none!important}
+  .side>*{pointer-events:auto}
+  .szs{display:none}
   .side .hdr{width:100%}
   .flt{position:static;max-height:none;width:100%;display:flex;flex-wrap:wrap;gap:0 24px;align-items:flex-start;overflow:visible}
   .flt .lab{margin:0 24px 0 0}
@@ -146,20 +176,24 @@ dialog[open]::backdrop{animation:fadein .2s ease}
 </head>
 <body>
 <main id="v-main" aria-label="AI Ad Archive">
-  <img class="bg" src="images/friend-ads-nyt.webp" alt="" decoding="async">
-  <div class="hue" aria-hidden="true"><img class="hueimg" src="images/friend-ads-nyt.webp" alt="" decoding="async"><img class="ov" src="images/friend-ads-nyt.webp" alt="" decoding="async"></div>
-  <div class="lp" id="lp" aria-hidden="true"></div>
-  <div class="bar" aria-hidden="true"></div>
-  <a class="hdr" href="#/">AI AD ARCHIVE</a>
-  <div class="vsw"><a href="./">v1.</a> <a href="v2/">v2.</a> <a href="v3/">v3.</a></div>
-  <a class="big" href="#/archive">Enter the Archive</a>
-  <a class="sub" id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a>
-  <div class="txt">
-    <p>The current state of advertisement fucking sucks. Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now. Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash (<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" data-lp="yahoo" target="_blank" rel="noopener">“on purpose”</a>). Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are going as a society, <a href="https://nyc-friends.vercel.app/" data-lp="museum" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" data-lp="vandalize" target="_blank" rel="noopener">a virtual vandalization website</a> among others. Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
+  <div class="fp" id="fp" aria-hidden="true"><img src="images/friend-ads-nyt.webp" alt="" decoding="async"></div>
+  <button class="fpx" id="fpx" type="button" aria-label="Close the photo"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 3 L17 17 M17 3 L3 17" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+  <div class="fpc" id="fpc">Hiroko Masuike/The New York Times</div>
+  <div class="mh"><a href="#/">AI AD ARCHIVE</a><a id="subm" href="https://forms.gle/3X11ahuzRHz3CHpT9" target="_blank" rel="noopener">Submit</a><span class="vs2"><a href="./">v1.</a> <a href="v2/">v2.</a></span></div>
+  <a class="mbig" href="#/archive">Enter the Archive</a>
+  <div class="mtx" id="mtx">
+    <p>The current state of advertisement fucking sucks.</p>
+    <p>Never have we been more sick and tired of being bombarded with useless and unwanted advertisements than now.</p>
+    <p>Especially in the case of the unavoidable AI advertisements in the NYC subway. <a class="trig" id="trig" href="https://www.nytimes.com/2025/10/07/style/friend-ai-subway-ads-new-york.html" data-lp="nyt" target="_blank" rel="noopener">Think of the infamous friend ads that took over every advertisable surface not too long ago</a>, garnering an enormous amount of backlash “<a href="https://finance.yahoo.com/news/22-old-ai-ceo-behind-181616296.html" data-lp="yahoo" target="_blank" rel="noopener">on purpose</a>”. Responses manifested as mass-graffiti, short form rants, a larger conversation on where we are headed as a society, <a href="https://nyc-friends.vercel.app/" data-lp="museum" target="_blank" rel="noopener">an online museum of defacement</a> and <a href="https://www.vandalizefriend.com/" data-lp="vandalize" target="_blank" rel="noopener">a virtual vandalization website</a>, among others.</p>
+    <p>Looking back almost exactly a year, the event exemplifies the advent of NYC subway AI advertisement, and though it was not alone, little can be said about the less memorable ones.</p>
     <p>As such, this site seeks to paint a bigger picture, a geographic and temporal web to catalogue all the ephemeral advertisements that are selling AI.</p>
-    <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?  - are all questions this site seeks to help answer. Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you. In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
+    <p>Who are they for? What exactly are they selling? What’s different? What the fuck are they saying? Who’s behind this? Why here?&nbsp; - are all questions this site seeks to help answer.</p>
+    <p>Importantly, many of the advertisements are not for you, but for other business (B2B). That is to say they are for the very few people in the city who have not only the corporate decision-making power but are also on the subway, and not you.</p>
+    <p>In SF it seems all billboard advertisements are B2B, sending a clear message who the city is for, and who it isn’t.</p>
   </div>
-  <div class="credit">Hiroko Masuike/The New York Times</div>
+  <div class="lp" id="lp" aria-hidden="true"></div>
+  <div id="scatter" aria-hidden="true"></div>
+  <button class="totop" id="totop" type="button" aria-label="Go to the bottom" aria-live="off"><span>^</span></button>
 </main>
 
 <div id="v-index" hidden>
@@ -187,7 +221,7 @@ var F=[{k:'month',l:'Date',f:fmtM,v:function(){var a=uniq('month').filter(functi
 var SEL={},OPEN='',ANIM='',CLOSING=false;
 function li(k,v,t,sel,cls){return '<li'+(cls?' class="'+cls+'"':'')+'><button type="button" data-k="'+k+'" data-v="'+esc(v)+'"'+(sel?' class="ul"':'')+'>'+esc(t)+'</button></li>'}
 function drawF(){
-  $('flt').innerHTML='<div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
+  $('flt').innerHTML='<div class="szs"><button type="button" class="sz'+(SMALL?'':' on')+'" data-k="size" data-v="big" aria-pressed="'+!SMALL+'" aria-label="Large images"><svg viewBox="0 0 24 20" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="22" height="18"/><line x1="1" y1="1" x2="23" y2="19"/><line x1="23" y1="1" x2="1" y2="19"/></svg></button><button type="button" class="sz'+(SMALL?' on':'')+'" data-k="size" data-v="small" aria-pressed="'+SMALL+'" aria-label="Small images"><svg viewBox="0 0 24 20" preserveAspectRatio="none" aria-hidden="true"><rect x="1" y="1" width="22" height="18"/><line x1="1" y1="1" x2="23" y2="19"/><line x1="23" y1="1" x2="1" y2="19"/></svg></button></div><div class="lab"><span>FILTER:</span></div>'+F.map(function(f){
     var on=OPEN===f.k,act=!!SEL[f.k]||(f.k==='month'&&SORT!=='desc'),opts='';
     if(on){
       var items='';
@@ -201,6 +235,7 @@ function drawF(){
 }
 $('flt').addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b||CLOSING)return;var k=b.dataset.k;
+  if(k==='size'){setSmall(b.dataset.v==='small');drawF();return}
   if(k==='clear'){SEL={};SORT='desc';OPEN='';drawF();render();return}
   if(b.classList.contains('fb')){
     if(OPEN===k){
@@ -218,7 +253,17 @@ function art(d){return '<img src="images/'+d.image+'" alt="'+esc(d.name)+' ad: '
 function cmp(a,b){var x=a.date,y=b.date;if(!x&&!y)return a.id-b.id;if(!x)return 1;if(!y)return -1;if(x!==y)return SORT==='asc'?(x<y?-1:1):(x<y?1:-1);return a.id-b.id}
 function render(){
   var L=DATA.filter(function(d){return F.every(function(f){return !SEL[f.k]||d[f.k]===SEL[f.k]})}).sort(cmp);
-  $('grid').innerHTML=L.length?L.map(function(d){return '<button class="tile" type="button" style="--img:url(thumbs/'+d.image+')" data-id="'+d.id+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="thumbs/'+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>'}).join(''):(DATA.length?'<p class="empty">Nothing matches these filters.</p>':'');
+  var g=$('grid');ABS=absMode();g.classList.toggle('abs',ABS);g.classList.toggle('small',SMALL&&ABS);
+  if(!L.length){g.innerHTML=DATA.length?'<p class="empty">Nothing matches these filters.</p>':'';g.style.removeProperty('--gh');TILES=[];HOV=null;return}
+  var bottom=0,dir=(ABS&&!SMALL)?'images/':'thumbs/',base=SMALL?CY0:rowBase(L.slice(0,4).map(function(d){var q=dimsFor(d);return q.bh}));
+  g.innerHTML=L.map(function(d,i){
+    var c=i%4,r=Math.floor(i/4),cx=CX0+PITCH*c,cy=base+PITCH*r,q=dimsFor(d);
+    bottom=Math.max(bottom,cy+(SMALL?q.sh:q.bh)/2);
+    return '<button class="tile" type="button" style="--cx:'+cx+';--cy:'+cy+';--bw:'+q.bw.toFixed(2)+';--bh:'+q.bh.toFixed(2)+';--sw:'+q.sw.toFixed(2)+';--sh:'+q.sh.toFixed(2)+';--z:'+(ZR[d.id]||1)+';--img:url('+dir+d.image+')" data-id="'+d.id+'" data-cx="'+cx+'" data-cy="'+cy+'" data-bh="'+q.bh.toFixed(2)+'" data-sh="'+q.sh.toFixed(2)+'" data-sw="'+q.sw.toFixed(2)+'" data-img="'+d.image+'" aria-label="'+esc(d.name)+', '+esc(d.place)+', '+fmt(d.date)+'"><img src="'+dir+d.image+'" loading="lazy" decoding="async" alt="'+esc(d.name)+' ad: '+esc(d.copy)+'"></button>';
+  }).join('');
+  if(SMALL&&ABS)bottom+=CY0-Math.max.apply(null,L.slice(0,4).map(function(d){return dimsFor(d).sh/2}))+FOOT;   // as much space below the last row as above the first
+  g.style.setProperty('--gh',bottom.toFixed(1));
+  TILES=[].slice.call(g.querySelectorAll('.tile'));HOV=null;
 }
 
 /* details */
@@ -231,6 +276,7 @@ function openAd(id){
   im.src='images/'+d.image;
 }
 function showAd(d,w,h){
+  setHov(null);
   var c=CO[d.co],m=Math.max(w,h),W=(w/m*620).toFixed(2),H=(h/m*620).toFixed(2);
   var rows=[['Company',c.n],['Market',c.mk],['Founded',c.fd],['Valuation',c.val],['Employees',c.emp],['HQ',c.hq],['CEO',c.ceo],['Ad Copy',d.copy],['Date',fmt(d.date)],['Location','NY'+(d.spot?', '+d.spot:'')]];
   if(d.up&&d.up!=='Archive')rows.push(['Uploader',d.up]);
@@ -246,20 +292,19 @@ function showAd(d,w,h){
     pic.addEventListener('blur',function(){popOn(pic,false)});
   }
 }
-$('grid').addEventListener('click',function(e){var t=e.target.closest('.tile');if(t){last=t;openAd(t.dataset.id)}});
+$('grid').addEventListener('click',function(e){
+  var t=(ABS&&e.detail!==0)?tileAt(e.clientX,e.clientY):null;   // mouse clicks use the 481 x 481 hover squares
+  if(!t)t=e.target.closest('.tile');
+  if(t){last=t;openAd(t.dataset.id)}
+});
 dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
 dlg.addEventListener('close',function(){if(last)last.focus()});
 
-/* hover photo: instant, no animation. Touch screens toggle it with a tap. */
-var vm=$('v-main'),tg=$('trig'),touch=matchMedia('(hover:none)').matches;
-tg.addEventListener('mouseenter',function(){vm.classList.add('on')});
-tg.addEventListener('mouseleave',function(){vm.classList.remove('on')});
-tg.addEventListener('focus',function(){vm.classList.add('on')});
-tg.addEventListener('blur',function(){vm.classList.remove('on')});
-tg.addEventListener('click',function(){if(touch)vm.classList.toggle('on')});
+var touch=matchMedia('(hover:none)').matches;
+/* random hue for the colour effect: the same look rotated to another hue; the current colour (0deg) is twice as likely as any other of the 12 hues */
+function rndHue(){var w=[2,1,1,1,1,1,1,1,1,1,1,1],r=Math.random()*13,i=0;while(i<11&&r>=w[i]){r-=w[i];i++}return i*30}
 
-/* v3 colour mode. Off until the Friend link is clicked. Resets on refresh. Clicking the photo in the popup toggles it. */
-/* v3: in colour mode the popup shows the contributor's comment flying right to left across the photo, at a new random height each pass. */
+/* the popup shows the contributor's comment flying right to left across the photo, at a new random height each pass. */
 var FLY_SPEED=150;             // how fast the comment flies, in artboard px per second
 var FLY_ANIM=null,FLY_EL=null,CURAD=null;
 function stopFly(){if(FLY_ANIM){FLY_ANIM.onfinish=null;FLY_ANIM.cancel();FLY_ANIM=null}if(FLY_EL){FLY_EL.remove();FLY_EL=null}}
@@ -279,37 +324,202 @@ function startFly(){
 }
 dlg.addEventListener('close',function(){stopFly();updOsc()});
 
-var COLOR=false;
+/* ---- slow overlay (the faint copy of a photo that oscillates between 1% and 8% opacity) ---- */
 var COLOR_OVERLAY=true;        // set to false to turn the slow overlay off
 var OV_MIN=0.01,OV_MAX=0.08;   // overlay opacity range (1% to 8%)
 var OV_PERIOD=6;               // seconds for one full slow cycle
-var OV_RAF=0,OV_T0=0;
+var OV_RAF=0,OV_T0=0,OV_ON=false,FPON=false;
 function ovTick(t){var s=(Math.sin(2*Math.PI*((t-OV_T0)/1000)/OV_PERIOD-Math.PI/2)+1)/2;document.documentElement.style.setProperty('--ov',(OV_MIN+(OV_MAX-OV_MIN)*s).toFixed(4));OV_RAF=requestAnimationFrame(ovTick)}
-/* random hue for the colour effect: the same look rotated to another hue; the current colour (0deg) is twice as likely as any other of the 12 hues */
-function rndHue(){var w=[2,1,1,1,1,1,1,1,1,1,1,1],r=Math.random()*13,i=0;while(i<11&&r>=w[i]){r-=w[i];i++}return i*30}
-function setColor(v){
-  if(v&&!COLOR){var hl=document.querySelector('.hue');if(hl)hl.style.setProperty('--hr',rndHue()+'deg')}
-  COLOR=!!v;
-  document.body.classList.toggle('colour',COLOR);
-  document.body.classList.toggle('noov',!COLOR_OVERLAY);
-  updOsc();
-}
-$('grid').addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t&&t!==LASTT){LASTT=t;t.style.setProperty('--hr',rndHue()+'deg')}});
-$('grid').addEventListener('mouseout',function(e){if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile'))LASTT=null});
-$('grid').addEventListener('focusin',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t)t.style.setProperty('--hr',rndHue()+'deg')});
-var LASTT=null;
-/* The popup photo shows in colour while it is hovered (a tap toggles it on touch screens). It does not affect tile hovers or the main page. */
+/* The popup photo shows in colour while it is hovered (a tap toggles it on touch screens). */
 function popOn(p,on){if(on)p.style.setProperty('--hr',rndHue()+'deg');p.classList.toggle('on',on);startFly();updOsc()}
-/* The slow overlay runs only while something coloured can be on screen. */
-var OV_ON=false;
+/* The overlay runs only while something coloured can be on screen. */
 function updOsc(){
-  var need=COLOR_OVERLAY&&(COLOR||!$('v-index').hidden||(dlg.open&&!!dlg.querySelector('.pic.on')));
+  var need=COLOR_OVERLAY&&(FPON||!$('v-index').hidden||(dlg.open&&!!dlg.querySelector('.pic.on')));
   if(need&&!OV_ON){OV_ON=true;OV_T0=performance.now();OV_RAF=requestAnimationFrame(ovTick)}
   else if(!need&&OV_ON){OV_ON=false;cancelAnimationFrame(OV_RAF)}
 }
-setColor(false);
-tg.addEventListener('click',function(){setColor(true)});
-tg.addEventListener('auxclick',function(e){if(e.button===1)setColor(true)});
+document.body.classList.toggle('noov',!COLOR_OVERLAY);
+
+/* ---- v2 main page ---- */
+var AD_PAD=40;                    // collision border around a scattered ad (artboard px)
+var AD_W_MIN=330,AD_W_MAX=860;    // scattered ad width range (artboard px)
+var AD_GAP_START=1100;            // scrolling (artboard px) per new ad near the top of the page...
+var AD_GAP_END=380;               // ...down to this near the bottom, so more ads appear the further you scroll
+var AD_MAX=70;                    // most ads on the page at once
+var main=$('v-main'),fp=$('fp'),fpx=$('fpx'),fpc=$('fpc'),tg=$('trig'),sc=$('scatter');
+var MAIN_ON=false,FPCLOSED=false,phraseOver=false,lastPX=-1,lastPY=-1;
+function mu(){return main.getBoundingClientRect().width/1920}
+function placeFP(){
+  var rs=tg.getClientRects();if(!rs.length||main.hidden)return;
+  var mr=main.getBoundingClientRect(),m=mr.width/1920,r0=rs[0];
+  var top=(r0.top-mr.top)+217.3*m+196*m;                 // photo top = first phrase baseline + 196px
+  fp.style.top=top+'px';
+  var fh=fp.offsetHeight||1037*m,fw=fp.offsetWidth||1843*m;
+  var bs=Math.max(24,35*m);
+  fpx.style.top=(top+9*m)+'px';fpx.style.left=(44*m+fw-10*m-bs)+'px';
+  fpc.style.top=(top+fh+8*m)+'px';
+}
+function fpSet(on){on=!!on&&!FPCLOSED;if(on===FPON)return;FPON=on;if(on)fp.style.setProperty('--hr',rndHue()+'deg');fp.classList.toggle('on',on);updOsc()}
+function fpCheck(){
+  if(!MAIN_ON||FPCLOSED||touch)return;
+  var r=fp.getBoundingClientRect();
+  fpSet(phraseOver||(lastPX>=r.left&&lastPX<=r.right&&lastPY>=r.top&&lastPY<=r.bottom));
+}
+tg.addEventListener('mouseenter',function(){phraseOver=true;fpCheck()});
+tg.addEventListener('mouseleave',function(){phraseOver=false;fpCheck()});
+tg.addEventListener('focus',function(){phraseOver=true;fpCheck()});
+tg.addEventListener('blur',function(){phraseOver=false;fpCheck()});
+fpx.addEventListener('click',function(){FPCLOSED=true;fpSet(false);fp.hidden=true;fpx.hidden=true;fpc.hidden=true});
+if(touch){fp.style.pointerEvents='auto';fp.addEventListener('click',function(){fpSet(!FPON)})}
+
+
+/* scattered ads: spawned out of view as you scroll, in growing numbers; the cursor knocks them away before they can be hovered */
+var ADS=[],SC_LAST=0,SC_BUDGET=0,SC_TICK=false,PX=-1,PY=-1,LASTW=0;
+function rnd(a,b){return a+Math.random()*(b-a)}
+function spawn(dir){
+  var d=DATA[Math.floor(Math.random()*DATA.length)];if(!d)return;
+  var im=new Image();
+  im.onload=function(){
+    if(!MAIN_ON||!im.naturalWidth)return;
+    var m=mu(),W=main.getBoundingClientRect().width,vh=innerHeight,docH=main.offsetHeight;
+    var w=rnd(AD_W_MIN,AD_W_MAX)*m,h=w*im.naturalHeight/im.naturalWidth;
+    if(h>900*m){h=900*m;w=h*im.naturalWidth/im.naturalHeight}
+    var vt=scrollY,vb=vt+vh,x=rnd(-0.1*w,W-0.9*w),top=dir>0?vb+rnd(0.15,1.3)*vh:vt-rnd(0.15,1.3)*vh-h;
+    top=Math.max(0,Math.min(docH-h,top));
+    if(top<vb&&top+h>vt)return;                         // never appear in view
+    var el=document.createElement('img');el.className='sad';el.alt='';el.src=im.src;
+    el.style.left=x+'px';el.style.top=top+'px';el.style.width=w+'px';
+    sc.appendChild(el);ADS.push({el:el,x:x,y:top,w:w,h:h,flying:false});
+    if(ADS.length>AD_MAX){var mid=scrollY+vh/2,far=0,fi=0;ADS.forEach(function(a,i){var dd=Math.abs(a.y+a.h/2-mid);if(!a.flying&&dd>far){far=dd;fi=i}});var o=ADS.splice(fi,1)[0];o.el.remove()}
+  };
+  im.src='thumbs/'+d.image;
+}
+function spawnStep(){
+  SC_TICK=false;if(!MAIN_ON||!DATA.length)return;
+  var y=scrollY,dy=y-SC_LAST;SC_LAST=y;if(!dy)return;
+  var m=mu(),docH=main.offsetHeight,vh=innerHeight,p=Math.max(0,Math.min(1,y/Math.max(1,docH-vh)));
+  var gap=AD_GAP_START+(AD_GAP_END-AD_GAP_START)*p;
+  SC_BUDGET+=Math.abs(dy)/m/gap;
+  var n=0;while(SC_BUDGET>=1&&n<4){SC_BUDGET--;n++;spawn(dy>0?1:-1)}
+}
+function segHits(x0,y0,x1,y1,l,t,r,b){
+  var dx=x1-x0,dy=y1-y0,len=Math.hypot(dx,dy),n=Math.max(1,Math.ceil(len/12));
+  for(var i=0;i<=n;i++){var x=x0+dx*i/n,y=y0+dy*i/n;if(x>=l&&x<=r&&y>=t&&y<=b)return true}
+  return false;
+}
+function knock(a,cx,cy,vx,vy){
+  a.flying=true;
+  var ax=a.x+a.w/2,ay=a.y+a.h/2,dx=ax-cx,dy=ay-cy,l=Math.hypot(dx,dy)||1;dx/=l;dy/=l;
+  var vl=Math.hypot(vx,vy);if(vl>0){dx+=vx/vl*0.6;dy+=vy/vl*0.6;var k=Math.hypot(dx,dy)||1;dx/=k;dy/=k}
+  var dist=Math.hypot(innerWidth,innerHeight)*1.1,rot=rnd(-6,6)+(dx>0?4:-4);
+  a.el.style.transition='transform .7s cubic-bezier(.2,.6,.3,1),opacity .7s ease-in';
+  a.el.style.transform='translate('+dx*dist+'px,'+dy*dist+'px) rotate('+rot+'deg)';
+  a.el.style.opacity='0';
+  setTimeout(function(){a.el.remove();var i=ADS.indexOf(a);if(i>-1)ADS.splice(i,1)},760);
+}
+function knockCheck(reset){
+  if(!MAIN_ON||lastPX<0||!ADS.length){if(lastPX>=0){PX=lastPX+scrollX;PY=lastPY+scrollY}return}
+  var dx=lastPX+scrollX,dy=lastPY+scrollY,px=(reset||PX<0)?dx:PX,py=(reset||PX<0)?dy:PY;
+  PX=dx;PY=dy;
+  var pad=AD_PAD*mu();
+  ADS.slice().forEach(function(a){
+    if(a.flying)return;
+    if(segHits(px,py,dx,dy,a.x-pad,a.y-pad,a.x+a.w+pad,a.y+a.h+pad))knock(a,dx,dy,dx-px,dy-py);
+  });
+}
+addEventListener('pointermove',function(e){lastPX=e.clientX;lastPY=e.clientY;if(MAIN_ON){fpCheck();knockCheck(false)}},{passive:true});
+addEventListener('pointerdown',function(e){
+  lastPX=e.clientX;lastPY=e.clientY;if(!MAIN_ON)return;
+  if(e.pointerType==='mouse'&&e.button===0&&!(e.target.closest&&e.target.closest('a,button'))){
+    /* a left click dispels every ad that is in view, away from the click */
+    var vt=scrollY,vb=vt+innerHeight,cx=e.clientX+scrollX,cy=e.clientY+scrollY;
+    ADS.slice().forEach(function(a){if(!a.flying&&a.y<vb&&a.y+a.h>vt)knock(a,cx,cy,0,0)});
+  }else knockCheck(true);
+},{passive:true});
+document.addEventListener('mouseleave',function(){PX=-1;lastPX=-1;lastPY=-1;phraseOver=false;fpCheck()});
+addEventListener('scroll',function(){
+  if(!MAIN_ON)return;
+  fpCheck();knockCheck(false);toTopShow();
+  if(!SC_TICK){SC_TICK=true;requestAnimationFrame(spawnStep)}
+},{passive:true});
+addEventListener('resize',function(){
+  placeFP();
+  var w=innerWidth;if(LASTW&&Math.abs(w-LASTW)>40){ADS.forEach(function(a){a.el.remove()});ADS=[];SC_BUDGET=0}
+  LASTW=w;
+});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(placeFP);
+function toTopShow(){var up=MAIN_ON&&scrollY>innerHeight,t=$('totop');t.classList.toggle('up',up);t.setAttribute('aria-label',up?'Back to top':'Go to the bottom')}
+$('totop').addEventListener('click',function(){scrollTo({top:$('totop').classList.contains('up')?0:document.documentElement.scrollHeight,behavior:'smooth'})});
+function startMain(){MAIN_ON=true;toTopShow();LASTW=innerWidth;placeFP();SC_LAST=scrollY;fpCheck()}
+function stopMain(){
+  MAIN_ON=false;$('totop').classList.remove('up');
+  ADS.forEach(function(a){a.el.remove()});ADS=[];SC_BUDGET=0;PX=-1;
+  FPON=false;fp.classList.remove('on');updOsc();
+}
+
+/* ---- v2 archive: overlapping layout ---- */
+/* Each ad is scaled so its SHORT side is 481px (191px in the small layout), centred on a 432px cell grid, newest on top. */
+var SMALL=false,FOOT=0,BIG_S=481,SMALL_S=191,PITCH=432,CX0=414,CY0=324,PANEL=224,HALF=240.5;
+var HOV=null,TILES=[],ZR={},ABS=false,aX=-1,aY=-1;
+function absMode(){return innerWidth>900}
+function dimsFor(d){var w=d.w||4,h=d.h||3,s=Math.min(w,h);return{bw:w*BIG_S/s,bh:h*BIG_S/s,sw:w*SMALL_S/s,sh:h*SMALL_S/s}}
+function buildZ(){var s=DATA.slice().sort(function(a,b){var x=a.date||'0',y=b.date||'0';return x<y?1:x>y?-1:a.id-b.id});ZR={};s.forEach(function(d,i){ZR[d.id]=1000-i})}
+function setHov(t){if(t===HOV)return;if(HOV)HOV.classList.remove('hov');HOV=t;if(t){t.style.setProperty('--hr',rndHue()+'deg');t.classList.add('hov')}$('v-index').classList.toggle('pt',!!t);updOsc()}
+/* the hover/click target is the central 481 x 481 square of each cell in the large layout (the image itself in the small layout); where targets overlap the nearest centre wins */
+function tileAt(x,y){
+  if(!ABS||!TILES.length)return null;
+  var u=innerWidth/1920,half=HALF*u,best=null,bd=1e9;
+  for(var i=0;i<TILES.length;i++){
+    var t=TILES[i],cx=+t.dataset.cx*u,cy=+t.dataset.cy*u-scrollY,hw=half,hh=half;
+    if(SMALL){hw=Math.min(+t.dataset.sw,408)/2*u;hh=+t.dataset.sh/2*u}   // small layout: just the image (as shown, cropped to its cell)
+    if(Math.abs(x-cx)<=hw&&Math.abs(y-cy)<=hh){var dd=Math.hypot(x-cx,y-cy);if(dd<bd){bd=dd;best=t}}
+  }
+  return best;
+}
+/* The left column always sits under the images. The images are masked from the left instead: the mask opens as the cursor moves through the left fifth of the page (fully open at PANEL px: 43px of margin either side of "AI AD ARCHIVE"), and stays open in the small layout. */
+function applyReveal(){
+  var g=$('grid');if(!g)return 0;
+  var u=innerWidth/1920,pw=PANEL*u,fifth=innerWidth/5,r;
+  if(!ABS){g.style.removeProperty('--cw');return 0}
+  if(SMALL||touch)r=1;else r=aX<0?0:Math.max(0,Math.min(1,(fifth-aX)/(fifth-pw)));
+  g.style.setProperty('--cw',(pw*r).toFixed(1)+'px');
+  return r;
+}
+if(window.ResizeObserver){var SIDE=document.querySelector('.side'),FLT=$('flt');new ResizeObserver(function(){SIDE.style.setProperty('--fh',FLT.offsetHeight+'px')}).observe(FLT)}
+function archMove(){
+  if($('v-index').hidden||!ABS){setHov(null);return}
+  var r=applyReveal(),u=innerWidth/1920,inPanel=r>0&&aX>=0&&aX<=PANEL*u*r;
+  setHov((dlg.open||inPanel||aX<0)?null:tileAt(aX,aY));
+}
+$('grid').addEventListener('mouseover',function(e){if(ABS)return;var t=e.target.closest&&e.target.closest('.tile');if(t&&t!==LASTT){LASTT=t;t.style.setProperty('--hr',rndHue()+'deg')}});
+$('grid').addEventListener('mouseout',function(e){if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile'))LASTT=null});
+$('grid').addEventListener('focusin',function(e){var t=e.target.closest&&e.target.closest('.tile');if(t)t.style.setProperty('--hr',rndHue()+'deg')});
+var LASTT=null;
+/* In the large layout the first row is placed so that most of its ads start exactly at the top edge (the small layout keeps the original centring, first row centred at y=324): its centre is the (lower) median half-height of the first row, so no white page shows above the images when the page loads */
+function rowBase(hs){hs=hs.map(function(h){return h/2}).sort(function(a,b){return a-b});return hs.length?hs[Math.floor((hs.length-1)/2)]:BIG_S/2}
+function setSmall(on){
+  SMALL=on;var g=$('grid');if(!ABS||!TILES.length)return;
+  g.classList.toggle('small',on);var bottom=0;
+  var base=on?CY0:rowBase(TILES.slice(0,4).map(function(t){return +t.dataset.bh}));
+  TILES.forEach(function(t,i){
+    var cy=base+PITCH*Math.floor(i/4);t.dataset.cy=cy;t.style.setProperty('--cy',cy);
+    bottom=Math.max(bottom,cy+(+(on?t.dataset.sh:t.dataset.bh))/2);
+    var src=(on?'thumbs/':'images/')+t.dataset.img;t.querySelector('img').src=src;t.style.setProperty('--img','url('+src+')');
+  });
+  if(on)bottom+=CY0-Math.max.apply(null,TILES.slice(0,4).map(function(t){return +t.dataset.sh/2}))+FOOT;
+  g.style.setProperty('--gh',bottom.toFixed(1));archMove();
+}
+addEventListener('pointermove',function(e){aX=e.clientX;aY=e.clientY;archMove()},{passive:true});
+addEventListener('scroll',function(){archMove()},{passive:true});
+function archLeave(){aX=-1;aY=-1;applyReveal();setHov(null)}
+document.addEventListener('mouseleave',archLeave);
+document.documentElement.addEventListener('mouseleave',archLeave);
+addEventListener('mouseout',function(e){if(!e.relatedTarget&&!e.toElement)archLeave()});
+addEventListener('blur',archLeave);
+document.addEventListener('visibilitychange',function(){if(document.hidden)archLeave()});
+dlg.addEventListener('close',function(){archMove()});
+$('flt').addEventListener('click',function(){setTimeout(archMove,0);setTimeout(archMove,260)});
+addEventListener('resize',function(){if(absMode()!==ABS&&!$('v-index').hidden){render();archMove()}});
 
 function route(){
   var p=(location.hash||'#/').slice(2).split('/'),idx=p[0]==='archive'||p[0]==='index';
@@ -318,20 +528,22 @@ function route(){
   if(dlg.open)dlg.close();
   scrollTo(0,0);
   if(idx){drawF();render();if(p[1])openAd(p[1])}
+  if(idx){stopMain();applyReveal();archMove()}else{startMain();setHov(null)}
   updOsc();
 }
 addEventListener('hashchange',route);
 route();
 fetch('ads.json').then(function(r){return r.json()}).then(function(j){
   Object.keys(j.companies).forEach(function(k){var c=j.companies[k];CO[k]={n:c.name,mk:c.market,fd:c.founded,val:c.valuation,emp:c.employees,hq:c.hq,ceo:c.ceo}});
-  DATA=j.ads.map(function(a){return{id:a.id,co:a.company,copy:a.copy,place:a.place,date:a.date||'',month:(a.date||'').slice(0,7)||'?',note:a.note,image:a.image,name:CO[a.company].n,up:a.uploader||'Archive',spot:a.spot||'',comment:a.comment||'',loc:a.location||'New York',type:a.type||'In person'}});
+  DATA=j.ads.map(function(a){return{id:a.id,co:a.company,copy:a.copy,place:a.place,date:a.date||'',month:(a.date||'').slice(0,7)||'?',note:a.note,image:a.image,w:a.width,h:a.height,name:CO[a.company].n,up:a.uploader||'Archive',spot:a.spot||'',comment:a.comment||'',loc:a.location||'New York',type:a.type||'In person'}});
   DATA.sort(function(a,b){var x=a.date||'0',y=b.date||'0';return x<y?1:x>y?-1:a.id-b.id});
+  buildZ();
   route();
 }).catch(function(){var g=$('grid');if(g)g.innerHTML='<p class="empty">The archive could not be loaded.</p>'});
 
 /* Version switcher: invisible until the cursor comes within NEAR px (artboard scale) of it. The trigger is this larger box, not the links themselves, so it never covers or blocks them. */
 (function(){
-  var sw=document.querySelector('.vsw');if(!sw)return;
+  var sw=document.querySelector('.vs2');if(!sw)return;
   var NEAR=120,px=-1,py=-1;
   function check(){
     var r=sw.getBoundingClientRect(),m=NEAR*innerWidth/1920;
@@ -367,6 +579,9 @@ fetch('ads.json').then(function(r){return r.json()}).then(function(j){
   addEventListener('hashchange',hide);addEventListener('resize',hide);
   setTimeout(function(){Object.keys(LP).forEach(img)},1200);
 })();
+
+/* The big title is fitted to the visible width of the window (excluding a classic scrollbar) so it always keeps at least half the left margin (47px on the artboard) on the right. */
+(function(){function sb(){document.documentElement.style.setProperty('--sbw',Math.max(0,innerWidth-document.documentElement.clientWidth)+'px')}sb();addEventListener('resize',sb);addEventListener('load',sb);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sb);setTimeout(sb,700)})();
 </script>
 </body>
 </html>
